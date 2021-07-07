@@ -1,11 +1,13 @@
 package com.labrisca;
 
 public class AI {
-    private final Player player;
+    // variables
+    private final Player bot;
     private final Game game;
 
-    AI(Player player, Game game) {
-        this.player = player;
+    // constructor
+    AI(Player bot, Game game) {
+        this.bot = bot;
         this.game = game;
     }
 
@@ -17,7 +19,7 @@ public class AI {
             return lessValuableCard();
         }
 
-        // else, means that will throw after the human player, save human's thrown card
+        // else, means that will throw after human player, save human's thrown card
         Card thrownByHuman = game.getThePlay().get(0);
 //        System.out.println("sé que has tirat " + Card.colorizeName(thrownByHuman.getName()));
 
@@ -36,15 +38,16 @@ public class AI {
 //        System.out.println("teCartesMesGransDelMateixTipus() = " + teCartesMesGransDelMateixTipus(thrownByHuman));
 //        System.out.println("........");
 
-        // si tira el tres del triomf (carta amb valor 111) i si el bot té l'as, que el tiri
-        if (thrownByHuman.getValue() == 111 && posAsTriomf() != -1) {
-            System.out.println("pringat, et caso el tres");
-            return getAsTriomf();
-        } // todo: there is too much different scanners? put only 1 scanner? in game class or what?
+        // if human thrown triumph three (card with value 111) and bot has triumph ace, throw it
+        if (thrownByHuman.getValue() == 111 && hasTriumphAce()) {
+            System.out.println("Et caso el tres!");
+            return triumphAce();
+        }
 
         // else, if human's card is triumph
         else if (thrownByHuman.isTriumph()) {
             // que tiri la carta que té menys valor
+            // throw less valuable card
             System.out.println("wepa, has tirat triomf? deixa'm tirar la que té menys valor a no ser que tingui triomf i valgui la pena matar");
             if (teCartesAmbTriomf() && teCartesMesGransDelMateixTipus(thrownByHuman) && thrownByHuman.getPoints() > 3) {
                 System.out.println("oh tinc triomf i carta més gran");
@@ -98,7 +101,7 @@ public class AI {
 
     // retorna si té cartes amb triomf
     private boolean teCartesAmbTriomf() {
-        for (Card carta : player.getHandCards()) {
+        for (Card carta : bot.getHandCards()) {
             // si té cartes amb triomf
             if (carta.isTriumph()) return true;
         }
@@ -126,8 +129,8 @@ public class AI {
 
     // returns the less valuable card
     private Card lessValuableCard() {
-        Card lessValuable = player.getHandCards().get(0);
-        for (Card card : player.getHandCards()) {
+        Card lessValuable = bot.getHandCards().get(0);
+        for (Card card : bot.getHandCards()) {
             // if "lessValuable" card value is greater than "card" value
             if (lessValuable.getValue() > card.getValue()) {
                 // less valuable card is "card"
@@ -140,7 +143,7 @@ public class AI {
     // retorna la carta amb menys valor dins de les que té triomf
     private Card cartaAmbMenysValorTriomf() {
         Card menysValuosa = cartaAmbTriomf();
-        for (Card carta : player.getHandCards()) {
+        for (Card carta : bot.getHandCards()) {
             if (menysValuosa.getValue() > carta.getValue() && carta.isTriumph()) {
                 menysValuosa = carta;
             }
@@ -150,10 +153,10 @@ public class AI {
 
     // retorna una carta amb triomf
     private Card cartaAmbTriomf() {
-        for (Card carta : player.getHandCards()) {
+        for (Card carta : bot.getHandCards()) {
             if (carta.isTriumph()) return carta;
         }
-        return player.getHandCards().get(0);
+        return bot.getHandCards().get(0);
     }
 
     // retorna la carta amb més valor
@@ -169,8 +172,8 @@ public class AI {
 
     // retorna la primera carta que troba si és del mateix tipus
     private Card cartaMateixTipus(String tipus) {
-        Card mateixTipus = player.getHandCards().get(0);
-        for (Card carta : player.getHandCards()) {
+        Card mateixTipus = bot.getHandCards().get(0);
+        for (Card carta : bot.getHandCards()) {
             if (tipus.equals(carta.getType())) {
                 mateixTipus = carta;
             }
@@ -181,7 +184,7 @@ public class AI {
     // retorna la carta amb més valor dins del mateix tipus
     private Card cartaAmbMesValorComparantTipus(String tipus) {
         Card mesValuosa = cartaMateixTipus(tipus);
-        for (Card carta : player.getHandCards()) {
+        for (Card carta : bot.getHandCards()) {
             if (mesValuosa.getValue() < carta.getValue() && mesValuosa.getType().equals(tipus) && tipus.equals(carta.getType())) {
                 mesValuosa = carta;
             }
@@ -189,24 +192,26 @@ public class AI {
         return mesValuosa;
     }
 
-    // retorna la posició on hi ha l'as del triomf (-1 = no hi és)
-    private int posAsTriomf() {
-        for (int i = 0; i < player.getHandCards().size(); i++) {
-            // si troba l'as (el valor de l'as de triomf sempre és 112)
-            if (player.getHandCards().get(i).getValue() == 112) return i;
+    // returns triumph ace
+    private Card triumphAce() {
+        for (int i = 0; i < bot.getHandCards().size(); i++) {
+            // if finds triumph ace, return it (triumph ace's value is 112)
+            if (bot.getHandCards().get(i).getValue() == 112) return bot.getHandCards().get(i);
         }
-        return -1;
+        return null;
     }
 
-    // retorna l'as del triomf
-    private Card getAsTriomf() {
-        if (posAsTriomf() == -1) return null;
-        return player.getHandCards().get(posAsTriomf());
+    // returns true if bot has triumph ace
+    private boolean hasTriumphAce() {
+        for (Card card : bot.getHandCards()) {
+            if (card.getValue() == 112) return true;
+        }
+        return false;
     }
 
     // retorna si té cartes del mateix tipus passat per paràmetre
     private boolean teCartesMateixTipus(String tipus) {
-        for (Card carta : player.getHandCards()) {
+        for (Card carta : bot.getHandCards()) {
             if (carta.getType().equals(tipus)) return true;
         }
         return false;
@@ -214,7 +219,7 @@ public class AI {
 
     // retorna si té cartes més grans que la passada per paràmetre
     private boolean teCartesMesGransDelMateixTipus(Card tiradaPelJugador) {
-        for (Card carta : player.getHandCards()) {
+        for (Card carta : bot.getHandCards()) {
             // si el valor de la carta és més gran que el valor que la carta tirada pel jugador i la carta és del mateix tipus que la tirada pel jugador
             if (carta.getValue() > tiradaPelJugador.getValue() && carta.getType().equals(tiradaPelJugador.getType())) return true;
         }
