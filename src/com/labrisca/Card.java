@@ -10,7 +10,7 @@ public class Card {
     private boolean thrown;
     private boolean taken;
     private boolean triumph;
-    private boolean latest; // if will be the latest card to be taken
+    private boolean latest; // if true, will be the latest card to be taken
     private Player thrownBy;
     private Player takenBy;
     private boolean thrownFirst;
