@@ -2,7 +2,6 @@ package com.labrisca;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Player {
@@ -51,15 +50,15 @@ public class Player {
 
                 // if hacker mode is enabled or player is not bot
                 if (game.isHacker() || !bot) {
-                    String s = "Player " + name + " took -> " + Card.colorizeName(card.getName());
+                    String s = name + " took -> " + Card.colorizeName(card.getName());
                     // if is bot, print purple colorized taken card
                     if (bot) {
-                        System.out.println(Color.ANSI_PURPLE + s + Color.ANSI_PURPLE + "." + Color.ANSI_RESET);
+                        System.out.println(Color.ANSI_PURPLE + s + Color.ANSI_PURPLE + Color.ANSI_RESET);
                     }
 
                     // else, print the given card to the human player
                     else {
-                        System.out.println(s + ".");
+                        System.out.println(s);
                     }
                 }
                 break;
@@ -83,7 +82,8 @@ public class Player {
         // else, means its human
         else {
             // show human hand cards
-            System.out.println("\n[?] Your turn. Hand cards (triumph -> " + game.getTriumph() + "):");
+            System.out.println("\n[?] Your turn. Hand cards:");
+//            System.out.println("\n[?] Your turn. Hand cards (triumph -> " + Card.colorizeName(game.latestCard().getName()) + "):");
             for (int i = 0; i < handCards.size(); i++) {
                 String s = Card.colorizeName(handCards.get(i).getName());
                 System.out.println((i + 1) + ") " + s);
@@ -126,7 +126,7 @@ public class Player {
         if (game.isHacker()) printHandCards();
 
         Card card;
-        // if bot is ai - todo: bot is ai o potser la partida es ai?
+        // if bot's AI is on
         if (game.isAi()) {
             // assign AI thought of which card to throw
             card = new AI(this, game).throwCard();
@@ -135,7 +135,7 @@ public class Player {
             card = handCards.get(ThreadLocalRandom.current().nextInt(0, handCards.size()));
         }
 
-        System.out.println("\n[!] Bot has thrown -> " + Card.colorizeName(card.getName()) + ".");
+        System.out.println("\n[!] Bot has thrown -> " + Card.colorizeName(card.getName()));
         return card;
     }
 
@@ -145,12 +145,11 @@ public class Player {
         printHandCards();
 
         // ask which card must be thrown
-        Scanner sc = new Scanner(System.in);
         String input;
         label:
         while (true) {
             System.out.print("> ");
-            input = sc.nextLine().trim().toLowerCase();
+            input = Game.getSc().nextLine().trim().toLowerCase();
             switch (handCards.size()) {
                 case 3:
                     if (input.equals("1") || input.equals("2") || input.equals("3")) break label;
@@ -169,7 +168,7 @@ public class Player {
 
         // assign user's card choice to the card will be thrown
         Card card = handCards.get(Integer.parseInt(input) - 1);
-        System.out.println("\n[!] You thrown -> " + Card.colorizeName(card.getName()) + ".");
+        System.out.println("\n[!] You thrown -> " + Card.colorizeName(card.getName()));
         return card;
     }
 
