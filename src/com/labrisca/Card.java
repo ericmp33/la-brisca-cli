@@ -130,12 +130,9 @@ public class Card {
         return s.substring(0, s.indexOf(target)) + type + s.substring(s.indexOf(target)) + Color.ANSI_RESET;
     }
 
-    // returns colorized card's booleans
+    // returns colorized card's boolean
     private static String colorizeBool(boolean b) {
-        // if is true, returns it green
         if (b) return Color.ANSI_GREEN + true + Color.ANSI_RESET;
-
-        // else, red
         return Color.ANSI_RED + false + Color.ANSI_RESET;
     }
 

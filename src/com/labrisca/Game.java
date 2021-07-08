@@ -11,12 +11,12 @@ public class Game {
     // variables
     private final List<Card> deck;
     private final List<Card> thePlay; // cards list that participate in the play
-    private String triumph;
     private final List<Player> players;
     private final Instant startTime;
-    private int rounds;
+    private int round;
     private boolean hacker; // if true, human player can see bot cards
     private boolean ai; // if true, bot player is smart
+    private static final Scanner sc = new Scanner(System.in);
 
     // getters
     public List<Card> getDeck() {
@@ -25,14 +25,14 @@ public class Game {
     public List<Card> getThePlay() {
         return thePlay;
     }
-    public String getTriumph() {
-        return triumph;
-    }
     public boolean isHacker() {
         return hacker;
     }
     public boolean isAi() {
         return ai;
+    }
+    public static Scanner getSc() {
+        return sc;
     }
 
     // constructor
@@ -110,14 +110,13 @@ public class Game {
     }
 
     // welcome message
-    private void welcomeMessage() {
-        System.out.println("Welcome to \"La Brisca\" cards game.\nShuffling cards...\nCards shuffled! Let the game begin!\n");
+    public void welcomeMessage() {
+        System.out.println("Welcome to \"La Brisca\" CLI cards game\nMade by @ericmp with <3, june 2021\nShuffling cards...\nCards shuffled! Let the game begin!\n");
     }
 
     // ask if enable hacker mode
     private void enableHacker() {
         System.out.println("[?] Choose gamemode: normal or hacker");
-        Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.print("> ");
             String s = sc.nextLine().trim().toLowerCase();
@@ -138,7 +137,6 @@ public class Game {
     // ask if enable AI bot mode
     private void enableAIBot() {
         System.out.println("[?] Do you want to make the bot smart?");
-        Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.print("> ");
             String input = sc.nextLine().trim().toLowerCase();
@@ -159,7 +157,6 @@ public class Game {
     // ask if print cards final information
     private void printFinalCardsInfo() {
         System.out.println("\n[?] Do you want to see the cards final information?");
-        Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.print("> ");
             String input = sc.nextLine().trim().toLowerCase();
@@ -202,8 +199,10 @@ public class Game {
         if (!hacker) System.out.println();
     }
 
-    // choose and set triumph
-    private void chooseSetTriumph() {
+    // set triumph
+    private void setTriumph() {
+        String triumph;
+
         while (true) {
             // assign random card
             Card card = deck.get(ThreadLocalRandom.current().nextInt(0, deck.size()));
@@ -216,28 +215,17 @@ public class Game {
                 // set game's triumph
                 triumph = card.getType();
 
-                // colorize triumph
-                triumph = Card.colorizeType(triumph);
-
                 String firstLetter = Card.colorizeName(card.getName()).substring(0, 1).toUpperCase();
-                System.out.println(firstLetter + Card.colorizeName(card.getName()).substring(1) + " appeared.");
-                System.out.println("Game's triumph is " + triumph + ".");
+                System.out.println(firstLetter + Card.colorizeName(card.getName()).substring(1) + " appeared");
+                System.out.println("So.. triumph is " + Card.colorizeType(triumph) + "!");
                 break;
             }
         }
 
         // set triumph to needed cards
         for (Card card : deck) {
-            // remove color to triumph to make it comparable
-            // example -> from "\u001B[32mbasto" to "basto"
-            String triomfSenseColor;
-            if (triumph.contains("bastos")) triomfSenseColor = "bastos";
-            else if (triumph.contains("copes")) triomfSenseColor = "copes";
-            else if (triumph.contains("espases")) triomfSenseColor = "espases";
-            else triomfSenseColor = "oros";
-
-            // if the card type contains the triumph of the game
-            if (card.getType().contains(triomfSenseColor)) {
+            // if the card type has the triumph
+            if (card.getType().equals(triumph)) {
                 card.setTriumph(true);
 
                 // increase triumph cards value
@@ -255,13 +243,13 @@ public class Game {
     // game's main loop
     private void mainLoop() {
         // print who will start the game
-        System.out.println("Player " + players.get(0).getName() + " will start the game\n");
+        System.out.println(players.get(0).getName() + " will start the game\n");
 
-        rounds = 0;
+        round = 0;
         while (true) {
             System.out.println("-----------------------------------------------");
-            rounds++;
-            System.out.println("Round " + rounds + " (triumph -> " + triumph + ")");
+            round++;
+            System.out.println("Round " + round + " (triumph -> " + Card.colorizeName(latestCard().getName()) + ")");
 
             // for each player, throw a card
             for (Player p : players) p.throwCard();
@@ -272,7 +260,7 @@ public class Game {
             // for each player, take a card
             for (Player p : players) p.takeCard();
 
-            // if no player has cards, game has finished
+            // if no player has cards, game finishes
             if (playersWithoutCards() == players.size()) break;
 
             // else
@@ -284,7 +272,7 @@ public class Game {
                 // for each player, print obtained points and cards won
                 for (Player p : players) p.printPoints();
                 System.out.println();
-                for (Player p : players) System.out.println("Cards won " + p.getName() + ": " + p.getWonCards().size());
+                for (Player p : players) System.out.println("Won cards " + p.getName() + ": " + p.getWonCards().size());
                 System.out.print(Color.ANSI_RESET);
             }
         }
@@ -301,19 +289,13 @@ public class Game {
 
     // print total points and cards won
     private void printPointsAndCards() {
-        int totalPoints = 0;
-        for (Player p : players) {
-            totalPoints += p.getPoints();
-            p.printPoints();
-        }
+        for (Player p : players) p.printPoints();
+        int totalPoints = players.get(0).getPoints() + players.get(1).getPoints();
         System.out.println("Total points: " + totalPoints + "\n");
 
-        for (Player p : players) {
-            System.out.println("Cards won " + p.getName() + ": " + p.getWonCards().size());
-        }
-
+        for (Player p : players) System.out.println("Won cards " + p.getName() + ": " + p.getWonCards().size());
         int totalCards = players.get(0).getWonCards().size() + players.get(1).getWonCards().size();
-        System.out.println("Total cards: " + totalCards);
+        System.out.println("Total cards: " + totalCards + "\n");
     }
 
     // print game's winner
@@ -333,12 +315,27 @@ public class Game {
             }
         }
 
-        System.out.println("\n########-----------------------------------------########");
+        String ln = "######---------------------------------------######";
+        String s;
 
-        if (draw) System.out.println("All right, it's a draw! Both players got 60 points!");
-        else System.out.println("Player " + winner.getName() + " wins the game with " + winner.getPoints() + " points!!!");//todo: print it at center somehow
+        if (draw) s = "Draw! Both players got 60 points!";
+        else s = winner.getName() + " won the game with " + winner.getPoints() + " points!!!";
 
-        System.out.println("########-----------------------------------------########");
+        System.out.println(ln + "\n" + centerStr(ln.length(), s) + "\n" + ln);
+    }
+
+    // returns centered String inside lines
+    private String centerStr(int lnLength, String s) {
+        int i = (lnLength - s.length()) / 2;
+        return " ".repeat(i) + s;
+    }
+
+    // returns latest card
+    Card latestCard() {
+        for (Card card : deck) {
+            if (card.isLatest()) return card;
+        }
+        return deck.get(0);
     }
 
     // print how much the game took to finish
@@ -397,7 +394,7 @@ public class Game {
 
     // print game's author
     public void printAuthor() {
-        System.out.println("\"La Brisca\" cards game - ericmp, june/july 2021.");
+        System.out.println("\"La Brisca\" CLI cards game - by @ericmp with <3, june 2021.");
     }
 
     // validate the play and set who wins it and collects the play's cards
@@ -415,10 +412,10 @@ public class Game {
         this.thePlay.clear();
 
         // print who won the play
-        System.out.println("\nThe player " + playWinner.getName() + " won the play.");
+        System.out.println("\n" + playWinner.getName() + " won the play."); // todo: print it with red and green?
 
         // well-print it
-        if (rounds < 22 || rounds == 24) System.out.println();
+        if (round < 22 || round == 24) System.out.println();
 
         // if player on index 0 is not the same as the winner, means it is not at 1st post
         if (!players.get(0).equals(playWinner)) {
@@ -476,8 +473,8 @@ public class Game {
         // deal 3 first cards to each player
         deal3FirstCards();
 
-        // choose and set triumph
-        chooseSetTriumph();
+        // set triumph
+        setTriumph();
 
         // game's main loop
         mainLoop();

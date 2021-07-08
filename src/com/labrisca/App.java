@@ -11,10 +11,10 @@ public class App {
     }
 }
 
-// todo: fer que si hi ha el 7 es pugui treure
+// todo: fer que si hi ha el 7 es pugui treure?
 
 // todo: de la classe Jugador -> extends Bot, Humà ?
 
 // todo: agafar carta de dal? no aleat
 
-// todo: there is too much different scanners? put only 1 scanner? in game class or what?
+// todo: si te 2 cartes de triomf i una amb un as o un tres, que no tiri las ni el 3
