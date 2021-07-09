@@ -215,8 +215,7 @@ public class Game {
                 // set game's triumph
                 triumph = card.getType();
 
-                String firstLetter = Card.colorizeName(card.getName()).substring(0, 1).toUpperCase();
-                System.out.println(firstLetter + Card.colorizeName(card.getName()).substring(1) + " appeared");
+                System.out.println(capitalizeStr(Card.colorizeName(card.getName()) + " appeared"));
                 System.out.println("So.. triumph is " + Card.colorizeType(triumph) + "!");
                 break;
             }
@@ -234,6 +233,10 @@ public class Game {
         }
     }
 
+    static String capitalizeStr(String s) {
+        return s.substring(0, 1).toUpperCase() + s.substring(1);
+    }
+
     // print all cards and their attributes
     private void printAllCards() {
         System.out.println("Information of all the cards:");
@@ -242,8 +245,8 @@ public class Game {
 
     // game's main loop
     private void mainLoop() {
-        // print who will start the game
-        System.out.println(players.get(0).getName() + " will start the game\n");
+        // print who starts throwing
+        System.out.println(players.get(0).getName() + " starts throwing\n");
 
         round = 0;
         while (true) {
@@ -270,9 +273,9 @@ public class Game {
             if (hacker) {
                 System.out.print(Color.ANSI_PURPLE);
                 // for each player, print obtained points and cards won
-                for (Player p : players) p.printPoints();
+                for (Player p : players) System.out.println(p.getName() + "'s points: " + p.getPoints());
                 System.out.println();
-                for (Player p : players) System.out.println("Won cards " + p.getName() + ": " + p.getWonCards().size());
+                for (Player p : players) System.out.println(p.getName() + "'s won cards: " + p.getWonCards().size());
                 System.out.print(Color.ANSI_RESET);
             }
         }
@@ -282,18 +285,18 @@ public class Game {
     private int playersWithoutCards() {
         int count = 0;
         for (Player p : players) {
-            if (p.getHandCards().isEmpty()) count++;
+            if (p.getInHandCards().isEmpty()) count++;
         }
         return count;
     }
 
     // print total points and cards won
     private void printPointsAndCards() {
-        for (Player p : players) p.printPoints();
+        for (Player p : players) System.out.println(p.getName() + "'s total points: " + p.getPoints());
         int totalPoints = players.get(0).getPoints() + players.get(1).getPoints();
         System.out.println("Total points: " + totalPoints + "\n");
 
-        for (Player p : players) System.out.println("Won cards " + p.getName() + ": " + p.getWonCards().size());
+        for (Player p : players) System.out.println(p.getName() + "'s total won cards: " + p.getWonCards().size());
         int totalCards = players.get(0).getWonCards().size() + players.get(1).getWonCards().size();
         System.out.println("Total cards: " + totalCards + "\n");
     }
@@ -315,7 +318,7 @@ public class Game {
             }
         }
 
-        String ln = "######---------------------------------------######";
+        String ln = "######---------------------------------------######";//todo: pintarho de colors randoms?
         String s;
 
         if (draw) s = "Draw! Both players got 60 points!";

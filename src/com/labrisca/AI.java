@@ -75,7 +75,7 @@ public class AI {
 
     // returns true if has cards with triumph
     private boolean hasTriumphCards() {
-        for (Card card : bot.getHandCards()) {
+        for (Card card : bot.getInHandCards()) {
             if (card.isTriumph()) return true;
         }
         return false;
@@ -83,8 +83,8 @@ public class AI {
 
     // returns the less valuable card
     private Card lessValuableCard() {
-        Card lessValuable = bot.getHandCards().get(0);
-        for (Card card : bot.getHandCards()) {
+        Card lessValuable = bot.getInHandCards().get(0);
+        for (Card card : bot.getInHandCards()) {
             // if "lessValuable" card value is greater than "card" value
             if (lessValuable.getValue() > card.getValue()) {
                 // less valuable card is "card"
@@ -98,19 +98,19 @@ public class AI {
     private Card lessValuableCardReplacement() {
         // check first if has 2 triumph cards and other one isn't
         int triumphCount = 0;
-        for (Card card : bot.getHandCards()) {
+        for (Card card : bot.getInHandCards()) {
             if (card.isTriumph()) triumphCount++;
         }
 
         if (triumphCount == 2) {
             // check if the possible card to be thrown has less than 10 points
-            for (Card card : bot.getHandCards()) {
+            for (Card card : bot.getInHandCards()) {
                 if (card.getPoints() < 10 && !card.isTriumph()) return card;
             }
         }
 
-        Card lessValuable = bot.getHandCards().get(0);
-        for (Card card : bot.getHandCards()) {
+        Card lessValuable = bot.getInHandCards().get(0);
+        for (Card card : bot.getInHandCards()) {
             // if "lessValuable" card value is greater than "card" value
             if (lessValuable.getValue() > card.getValue()) {
                 // less valuable card is "card"
@@ -123,7 +123,7 @@ public class AI {
     // returns the less valuable card with triumph
     private Card lessValuableCardWithTriumph() {
         Card lessValuable = cardWithTriumph();
-        for (Card card : bot.getHandCards()) {
+        for (Card card : bot.getInHandCards()) {
             if (lessValuable.getValue() > card.getValue() && card.isTriumph()) {
                 lessValuable = card;
             }
@@ -133,7 +133,7 @@ public class AI {
 
     // returns a card with triumph
     private Card cardWithTriumph() {
-        for (Card card : bot.getHandCards()) {
+        for (Card card : bot.getInHandCards()) {
             if (card.isTriumph()) return card;
         }
 
@@ -144,7 +144,7 @@ public class AI {
     // returns most valuable card within same card type
     private Card mostValuableCardWithSameType(String type) {
         Card mostValuable = sameCardType(type);
-        for (Card card : bot.getHandCards()) {
+        for (Card card : bot.getInHandCards()) {
             if (mostValuable.getValue() < card.getValue() && mostValuable.getType().equals(type) && type.equals(card.getType())) {
                 mostValuable = card;
             }
@@ -154,7 +154,7 @@ public class AI {
 
     // returns a card with the same type as the param
     private Card sameCardType(String type) {
-        for (Card carta : bot.getHandCards()) {
+        for (Card carta : bot.getInHandCards()) {
             if (type.equals(carta.getType())) {
                 return carta;
             }
@@ -164,16 +164,16 @@ public class AI {
 
     // returns triumph ace
     private Card triumphAce() {
-        for (int i = 0; i < bot.getHandCards().size(); i++) {
-            // if finds triumph ace, return it (triumph ace's value is 112)
-            if (bot.getHandCards().get(i).getValue() == 112) return bot.getHandCards().get(i);
+        for (int i = 0; i < bot.getInHandCards().size(); i++) {
+            // if finds triumph ace (= 112 value), return it
+            if (bot.getInHandCards().get(i).getValue() == 112) return bot.getInHandCards().get(i);
         }
         return null;
     }
 
     // returns true if bot has triumph ace
     private boolean hasTriumphAce() {
-        for (Card card : bot.getHandCards()) {
+        for (Card card : bot.getInHandCards()) {
             if (card.getValue() == 112) return true;
         }
         return false;
@@ -181,7 +181,7 @@ public class AI {
 
     // returns true if has cards more value than the param card within same card type
     private boolean hasMoreValuableCardsWithSameType(Card thrownByHuman) {
-        for (Card card : bot.getHandCards()) {
+        for (Card card : bot.getInHandCards()) {
             // if card's value is greater than thrownByHuman and has same card type
             if (card.getValue() > thrownByHuman.getValue() && card.getType().equals(thrownByHuman.getType())) {
                 return true;

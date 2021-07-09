@@ -8,7 +8,7 @@ public class Player {
     // variables
     private final String name;
     private final boolean bot; // know if the player is a bot
-    private final List<Card> handCards; // cards that the player has in his hands, available to be thrown
+    private final List<Card> inHandCards; // cards available to be thrown
     private final List<Card> wonCards;
     private final Game game;
 
@@ -16,8 +16,8 @@ public class Player {
     public String getName() {
         return name;
     }
-    public List<Card> getHandCards() {
-        return handCards;
+    public List<Card> getInHandCards() {
+        return inHandCards;
     }
     public List<Card> getWonCards() {
         return wonCards;
@@ -27,7 +27,7 @@ public class Player {
     public Player(String name, boolean bot, Game game) {
         this.name = name;
         this.bot = bot;
-        this.handCards = new ArrayList<>();
+        this.inHandCards = new ArrayList<>();
         this.wonCards = new ArrayList<>();
         this.game = game;
     }
@@ -46,7 +46,7 @@ public class Player {
             if (!card.isTaken() && !card.isLatest() || card.isLatest() && game.howManyLeftToTake() == 1) {
                 // take it
                 card.setTaken(true);
-                handCards.add(card);
+                inHandCards.add(card);
 
                 // if hacker mode is enabled or player is not bot
                 if (game.isHacker() || !bot) {
@@ -67,36 +67,35 @@ public class Player {
     }
 
     // print available cards in hand to be thrown
-    public void printHandCards() {
+    public void printCardsInHand() {
         // if bot and hacker are true
         if (bot && game.isHacker()) {
-            // show bot hand cards
-            System.out.println("\n" + Color.ANSI_PURPLE + "[?] Bot's hand cards:");
-            for (int i = 0; i < handCards.size(); i++) {
-                String s = Card.colorizeName(handCards.get(i).getName());
+            // show bot in-hand cards
+            System.out.println("\n" + Color.ANSI_PURPLE + "[?] Bot's cards in hand:");
+            for (int i = 0; i < inHandCards.size(); i++) {
+                String s = Card.colorizeName(inHandCards.get(i).getName());
                 // + 1 to make human readable nums
-                System.out.println(Color.ANSI_PURPLE + (i + 1) + ") " + s + Color.ANSI_RESET);
+                System.out.println(Color.ANSI_PURPLE + (i + 1) + ") " + Game.capitalizeStr(s) + Color.ANSI_RESET);
             }
         }
 
         // else, means its human
         else {
-            // show human hand cards
-            System.out.println("\n[?] Your turn. Hand cards:");
-//            System.out.println("\n[?] Your turn. Hand cards (triumph -> " + Card.colorizeName(game.latestCard().getName()) + "):");
-            for (int i = 0; i < handCards.size(); i++) {
-                String s = Card.colorizeName(handCards.get(i).getName());
-                System.out.println((i + 1) + ") " + s);
+            // show human in-hands cards
+            System.out.println("\n[?] Your turn. In-hand cards:");
+            for (int i = 0; i < inHandCards.size(); i++) {
+                String s = Card.colorizeName(inHandCards.get(i).getName());
+                System.out.println((i + 1) + ") " + Game.capitalizeStr(s));
             }
         }
     }
 
     // throw a card
     public void throwCard() {
-        // exit method if player doesn't have cards in hands
-        if (handCards.isEmpty()) return;
+        // exit method if player doesn't have in-hand cards
+        if (inHandCards.isEmpty()) return;
 
-        // else, has cards in hands
+        // else, has in-hand cards
         Card card;
 
         // if is bot, assign return of throwCardBot to "card"
@@ -116,23 +115,23 @@ public class Player {
         }
 
         // move the card to the play
-        handCards.remove(card);
+        inHandCards.remove(card);
         game.getThePlay().add(card);
     }
 
     // throw a card by a bot
     private Card throwCardBot() {
-        // show hand cards if game is hacker
-        if (game.isHacker()) printHandCards();
+        // if game is hacker show bot's in-hand cards
+        if (game.isHacker()) printCardsInHand();
 
         Card card;
         // if bot's AI is on
         if (game.isAi()) {
-            // assign AI thought of which card to throw
+            // assign AI thought of which card to be thrown
             card = new AI(this, game).throwCard();
         } else {
             // assign random card
-            card = handCards.get(ThreadLocalRandom.current().nextInt(0, handCards.size()));
+            card = inHandCards.get(ThreadLocalRandom.current().nextInt(0, inHandCards.size()));
         }
 
         System.out.println("\n[!] Bot has thrown -> " + Card.colorizeName(card.getName()));
@@ -141,8 +140,8 @@ public class Player {
 
     // throw a card by a human
     private Card throwCardHuman() {
-        // print available cards in hand to be thrown
-        printHandCards();
+        // print available in-hand cards to be thrown
+        printCardsInHand();
 
         // ask which card must be thrown
         String input;
@@ -150,7 +149,7 @@ public class Player {
         while (true) {
             System.out.print("> ");
             input = Game.getSc().nextLine().trim().toLowerCase();
-            switch (handCards.size()) {
+            switch (inHandCards.size()) {
                 case 3:
                     if (input.equals("1") || input.equals("2") || input.equals("3")) break label;
                     break;
@@ -161,13 +160,13 @@ public class Player {
                     if (input.equals("1")) break label;
                     break;
                 default:
-                    throw new IllegalStateException("Unexpected value: " + handCards.size());
+                    throw new IllegalStateException("Unexpected value: " + inHandCards.size());
             }
             System.out.println("Input a valid card number...");
         }
 
         // assign user's card choice to the card will be thrown
-        Card card = handCards.get(Integer.parseInt(input) - 1);
+        Card card = inHandCards.get(Integer.parseInt(input) - 1);
         System.out.println("\n[!] You thrown -> " + Card.colorizeName(card.getName()));
         return card;
     }
@@ -177,10 +176,5 @@ public class Player {
         int count = 0;
         for (Card card : wonCards) count += card.getPoints();
         return count;
-    }
-
-    // print obtained points
-    public void printPoints() {
-        System.out.println("Points " + name + ": " + getPoints());
     }
 }
