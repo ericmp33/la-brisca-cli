@@ -9,7 +9,7 @@ public class Card {
     private final int points;
     private boolean thrown;
     private boolean taken;
-    private boolean triumph;
+    private boolean trump;
     private boolean latest;
     private Player thrownBy;
     private Player takenBy;
@@ -31,8 +31,8 @@ public class Card {
     public boolean isTaken() {
         return taken;
     }
-    public boolean isTriumph() {
-        return triumph;
+    public boolean isTrump() {
+        return trump;
     }
     public boolean isLatest() {
         return latest;
@@ -54,8 +54,8 @@ public class Card {
     public void setTaken(boolean taken) {
         this.taken = taken;
     }
-    public void setTriumph(boolean triumph) {
-        this.triumph = triumph;
+    public void setTrump(boolean trump) {
+        this.trump = trump;
     }
     public void setLatest(boolean latest) {
         this.latest = latest;
@@ -79,7 +79,7 @@ public class Card {
         this.points = points;
         this.thrown = false;
         this.taken = false;
-        this.triumph = false;
+        this.trump = false;
         this.latest = false;
         this.thrownBy = null;
         this.takenBy = null;
@@ -96,7 +96,7 @@ public class Card {
             "points: " + colorizeNum(points),
             "thrown: " + colorizeBool(thrown),
             "taken: " + colorizeBool(taken),
-            "triumph: " + colorizeBool(triumph),
+            "trump: " + colorizeBool(trump),
             "latest: " + colorizeBool(latest),
             "thrownBy(): " + thrownBy.getName(),
             "takenBy(): " + takenBy.getName(),

@@ -22,22 +22,22 @@ public class AI {
         // else, means that will throw after human player, save human's thrown card
         Card thrownByHuman = game.getThePlay().get(0);
 
-        // if human thrown triumph three (card with value 111) and bot has triumph ace, throw it
-        if (thrownByHuman.getValue() == 111 && hasTriumphAce()) {
+        // if human thrown trump three (card with value 111) and bot has trump ace, throw it
+        if (thrownByHuman.getValue() == 111 && hasTrumpAce()) {
             System.out.println("Et caso el tres!");
-            return triumphAce();
+            return trumpAce();
         }
 
-        // else, if human's card is triumph
-        if (thrownByHuman.isTriumph()) {
-            // throw less valuable card with triumph
-            System.out.println("You've thrown triumph");
-            if (hasTriumphCards() && hasMoreValuableCardsWithSameType(thrownByHuman) && thrownByHuman.getPoints() > 3) {
-                System.out.println("Oh I have triumph and more valuable card with same type and you thrown a card with more than 3 points");
-                return lessValuableCardWithTriumph();
+        // else, if human's card is trump
+        if (thrownByHuman.isTrump()) {
+            // throw less valuable card with trump
+            System.out.println("You've thrown trump");
+            if (hasTrumpCards() && hasMoreValuableCardsWithSameType(thrownByHuman) && thrownByHuman.getPoints() > 3) {
+                System.out.println("Oh I have trump and more valuable card with same type and you thrown a card with more than 3 points");
+                return lessValuableCardWithTrump();
             }
 
-            System.out.println("I don't have triumph or I don't have more valuable card with same type or u thrown a card with less than 3 points");
+            System.out.println("I don't have trump or I don't have more valuable card with same type or u thrown a card with less than 3 points");
             return lessValuableCard();
         }
 
@@ -52,14 +52,14 @@ public class AI {
                 return mostValuableCardWithSameType(thrownByHuman.getType());
             }
 
-            // if bot has triumph cards
-            if (hasTriumphCards()) {
-                System.out.println("I have triumph! I throw the less valuable triumph card and I win the play");
+            // if bot has trump cards
+            if (hasTrumpCards()) {
+                System.out.println("I have trump! I throw the less valuable trump card and I win the play");
                 // win the play
-                return lessValuableCardWithTriumph();
+                return lessValuableCardWithTrump();
             }
 
-            System.out.println("Oh.. I have neither more valuable cards with type nor triumph");
+            System.out.println("Oh.. I have neither more valuable cards with type nor trump");
         }
 
         // if card doesn't have points
@@ -83,29 +83,29 @@ public class AI {
         return lessValuableCard();
     }
 
-    // returns true if has cards with triumph
-    private boolean hasTriumphCards() {
+    // returns true if has cards with trump
+    private boolean hasTrumpCards() {
         for (Card card : bot.getInHandCards()) {
-            if (card.isTriumph()) return true;
+            if (card.isTrump()) return true;
         }
         return false;
     }
 
     // returns the less valuable card
     private Card lessValuableCard() {
-        // check first if has 2 triumph cards and other one isn't
-        int triumphCount = 0;
-        for (Card card : bot.getInHandCards()) if (card.isTriumph()) triumphCount++;
+        // check first if has 2 trump cards and other one isn't
+        int trumpCount = 0;
+        for (Card card : bot.getInHandCards()) if (card.isTrump()) trumpCount++;
 
-        if (triumphCount == 2) {
-            // check if the possible card to be thrown has less than 10 points and is not triumph
+        if (trumpCount == 2) {
+            // check if the possible card to be thrown has less than 10 points and is not trump
             for (Card card : bot.getInHandCards()) {
-                if (card.getPoints() < 10 && !card.isTriumph()) return card;
+                if (card.getPoints() < 10 && !card.isTrump()) return card;
             }
 
             // else
-            System.out.println("I throw the less valuable card with triumph");
-            return lessValuableCardWithTriumph();
+            System.out.println("I throw the less valuable card with trump");
+            return lessValuableCardWithTrump();
         }
 
         // if not, return the less valuable card
@@ -121,24 +121,24 @@ public class AI {
         return lessValuable;
     }
 
-    // returns the less valuable card with triumph
-    private Card lessValuableCardWithTriumph() {
-        Card lessValuable = cardWithTriumph();
+    // returns the less valuable card with trump
+    private Card lessValuableCardWithTrump() {
+        Card lessValuable = trumpCard();
         for (Card card : bot.getInHandCards()) {
-            if (lessValuable.getValue() > card.getValue() && card.isTriumph()) {
+            if (lessValuable.getValue() > card.getValue() && card.isTrump()) {
                 lessValuable = card;
             }
         }
         return lessValuable;
     }
 
-    // returns a card with triumph
-    private Card cardWithTriumph() {
+    // returns a card with trump
+    private Card trumpCard() {
         for (Card card : bot.getInHandCards()) {
-            if (card.isTriumph()) return card;
+            if (card.isTrump()) return card;
         }
 
-        // if there is not cards with triumph returns lessValuableCard
+        // if there is not trump cards return lessValuableCard
         return lessValuableCard();
     }
 
@@ -163,17 +163,17 @@ public class AI {
         return lessValuableCard();
     }
 
-    // returns triumph ace
-    private Card triumphAce() {
+    // returns trump ace
+    private Card trumpAce() {
         for (int i = 0; i < bot.getInHandCards().size(); i++) {
-            // if finds triumph ace (= 112 value), return it
+            // if finds trump ace (= 112 value), return it
             if (bot.getInHandCards().get(i).getValue() == 112) return bot.getInHandCards().get(i);
         }
         return null;
     }
 
-    // returns true if bot has triumph ace
-    private boolean hasTriumphAce() {
+    // returns true if bot has trump ace
+    private boolean hasTrumpAce() {
         for (Card card : bot.getInHandCards()) {
             if (card.getValue() == 112) return true;
         }
