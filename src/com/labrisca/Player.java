@@ -53,7 +53,7 @@ public class Player {
 
                 // if hacker mode is enabled or player is not bot
                 if (game.isHacker() || !bot) {
-                    String s = name + " took -> " + Card.colorizeName(card.getName());
+                    String s = name + " took -> " + Color.colorizeName(card.getName());
                     // if is bot, print purple colorized taken card
                     if (bot) {
                         System.out.println(Color.ANSI_PURPLE + s + Color.ANSI_PURPLE + Color.ANSI_RESET);
@@ -76,7 +76,7 @@ public class Player {
             // show bot in-hand cards
             System.out.println("\n" + Color.ANSI_PURPLE + "[?] Bot's in-hand cards:");
             for (int i = 0; i < inHandCards.size(); i++) {
-                String s = Card.colorizeName(inHandCards.get(i).getName());
+                String s = Color.colorizeName(inHandCards.get(i).getName());
                 // + 1 to make human readable nums
                 System.out.println(Color.ANSI_PURPLE + (i + 1) + ") " + Game.capitalizeStr(s) + Color.ANSI_RESET);
             }
@@ -87,7 +87,7 @@ public class Player {
             // show human in-hands cards
             System.out.println("\n[?] Your turn. In-hand cards:");
             for (int i = 0; i < inHandCards.size(); i++) {
-                String s = Card.colorizeName(inHandCards.get(i).getName());
+                String s = Color.colorizeName(inHandCards.get(i).getName());
                 System.out.println((i + 1) + ") " + Game.capitalizeStr(s));
             }
         }
@@ -137,7 +137,7 @@ public class Player {
             card = inHandCards.get(ThreadLocalRandom.current().nextInt(0, inHandCards.size()));
         }
 
-        System.out.println("\n[!] Bot thrown -> " + Card.colorizeName(card.getName()));
+        System.out.println("\n[!] Bot thrown -> " + Color.colorizeName(card.getName()));
         return card;
     }
 
@@ -170,7 +170,7 @@ public class Player {
 
         // assign user's card choice to the card will be thrown
         Card card = inHandCards.get(Integer.parseInt(input) - 1);
-        System.out.println("\n[!] You thrown -> " + Card.colorizeName(card.getName()));
+        System.out.println("\n[!] You thrown -> " + Color.colorizeName(card.getName()));
         return card;
     }
 

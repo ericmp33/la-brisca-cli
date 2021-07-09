@@ -90,52 +90,18 @@ public class Card {
         System.out.printf(
             "%-25s %-25s %-20s %-21s %-21s %-24s %-24s %-25s %-25s %-20s %-20s %-20s %n",
             "{ name: " + name,
-            "type: " + colorizeType(type),
-            "num: " + colorizeNum(num),
-            "value: " + colorizeNum(value),
-            "points: " + colorizeNum(points),
-            "thrown: " + colorizeBool(thrown),
-            "taken: " + colorizeBool(taken),
-            "trump: " + colorizeBool(trump),
-            "latest: " + colorizeBool(latest),
+            "type: " + Color.colorizeType(type),
+            "num: " + Color.colorizeNum(num),
+            "value: " + Color.colorizeNum(value),
+            "points: " + Color.colorizeNum(points),
+            "thrown: " + Color.colorizeBool(thrown),
+            "taken: " + Color.colorizeBool(taken),
+            "trump: " + Color.colorizeBool(trump),
+            "latest: " + Color.colorizeBool(latest),
             "thrownBy(): " + thrownBy.getName(),
             "takenBy(): " + takenBy.getName(),
-            "thrownFirst(): " + addFinalSpace(colorizeBool(thrownFirst)) + " }"
+            "thrownFirst(): " + addFinalSpace(Color.colorizeBool(thrownFirst)) + " }"
         );
-    }
-
-    // returns colorized card's type
-    public static String colorizeType(String s) {
-        return switch (s) {
-            case "bastos" -> Color.ANSI_GREEN + s + Color.ANSI_RESET;
-            case "copes" -> Color.ANSI_RED + s + Color.ANSI_RESET;
-            case "espases" -> Color.ANSI_BLUE + s + Color.ANSI_RESET;
-            default -> Color.ANSI_YELLOW + s + Color.ANSI_RESET;
-        };
-    }
-
-    // returns colorized card's num
-    private static String colorizeNum(int n) {
-        return Color.ANSI_BLUE + n + Color.ANSI_RESET;
-    }
-
-    // returns colorized card's name
-    public static String colorizeName(String s) {
-        if (s.contains("basto")) return aux(s, "basto", Color.ANSI_GREEN);
-        else if (s.contains("copa")) return aux(s, "copa", Color.ANSI_RED);
-        else if (s.contains("espasa")) return aux(s, "espasa", Color.ANSI_BLUE);
-        else return aux(s, "oro", Color.ANSI_YELLOW);
-    }
-    private static String aux(String s, String target, String type) {
-        return s.substring(0, s.indexOf(target)) + type + s.substring(s.indexOf(target)) + Color.ANSI_RESET;
-    }
-
-    // returns colorized card's boolean
-    private static String colorizeBool(boolean b) {
-        String color;
-        if (b) color = Color.ANSI_GREEN + true;
-        else color = Color.ANSI_RED + false;
-        return color + Color.ANSI_RESET;
     }
 
     // add spaces at the end of the printf
