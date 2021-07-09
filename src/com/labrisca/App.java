@@ -11,14 +11,14 @@ public class App {
     }
 }
 
+// todo: preguntar el nom a lusuari?  preguntar-ho dins de Game o aqui mateix a App?
+
 // todo: fer que si hi ha el 7 es pugui treure?
+
+// todo: preguntar quin nom de cartes vol, catala o angles, canviar el constructor traduint a lidioma que vol lusuari?
 
 // todo: de la classe Jugador -> extends Bot, Humà ?
 
 // todo: agafar carta de dal? no aleat
 
-// todo: si te 2 cartes de triomf i una amb un as o un tres, que no tiri las ni el 3 - en procés - check todos
-
-// todo: preguntar quin nom de cartes vol, catala o angles, canviar el constructor traduint a lidioma que vol lusuari
-
-// todo: preguntar el nom a lusuari?  preguntar-ho dins de Game o aqui mateix a App? nah
+// todo: nasa update fer threads? i anar mostrant info a un terminal, i a un altre la partida?
