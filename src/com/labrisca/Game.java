@@ -225,7 +225,7 @@ public class Game {
         for (Card card : deck) {
             // if the card type has the triumph
             if (card.getType().equals(triumph)) {
-                card.setTriumph(true);
+                card.setTrump(true);
 
                 // increase triumph cards value
                 card.setValue(card.getValue() + 100);
@@ -403,7 +403,7 @@ public class Game {
     // validate the play and set who wins it and collects the play's cards
     private void validateThePlay() {
         // validate possible options and assign return to variable
-        Player playWinner = validatePlayWinnerPlayer(thePlay.get(0), thePlay.get(1));
+        Player playWinner = validateThePlayWinner(thePlay.get(0), thePlay.get(1));
 
         // the play's winner collects the cards
         for (Card card : thePlay) {
@@ -439,16 +439,16 @@ public class Game {
     }
 
     // returns the player who thrown the play's winner card
-    private Player validatePlayWinnerPlayer(Card card0, Card card1) {
-        return validatePlayWinnerCard(card0, card1).getThrownBy();
+    private Player validateThePlayWinner(Card card0, Card card1) {
+        return validateThePlayWinnerCard(card0, card1).getThrownBy();
     }
 
     // returns which card wins the play
-    private Card validatePlayWinnerCard(Card card0, Card card1) {
+    private Card validateThePlayWinnerCard(Card card0, Card card1) {
         // if one of the cards is triumph and other isn't
-        if (card0.isTriumph() && !card1.isTriumph() || card1.isTriumph() && !card0.isTriumph()) {
+        if (card0.isTrump() && !card1.isTrump() || card1.isTrump() && !card0.isTrump()) {
             // triumph card wins
-            return card0.isTriumph() ? card0 : card1;
+            return card0.isTrump() ? card0 : card1;
         }
 
         // if both cards have same type
