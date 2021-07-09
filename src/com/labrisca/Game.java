@@ -215,8 +215,8 @@ public class Game {
                 // set game's triumph
                 triumph = card.getType();
 
-                System.out.println(capitalizeStr(Card.colorizeName(card.getName()) + " appeared"));
-                System.out.println("So.. triumph is " + Card.colorizeType(triumph) + "!");
+                System.out.println(capitalizeStr(Color.colorizeName(card.getName()) + " appeared"));
+                System.out.println("So.. triumph is " + Color.colorizeType(triumph) + "!");
                 break;
             }
         }
@@ -252,7 +252,7 @@ public class Game {
         while (true) {
             System.out.println("-----------------------------------------------");
             round++;
-            System.out.println("Round " + round + " (triumph -> " + Card.colorizeName(latestCard().getName()) + ")");
+            System.out.println("Round " + round + " (triumph -> " + Color.colorizeName(latestCard().getName()) + ")");
 
             // for each player, throw a card
             for (Player p : players) p.throwCard();
@@ -318,13 +318,13 @@ public class Game {
             }
         }
 
-        String ln = "######---------------------------------------######";//todo: pintarho de colors randoms?
+        String ln = "######---------------------------------------######";
         String s;
 
         if (draw) s = "Draw! Both players got 60 points!";
         else s = winner.getName() + " won the game with " + winner.getPoints() + " points!!!";
 
-        System.out.println(ln + "\n" + centerStr(ln.length(), s) + "\n" + ln);
+        System.out.println(Color.colorizeRandomly(ln) + "\n" + centerStr(ln.length(), s) + "\n" + Color.colorizeRandomly(ln));
     }
 
     // returns centered String inside lines
@@ -338,7 +338,6 @@ public class Game {
         for (Card card : deck) {
             if (card.isLatest()) return card;
         }
-        // will never get this return
         return deck.get(0);
     }
 
@@ -369,6 +368,11 @@ public class Game {
             else if (seconds == 1) sentence += minutes + " minutes and 1 second";
             else if (seconds == 0) sentence += minutes + " minutes";
             else sentence += minutes + " minutes and " + seconds + " seconds";
+        }
+
+        else {
+            sentence = sentence.substring(0, sentence.length() - 1);
+            sentence += "... something went wrong";
         }
 
         sentence += "!!";
