@@ -3,14 +3,14 @@ package com.labrisca;
 public class Card {
     // variables
     private final String name;
-    private final String type; // "bastos", "copes", "espases" or "oros"
+    private final String type;
     private final int num;
     private int value;
     private final int points;
     private boolean thrown;
     private boolean taken;
     private boolean triumph;
-    private boolean latest; // if true, will be the latest card to be taken
+    private boolean latest;
     private Player thrownBy;
     private Player takenBy;
     private boolean thrownFirst;
@@ -132,8 +132,10 @@ public class Card {
 
     // returns colorized card's boolean
     private static String colorizeBool(boolean b) {
-        if (b) return Color.ANSI_GREEN + true + Color.ANSI_RESET;
-        return Color.ANSI_RED + false + Color.ANSI_RESET;
+        String color;
+        if (b) color = Color.ANSI_GREEN + true;
+        else color = Color.ANSI_RED + false;
+        return color + Color.ANSI_RESET;
     }
 
     // add spaces at the end of the printf

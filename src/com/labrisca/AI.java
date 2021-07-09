@@ -14,10 +14,9 @@ public class AI {
     Card throwCard() {
         // if the play is empty, throw first
         if (game.getThePlay().isEmpty()) {
-            // throw the card with less value
-            System.out.println("So I throw first... I throw the less valuable card");
-            return lessValuableCardReplacement();//todo check if works better than lessvaluableard()
-//            return lessValuableCard(); // todo take care if there's 2 triumph and one ace or three, then hmm (do like lessValuableCardWithSameType)
+            // throw lessValuableCard
+            System.out.println("So I throw first...");
+            return lessValuableCard();
         }
 
         // else, means that will throw after human player, save human's thrown card
@@ -65,8 +64,19 @@ public class AI {
 
         // if card doesn't have points
         if (thrownByHuman.getPoints() == 0) {
-            System.out.println("Oh, your card doesn't have points, I throw the less valuable card");
-            return lessValuableCard();
+            String type = thrownByHuman.getType();
+            // find most valuable card with same type
+            Card mostValuable = mostValuableCardWithSameType(type);
+
+            // check if bot can kill and win points
+            for (Card card : bot.getInHandCards()) {
+                // if cards have same type and if bot's card has points > 0 and if card is the most valuable
+                if (type.equals(card.getType()) && card.getPoints() > 0 && card == mostValuable) {
+                    System.out.println("Your card doesn't have points, but I can kill and win points");
+                    // win the play
+                    return card;
+                }
+            }
         }
 
         System.out.println("[log] -> AI arrived to -> return lessValuableCard()");
@@ -83,32 +93,22 @@ public class AI {
 
     // returns the less valuable card
     private Card lessValuableCard() {
-        Card lessValuable = bot.getInHandCards().get(0);
-        for (Card card : bot.getInHandCards()) {
-            // if "lessValuable" card value is greater than "card" value
-            if (lessValuable.getValue() > card.getValue()) {
-                // less valuable card is "card"
-                lessValuable = card;
-            }
-        }
-        return lessValuable;
-    }
-
-    // returns the less valuable card todo version 2 - serveix perque -> take care if there's 2 triumph and one ace or three, then hmm (do like lessValuableCardWithSameType)
-    private Card lessValuableCardReplacement() {
         // check first if has 2 triumph cards and other one isn't
         int triumphCount = 0;
-        for (Card card : bot.getInHandCards()) {
-            if (card.isTriumph()) triumphCount++;
-        }
+        for (Card card : bot.getInHandCards()) if (card.isTriumph()) triumphCount++;
 
         if (triumphCount == 2) {
-            // check if the possible card to be thrown has less than 10 points
+            // check if the possible card to be thrown has less than 10 points and is not triumph
             for (Card card : bot.getInHandCards()) {
                 if (card.getPoints() < 10 && !card.isTriumph()) return card;
             }
+
+            // else
+            System.out.println("I throw the less valuable card with triumph");
+            return lessValuableCardWithTriumph();
         }
 
+        // if not, return the less valuable card
         Card lessValuable = bot.getInHandCards().get(0);
         for (Card card : bot.getInHandCards()) {
             // if "lessValuable" card value is greater than "card" value
@@ -117,6 +117,7 @@ public class AI {
                 lessValuable = card;
             }
         }
+        System.out.println("I throw the less valuable card");
         return lessValuable;
     }
 

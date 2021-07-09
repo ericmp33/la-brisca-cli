@@ -294,11 +294,11 @@ public class Game {
     private void printPointsAndCards() {
         for (Player p : players) System.out.println(p.getName() + "'s total points: " + p.getPoints());
         int totalPoints = players.get(0).getPoints() + players.get(1).getPoints();
-        System.out.println("Total points: " + totalPoints + "\n");
+        System.out.println("Game points: " + totalPoints + "\n");
 
         for (Player p : players) System.out.println(p.getName() + "'s total won cards: " + p.getWonCards().size());
         int totalCards = players.get(0).getWonCards().size() + players.get(1).getWonCards().size();
-        System.out.println("Total cards: " + totalCards + "\n");
+        System.out.println("Game cards: " + totalCards + "\n");
     }
 
     // print game's winner
@@ -338,6 +338,7 @@ public class Game {
         for (Card card : deck) {
             if (card.isLatest()) return card;
         }
+        // will never get this return
         return deck.get(0);
     }
 
@@ -345,7 +346,6 @@ public class Game {
     private void printGameTime() {
         // save how much the game took to finish
         Duration gameTime = Duration.between(startTime, Instant.now());
-
         int seconds = Integer.parseInt(String.valueOf(gameTime.toSeconds()));
         String sentence = "\nThe game has lasted exactly ";
 
@@ -364,7 +364,7 @@ public class Game {
             int minutes = seconds / 60;
             seconds %= 60;
 
-            // if else to well-print
+            // if else to well-print it
             if (minutes == 1) sentence += "1 minute and " + seconds + " seconds";
             else if (seconds == 1) sentence += minutes + " minutes and 1 second";
             else if (seconds == 0) sentence += minutes + " minutes";
@@ -403,7 +403,7 @@ public class Game {
     // validate the play and set who wins it and collects the play's cards
     private void validateThePlay() {
         // validate possible options and assign return to variable
-        Player playWinner = validateOptions(thePlay.get(0), thePlay.get(1));
+        Player playWinner = validatePlayWinnerPlayer(thePlay.get(0), thePlay.get(1));
 
         // the play's winner collects the cards
         for (Card card : thePlay) {
@@ -415,7 +415,7 @@ public class Game {
         this.thePlay.clear();
 
         // print who won the play
-        System.out.println("\n" + playWinner.getName() + " won the play."); // todo: print it with red and green?
+        System.out.println("\n" + colorizeThePlayWinner(playWinner));
 
         // well-print it
         if (round < 22 || round == 24) System.out.println();
@@ -429,13 +429,22 @@ public class Game {
         }
     }
 
+    // returns green text if player is not bot, else red
+    private String colorizeThePlayWinner(Player winner) {
+        String color;
+        if (winner.isBot()) color = Color.ANSI_RED;
+        else color = Color.ANSI_GREEN;
+
+        return color + ">> " + winner.getName() + " won the play" + Color.ANSI_RESET;
+    }
+
     // returns the player who thrown the play's winner card
-    private Player validateOptions(Card card0, Card card1) {
-        return validateOptionsCard(card0, card1).getThrownBy();
+    private Player validatePlayWinnerPlayer(Card card0, Card card1) {
+        return validatePlayWinnerCard(card0, card1).getThrownBy();
     }
 
     // returns which card wins the play
-    private Card validateOptionsCard(Card card0, Card card1) {
+    private Card validatePlayWinnerCard(Card card0, Card card1) {
         // if one of the cards is triumph and other isn't
         if (card0.isTriumph() && !card1.isTriumph() || card1.isTriumph() && !card0.isTriumph()) {
             // triumph card wins

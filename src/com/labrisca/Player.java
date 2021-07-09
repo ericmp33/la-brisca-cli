@@ -16,6 +16,9 @@ public class Player {
     public String getName() {
         return name;
     }
+    public boolean isBot() {
+        return bot;
+    }
     public List<Card> getInHandCards() {
         return inHandCards;
     }
@@ -66,12 +69,12 @@ public class Player {
         }
     }
 
-    // print available cards in hand to be thrown
+    // print available in-hand cards to be thrown
     public void printCardsInHand() {
         // if bot and hacker are true
         if (bot && game.isHacker()) {
             // show bot in-hand cards
-            System.out.println("\n" + Color.ANSI_PURPLE + "[?] Bot's cards in hand:");
+            System.out.println("\n" + Color.ANSI_PURPLE + "[?] Bot's in-hand cards:");
             for (int i = 0; i < inHandCards.size(); i++) {
                 String s = Card.colorizeName(inHandCards.get(i).getName());
                 // + 1 to make human readable nums
@@ -134,7 +137,7 @@ public class Player {
             card = inHandCards.get(ThreadLocalRandom.current().nextInt(0, inHandCards.size()));
         }
 
-        System.out.println("\n[!] Bot has thrown -> " + Card.colorizeName(card.getName()));
+        System.out.println("\n[!] Bot thrown -> " + Card.colorizeName(card.getName()));
         return card;
     }
 
@@ -160,7 +163,7 @@ public class Player {
                     if (input.equals("1")) break label;
                     break;
                 default:
-                    throw new IllegalStateException("Unexpected value: " + inHandCards.size());
+                    throw new IllegalStateException("Unexpected exception");
             }
             System.out.println("Input a valid card number...");
         }
