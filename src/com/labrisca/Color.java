@@ -39,9 +39,9 @@ public class Color {
     // returns colorized card's type
     public static String colorizeType(String s) {
         return switch (s) {
-            case "bastos" -> Color.ANSI_GREEN + s + Color.ANSI_RESET;
-            case "copes" -> Color.ANSI_RED + s + Color.ANSI_RESET;
-            case "espases" -> Color.ANSI_BLUE + s + Color.ANSI_RESET;
+            case "club" -> Color.ANSI_GREEN + s + Color.ANSI_RESET;
+            case "cup" -> Color.ANSI_RED + s + Color.ANSI_RESET;
+            case "sword" -> Color.ANSI_BLUE + s + Color.ANSI_RESET;
             default -> Color.ANSI_YELLOW + s + Color.ANSI_RESET;
         };
     }
@@ -53,13 +53,13 @@ public class Color {
 
     // returns colorized card's name
     public static String colorizeName(String s) {
-        if (s.contains("basto")) return aux(s, "basto", Color.ANSI_GREEN);
-        else if (s.contains("copa")) return aux(s, "copa", Color.ANSI_RED);
-        else if (s.contains("espasa")) return aux(s, "espasa", Color.ANSI_BLUE);
-        else return aux(s, "oro", Color.ANSI_YELLOW);
+        if (s.contains("club")) return aux(s, Color.ANSI_GREEN);
+        if (s.contains("cup")) return aux(s, Color.ANSI_RED);
+        if (s.contains("sword")) return aux(s, Color.ANSI_BLUE);
+        return aux(s, Color.ANSI_YELLOW);
     }
-    private static String aux(String s, String target, String type) {
-        return s.substring(0, s.indexOf(target)) + type + s.substring(s.indexOf(target)) + Color.ANSI_RESET;
+    private static String aux(String s, String color) {
+        return color + s.substring(0, s.indexOf("'")) + Color.ANSI_RESET + s.substring(s.indexOf("'"));
     }
 
     // returns colorized card's boolean

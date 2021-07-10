@@ -88,8 +88,8 @@ public class Card {
 
     public void printAttributes() {
         System.out.printf(
-            "%-25s %-25s %-20s %-21s %-21s %-24s %-24s %-25s %-25s %-20s %-20s %-20s %n",
-            "{ name: " + name,
+            "%-33s %-24s %-19s %-21s %-21s %-24s %-24s %-25s %-25s %-20s %-20s %-20s %n",
+            "{ name: " + Color.colorizeName(name),
             "type: " + Color.colorizeType(type),
             "num: " + Color.colorizeNum(num),
             "value: " + Color.colorizeNum(value),

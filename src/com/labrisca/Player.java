@@ -174,7 +174,7 @@ public class Player {
         return card;
     }
 
-    // returns the obtained points
+    // returns the total obtained points
     public int getPoints() {
         int count = 0;
         for (Card card : wonCards) count += card.getPoints();
