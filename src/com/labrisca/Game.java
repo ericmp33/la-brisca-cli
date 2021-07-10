@@ -14,8 +14,8 @@ public class Game {
     private final List<Player> players;
     private final Instant startTime;
     private int round;
-    private boolean hacker; // if true, human player can see bot cards
-    private boolean ai; // if true, bot player is smart
+    private boolean hacker; // if human player can see bot cards
+    private boolean ai; // if bot player is smart
     private static final Scanner sc = new Scanner(System.in);
 
     // getters
@@ -39,61 +39,57 @@ public class Game {
     public Game() {
         // put cards into deck
         deck = List.of(
-                // bastos
-                new Card("as de basto", "bastos", 1, 12, 11),
-                new Card("dos de basto", "bastos", 2, 1, 0),
-                new Card("tres de basto", "bastos", 3, 11, 10),
-                new Card("quatre de basto", "bastos", 4, 2, 0),
-                new Card("cinc de basto", "bastos", 5, 3, 0),
-                new Card("sis de basto", "bastos", 6, 4, 0),
-                new Card("set de basto", "bastos", 7, 5, 0),
-                new Card("vuit de basto", "bastos", 8, 6, 0),
-                new Card("nou de basto", "bastos", 9, 7, 0),
-                new Card("sota de basto", "bastos", 10, 8, 2),
-                new Card("cavall de basto", "bastos", 11, 9, 3),
-                new Card("rei de basto", "bastos", 12, 10, 4),
+                new Card("club's ace", "club", 1, 12, 11),
+                new Card("club's two", "club", 2, 1, 0),
+                new Card("club's trey", "club", 3, 11, 10),
+                new Card("club's four", "club", 4, 2, 0),
+                new Card("club's five", "club", 5, 3, 0),
+                new Card("club's six", "club", 6, 4, 0),
+                new Card("club's seven", "club", 7, 5, 0),
+                new Card("club's eight", "club", 8, 6, 0),
+                new Card("club's nine", "club", 9, 7, 0),
+                new Card("club's jack", "club", 10, 8, 2),
+                new Card("club's knight", "club", 11, 9, 3),
+                new Card("club's king", "club", 12, 10, 4),
 
-                // copes
-                new Card("as de copa", "copes", 1, 12, 11),
-                new Card("dos de copa", "copes", 2, 1, 0),
-                new Card("tres de copa", "copes", 3, 11, 10),
-                new Card("quatre de copa", "copes", 4, 2, 0),
-                new Card("cinc de copa", "copes", 5, 3, 0),
-                new Card("sis de copa", "copes", 6, 4, 0),
-                new Card("set de copa", "copes", 7, 5, 0),
-                new Card("vuit de copa", "copes", 8, 6, 0),
-                new Card("nou de copa", "copes", 9, 7, 0),
-                new Card("sota de copa", "copes", 10, 8, 2),
-                new Card("cavall de copa", "copes", 11, 9, 3),
-                new Card("rei de copa", "copes", 12, 10, 4),
+                new Card("cup's ace", "cup", 1, 12, 11),
+                new Card("cup's two", "cup", 2, 1, 0),
+                new Card("cup's trey", "cup", 3, 11, 10),
+                new Card("cup's four", "cup", 4, 2, 0),
+                new Card("cup's five", "cup", 5, 3, 0),
+                new Card("cup's six", "cup", 6, 4, 0),
+                new Card("cup's seven", "cup", 7, 5, 0),
+                new Card("cup's eight", "cup", 8, 6, 0),
+                new Card("cup's nine", "cup", 9, 7, 0),
+                new Card("cup's jack", "cup", 10, 8, 2),
+                new Card("cup's knight", "cup", 11, 9, 3),
+                new Card("cup's king", "cup", 12, 10, 4),
 
-                // espases
-                new Card("as d'espasa", "espases", 1, 12, 11),
-                new Card("dos d'espasa", "espases", 2, 1, 0),
-                new Card("tres d'espasa", "espases", 3, 11, 10),
-                new Card("quatre d'espasa", "espases", 4, 2, 0),
-                new Card("cinc d'espasa", "espases", 5, 3, 0),
-                new Card("sis d'espasa", "espases", 6, 4, 0),
-                new Card("set d'espasa", "espases", 7, 5, 0),
-                new Card("vuit d'espasa", "espases", 8, 6, 0),
-                new Card("nou d'espasa", "espases", 9, 7, 0),
-                new Card("sota d'espasa", "espases", 10, 8, 2),
-                new Card("cavall d'espasa", "espases", 11, 9, 3),
-                new Card("rei d'espasa", "espases", 12, 10, 4),
+                new Card("sword's ace", "sword", 1, 12, 11),
+                new Card("sword's two", "sword", 2, 1, 0),
+                new Card("sword's trey", "sword", 3, 11, 10),
+                new Card("sword's four", "sword", 4, 2, 0),
+                new Card("sword's five", "sword", 5, 3, 0),
+                new Card("sword's six", "sword", 6, 4, 0),
+                new Card("sword's seven", "sword", 7, 5, 0),
+                new Card("sword's eight", "sword", 8, 6, 0),
+                new Card("sword's nine", "sword", 9, 7, 0),
+                new Card("sword's jack", "sword", 10, 8, 2),
+                new Card("sword's knight", "sword", 11, 9, 3),
+                new Card("sword's king", "sword", 12, 10, 4),
 
-                // oros
-                new Card("as d'oro", "oros", 1, 12, 11),
-                new Card("dos d'oro", "oros", 2, 1, 0),
-                new Card("tres d'oro", "oros", 3, 11, 10),
-                new Card("quatre d'oro", "oros", 4, 2, 0),
-                new Card("cinc d'oro", "oros", 5, 3, 0),
-                new Card("sis d'oro", "oros", 6, 4, 0),
-                new Card("set d'oro", "oros", 7, 5, 0),
-                new Card("vuit d'oro", "oros", 8, 6, 0),
-                new Card("nou d'oro", "oros", 9, 7, 0),
-                new Card("sota d'oro", "oros", 10, 8, 2),
-                new Card("cavall d'oro", "oros", 11, 9, 3),
-                new Card("rei d'oro", "oros", 12, 10, 4)
+                new Card("coin's ace", "coin", 1, 12, 11),
+                new Card("coin's two", "coin", 2, 1, 0),
+                new Card("coin's trey", "coin", 3, 11, 10),
+                new Card("coin's four", "coin", 4, 2, 0),
+                new Card("coin's five", "coin", 5, 3, 0),
+                new Card("coin's six", "coin", 6, 4, 0),
+                new Card("coin's seven", "coin", 7, 5, 0),
+                new Card("coin's eight", "coin", 8, 6, 0),
+                new Card("coin's nine", "coin", 9, 7, 0),
+                new Card("coin's jack", "coin", 10, 8, 2),
+                new Card("coin's knight", "coin", 11, 9, 3),
+                new Card("coin's king", "coin", 12, 10, 4)
         );
 
         // initialize the play and list of players
@@ -199,9 +195,9 @@ public class Game {
         if (!hacker) System.out.println();
     }
 
-    // set triumph
-    private void setTriumph() {
-        String triumph;
+    // set trump
+    private void setTrump() {
+        String trump;
 
         while (true) {
             // assign random card
@@ -212,22 +208,22 @@ public class Game {
                 // set it will be latest one
                 card.setLatest(true);
 
-                // set game's triumph
-                triumph = card.getType();
+                // set game's trump
+                trump = card.getType();
 
-                System.out.println(capitalizeStr(Color.colorizeName(card.getName()) + " appeared"));
-                System.out.println("So.. triumph is " + Color.colorizeType(triumph) + "!");
+                System.out.println(capitalizeStr(Color.colorizeName(capitalizeStr(card.getName())) + " appeared"));
+                System.out.println("So.. trump is " + Color.colorizeType(trump) + "!");
                 break;
             }
         }
 
-        // set triumph to needed cards
+        // set trump to needed cards
         for (Card card : deck) {
-            // if the card type has the triumph
-            if (card.getType().equals(triumph)) {
+            // if the card type has the trump
+            if (card.getType().equals(trump)) {
                 card.setTrump(true);
 
-                // increase triumph cards value
+                // increase trump cards value
                 card.setValue(card.getValue() + 100);
             }
         }
@@ -252,7 +248,7 @@ public class Game {
         while (true) {
             System.out.println("-----------------------------------------------");
             round++;
-            System.out.println("Round " + round + " (triumph -> " + Color.colorizeName(latestCard().getName()) + ")");
+            System.out.println("Round " + round + " (trump -> " + Color.colorizeName(latestCard().getName()) + ")");
 
             // for each player, throw a card
             for (Player p : players) p.throwCard();
@@ -449,9 +445,9 @@ public class Game {
 
     // returns which card wins the play
     private Card validateThePlayWinnerCard(Card card0, Card card1) {
-        // if one of the cards is triumph and other isn't
+        // if one of the cards is trump and other isn't
         if (card0.isTrump() && !card1.isTrump() || card1.isTrump() && !card0.isTrump()) {
-            // triumph card wins
+            // trump card wins
             return card0.isTrump() ? card0 : card1;
         }
 
@@ -461,7 +457,7 @@ public class Game {
             return card0.getValue() > card1.getValue() ? card0 : card1;
         }
 
-        // else, both aren't triumph and have different type
+        // else, both aren't trump and have different type
         else {
             // the thrown first wins
             return card0.isThrownFirst() ? card0 : card1;
@@ -489,8 +485,8 @@ public class Game {
         // deal 3 first cards to each player
         deal3FirstCards();
 
-        // set triumph
-        setTriumph();
+        // set trump
+        setTrump();
 
         // game's main loop
         mainLoop();
