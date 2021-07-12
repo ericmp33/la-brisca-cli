@@ -18,38 +18,33 @@ public class AI {
             return lessValuableCard();
         }
 
-        // else, means that will throw after human player, save human's thrown card
-        Card thrownByHuman = game.getThePlay().get(0);
+        // else, will throw after human player, save human's thrown card
+        Card hCard = game.getThePlay().get(0);
 
-        // if human's card is trump
-        if (thrownByHuman.isTrump()) {
-            // if bot has trump cards and more valuable cards with same type and there is more than 3 points to get
-            if (hasTrumpCards() && hasMoreValuableCardsSameType(thrownByHuman) && thrownByHuman.getPoints() > 3) {
-                // win the play
-                return lessValuableCardWithTrump();
-            }
-
-            return lessValuableCard();
+        // if human's card is trump and points > 3 and if bot has trump and more valuable cards with same type
+        if (hCard.isTrump() && hCard.getPoints() > 3 && hasTrumpCards() && hasMoreValuableCardsSameType(hCard)) {
+            // win the play
+            return lessValuableCardWithTrump();
         }
 
-        // if card has points
-        if (thrownByHuman.getPoints() > 0) {
+        // if human's card has points
+        if (hCard.getPoints() > 0) {
             // if bot has more valuable cards with same type
-            if (hasMoreValuableCardsSameType(thrownByHuman)) {
+            if (hasMoreValuableCardsSameType(hCard)) {
                 // win the play
-                return mostValuableCardSameType(thrownByHuman.getType());
+                return mostValuableCardSameType(hCard.getType());
             }
 
             // if bot has trump cards
             if (hasTrumpCards()) {
-                // win the play
+                // throw lessValuableCard
                 return lessValuableCardWithTrump();
             }
         }
 
         // if card doesn't have points
-        if (thrownByHuman.getPoints() == 0) {
-            String type = thrownByHuman.getType();
+        if (hCard.getPoints() == 0) {
+            String type = hCard.getType();
             // find most valuable card with same type
             Card mostValuable = mostValuableCardSameType(type);
 
@@ -135,13 +130,15 @@ public class AI {
 
     // returns most valuable card with same card type
     private Card mostValuableCardSameType(String type) {
-        Card mostValuable = sameCardType(type);
+        Card mostVal = sameCardType(type);
         for (Card card : bot.getInHandCards()) {
-            if (mostValuable.getValue() < card.getValue() && mostValuable.getType().equals(type) && type.equals(card.getType())) {
-                mostValuable = card;
+            // if card's value is greater than mostVal and both have same card type as "type"
+            if (mostVal.getValue() < card.getValue() && mostVal.getType().equals(type) && card.getType().equals(type)) {
+                // most valuable card is "card"
+                mostVal = card;
             }
         }
-        return mostValuable;
+        return mostVal;
     }
 
     // returns true if has cards more value than the param card with same card type

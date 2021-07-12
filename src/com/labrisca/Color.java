@@ -20,7 +20,7 @@ public class Color {
     }
 
     // returns given String colorized randomly
-    public static String colorizeRandomly(String s) {
+    public static String colorizeRand(String s) {
         String oldRandom = randomColor();
 
         StringBuilder colorize = new StringBuilder(oldRandom);
@@ -38,12 +38,11 @@ public class Color {
 
     // returns colorized card's type
     public static String colorizeType(String s) {
-        return switch (s) {
-            case "club" -> Color.ANSI_GREEN + s + Color.ANSI_RESET;
-            case "cup" -> Color.ANSI_RED + s + Color.ANSI_RESET;
-            case "sword" -> Color.ANSI_BLUE + s + Color.ANSI_RESET;
-            default -> Color.ANSI_YELLOW + s + Color.ANSI_RESET;
-        };
+        if (s.toLowerCase().contains("club")) return Color.ANSI_GREEN + s + Color.ANSI_RESET;
+        if (s.toLowerCase().contains("cup")) return Color.ANSI_RED + s + Color.ANSI_RESET;
+        if (s.toLowerCase().contains("sword")) return Color.ANSI_BLUE + s + Color.ANSI_RESET;
+        if (s.toLowerCase().contains("coin")) return Color.ANSI_YELLOW + s + Color.ANSI_RESET;
+        return "Unexpected error using colorizeType(String s)";
     }
 
     // returns colorized card's num
@@ -53,13 +52,26 @@ public class Color {
 
     // returns colorized card's name
     public static String colorizeName(String s) {
-        if (s.contains("club")) return aux(s, Color.ANSI_GREEN);
-        if (s.contains("cup")) return aux(s, Color.ANSI_RED);
-        if (s.contains("sword")) return aux(s, Color.ANSI_BLUE);
-        return aux(s, Color.ANSI_YELLOW);
+        if (s.toLowerCase().contains("club")) return aux(s, Color.ANSI_GREEN);
+        if (s.toLowerCase().contains("cup")) return aux(s, Color.ANSI_RED);
+        if (s.toLowerCase().contains("sword")) return aux(s, Color.ANSI_BLUE);
+        if (s.toLowerCase().contains("coin")) return aux(s, Color.ANSI_YELLOW);
+        return "unexpected error using colorizeName(String s)";
     }
     private static String aux(String s, String color) {
         return color + s.substring(0, s.indexOf("'")) + Color.ANSI_RESET + s.substring(s.indexOf("'"));
+    }
+
+    // returns colorized card's name and purple if "hacker" is true
+    public static String colorizeNamePurple(String s) {
+        if (s.toLowerCase().contains("club")) return auxPurple(s, Color.ANSI_GREEN);
+        if (s.toLowerCase().contains("cup")) return auxPurple(s, Color.ANSI_RED);
+        if (s.toLowerCase().contains("sword")) return auxPurple(s, Color.ANSI_BLUE);
+        if (s.toLowerCase().contains("coin")) return auxPurple(s, Color.ANSI_YELLOW);
+        return "unexpected error using colorizeNamePurple(String s)";
+    }
+    private static String auxPurple(String s, String color) {
+        return color + s.substring(0, s.indexOf("'")) + Color.ANSI_PURPLE + s.substring(s.indexOf("'"));
     }
 
     // returns colorized card's boolean

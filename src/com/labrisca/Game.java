@@ -19,21 +19,12 @@ public class Game {
     private static final Scanner sc = new Scanner(System.in);
 
     // getters
-    public List<Card> getDeck() {
-        return deck;
-    }
-    public List<Card> getThePlay() {
-        return thePlay;
-    }
-    public boolean isHacker() {
-        return hacker;
-    }
-    public boolean isAi() {
-        return ai;
-    }
-    public static Scanner getSc() {
-        return sc;
-    }
+    public List<Card> getDeck() { return deck; }
+    public List<Card> getThePlay() { return thePlay; }
+    public int getRound() { return round; }
+    public boolean isHacker() { return hacker; }
+    public boolean isAi() { return ai; }
+    public static Scanner getSc() { return sc; }
 
     // constructor
     public Game() {
@@ -107,64 +98,71 @@ public class Game {
 
     // welcome message
     public void welcomeMessage() {
-        System.out.println("Welcome to \"La Brisca\" CLI cards game\nMade by @ericmp with <3, june 2021\nShuffling cards...\nCards shuffled! Let the game begin!\n");
+        System.out.println("Welcome to \"La Brisca\" CLI cards game");
+        System.out.println("Made by @ericmp33 with <3, june 2021");
+        System.out.println("Shuffling cards...");
+        System.out.println("Cards shuffled! Let the game begin!");
+        System.out.println("Change the latest card inputting \"7\"");
+        System.out.println();
     }
 
     // ask if enable hacker mode
     private void enableHacker() {
-        System.out.println("[?] Choose gamemode: normal or hacker");
-        while (true) {
-            System.out.print("> ");
-            String s = sc.nextLine().trim().toLowerCase();
-            if (s.equalsIgnoreCase("normal")) {
-                System.out.println("Normal mode on!");
-                this.hacker = false;
-                break;
-            } else if (s.equalsIgnoreCase("hacker")) {
-                System.out.println("Hacker mode on!\n" + Color.ANSI_PURPLE + "Purple " + Color.ANSI_RESET + "text = text you wouldn't see ;)");
+        System.out.println("[?] Choose gamemode: normal or hacker"); // todo: uncomment to disable testing automation
+//        while (true) {
+//            System.out.print("> ");
+//            String s = sc.nextLine().trim().toLowerCase();
+//            if (s.equalsIgnoreCase("normal")) {
+//                System.out.println("Normal mode on!");
+//                this.hacker = false;
+//                break;
+//            } else if (s.equalsIgnoreCase("hacker")) {
+                System.out.println("Hacker mode on!");
+                System.out.print(Color.ANSI_PURPLE + "Purple " + Color.ANSI_RESET);
+                System.out.println("text = text you wouldn't see ;)");
                 this.hacker = true;
-                break;
-            }
-            System.out.println("Input \"normal\" or \"hacker\"...");
-        }
+//                break;
+//            }
+//            System.out.println("Input \"normal\" or \"hacker\"...");
+//        }
         System.out.println();
     }
 
     // ask if enable AI bot mode
-    private void enableAIBot() {
+    private void enableAIBot() { // todo: uncomment to disable testing automation
         System.out.println("[?] Do you want to make the bot smart?");
-        while (true) {
-            System.out.print("> ");
-            String input = sc.nextLine().trim().toLowerCase();
-            if (input.equalsIgnoreCase("yes")) {
+//        while (true) {
+//            System.out.print("> ");
+//            String input = sc.nextLine().trim().toLowerCase();
+//            if (input.equalsIgnoreCase("yes")) {
                 System.out.println("Lets see if you can win!");
                 this.ai = true;
-                break;
-            } else if (input.equalsIgnoreCase("no")) {
-                System.out.println("Beep beep...");
-                this.ai = false;
-                break;
-            }
-            System.out.println("Input \"yes\" or \"no\"...");
-        }
+//                break;
+//            } else if (input.equalsIgnoreCase("no")) {
+//                System.out.println("Beep beep...");
+//                this.ai = false;
+//                break;
+//            }
+//            System.out.println("Input \"yes\" or \"no\"...");
+//        }
         System.out.println();
     }
 
     // ask if print cards final information
-    private void printFinalCardsInfo() {
+    private void askPrintCardsInfo() {
         System.out.println("\n[?] Do you want to see the cards final information?");
-        while (true) {
-            System.out.print("> ");
-            String input = sc.nextLine().trim().toLowerCase();
-            if (input.equals("yes")) {
+//        while (true) { // todo: uncomment to disable testing automation
+//            System.out.print("> ");
+//            String input = sc.nextLine().trim().toLowerCase();
+//            if (input.equals("yes")) {
                 System.out.println();
                 printAllCards();
-                break;
-            } else if (input.equals("no")) {
-                break;
-            }
-            System.out.println("Input \"yes\" or \"no\"...");
-        }
+//                break;
+//            } else if (input.equals("no")) {
+//                break;
+//            }
+//            System.out.println("Input \"yes\" or \"no\"...");
+//        }
         System.out.println();
     }
 
@@ -172,17 +170,17 @@ public class Game {
     private void whoStarts() {
         // if random number is 0
         if (ThreadLocalRandom.current().nextInt(0, 2) == 0) {
-            // will start player with index 1, so move it to index 0 (1st pos)
+            // will start player with index 1, so move player to 1st pos
             Player temp = players.get(1);
             players.remove(1);
             players.add(0, temp);
         }
-        // else, will start other player (is actually at index 0)
+        // else, will start other player (at index 0)
     }
 
     // deal 3 first cards to each player
     private void deal3FirstCards() {
-        System.out.println("Dealing three first cards to each player:");
+        System.out.println("Dealing 3 first cards to each player:");
         // for each player, take 3 cards
         for (Player p : players) {
             for (int i = 0; i < 3; i++) p.takeCard();
@@ -242,7 +240,7 @@ public class Game {
     // game's main loop
     private void mainLoop() {
         // print who starts throwing
-        System.out.println(players.get(0).getName() + " starts throwing\n");
+        System.out.println(players.get(0).getName() + " starts throwing");
 
         round = 0;
         while (true) {
@@ -256,19 +254,16 @@ public class Game {
             // validate and set who wins the play and saves the cards
             validateThePlay();
 
-            // for each player, take a card
-            for (Player p : players) p.takeCard();
-
-            // if no player has cards, game finishes
+            // if any player hasn't cards, game finishes
             if (playersWithoutCards() == players.size()) break;
 
-            // else
-            System.out.println();
+            // else, for each player, take a card
+            for (Player p : players) p.takeCard();
 
             // if hacker mode is on
             if (hacker) {
-                System.out.print(Color.ANSI_PURPLE);
                 // for each player, print obtained points and cards won
+                System.out.print("\n" + Color.ANSI_PURPLE);
                 for (Player p : players) System.out.println(p.getName() + "'s points: " + p.getPoints());
                 System.out.println();
                 for (Player p : players) System.out.println(p.getName() + "'s won cards: " + p.getWonCards().size());
@@ -277,7 +272,7 @@ public class Game {
         }
     }
 
-    // returns how many players doesn't have cards
+    // returns count of players that doesn't have cards
     private int playersWithoutCards() {
         int count = 0;
         for (Player p : players) {
@@ -288,6 +283,7 @@ public class Game {
 
     // print total points and cards won
     private void printPointsAndCards() {
+        System.out.println();
         for (Player p : players) System.out.println(p.getName() + "'s total points: " + p.getPoints());
         int totalPoints = players.get(0).getPoints() + players.get(1).getPoints();
         System.out.println("Game points: " + totalPoints + "\n");
@@ -320,7 +316,7 @@ public class Game {
         if (draw) s = "Draw! Both players got 60 points!";
         else s = winner.getName() + " won the game with " + winner.getPoints() + " points!!!";
 
-        System.out.println(Color.colorizeRandomly(ln) + "\n" + centerStr(ln.length(), s) + "\n" + Color.colorizeRandomly(ln));
+        System.out.println(Color.colorizeRand(ln) + "\n" + centerStr(ln.length(), s) + "\n" + Color.colorizeRand(ln));
     }
 
     // returns centered String inside lines
@@ -342,10 +338,15 @@ public class Game {
         // save how much the game took to finish
         Duration gameTime = Duration.between(startTime, Instant.now());
         int seconds = Integer.parseInt(String.valueOf(gameTime.toSeconds()));
-        String sentence = "\nThe game has lasted exactly ";
+        String sentence = "\nThe game has lasted ";
 
-        // if seconds are greater than 0 and less than 60
-        if (seconds > 0 && seconds < 60) {
+        // if seconds are less or equal than 0
+        if (seconds <= 0) {
+            sentence += "zero or less seconds??";
+        }
+
+        // if seconds are less than 60
+        else if (seconds < 60) {
             sentence += seconds + " seconds";
         }
 
@@ -354,8 +355,8 @@ public class Game {
             sentence += "1 minute";
         }
 
-        // else, if the game took more than 1 minute and less than 1 hour
-        else if (seconds > 60 && seconds < 3600) {
+        // else, if the game took less than 1 hour
+        else if (seconds < 3600) {
             int minutes = seconds / 60;
             seconds %= 60;
 
@@ -397,7 +398,7 @@ public class Game {
 
     // print game's author
     public void printAuthor() {
-        System.out.println("\"La Brisca\" CLI cards game - by @ericmp with <3, june 2021.");
+        System.out.println("\"La Brisca\" CLI cards game - by @ericmp33 with <3, june 2021.");
     }
 
     // validate the play and set who wins it and collects the play's cards
@@ -418,7 +419,7 @@ public class Game {
         System.out.println("\n" + colorizeThePlayWinner(playWinner));
 
         // well-print it
-        if (round < 22 || round == 24) System.out.println();
+        if (round < 22) System.out.println();
 
         // if player on index 0 is not the same as the winner, means it is not at 1st post
         if (!players.get(0).equals(playWinner)) {
@@ -453,15 +454,23 @@ public class Game {
 
         // if both cards have same type
         if (card0.getType().equals(card1.getType())) {
-            // the most valuable card wins
+            // most valuable card wins
             return card0.getValue() > card1.getValue() ? card0 : card1;
         }
 
         // else, both aren't trump and have different type
         else {
-            // the thrown first wins
+            // thrown first wins
             return card0.isThrownFirst() ? card0 : card1;
         }
+    }
+
+    // return the position of the param card
+    public int posCard(Card c) {
+        for (int i = 0; i < deck.size(); i++) {
+            if (c == deck.get(i)) return i;
+        }
+        return -1;
     }
 
     // principal method to run the game
@@ -501,7 +510,7 @@ public class Game {
         printGameTime();
 
         // ask if print cards final information
-        printFinalCardsInfo();
+        askPrintCardsInfo();
 
         // print game's author
         printAuthor();
