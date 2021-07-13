@@ -85,7 +85,7 @@ public class AI {
             if (card.isTrump()) return card;
         }
 
-        // if there is not trump cards return lessValuableCard
+        // if there is not trump cards returns lessValuableCard
         return lessValuableCard();
     }
 
@@ -105,7 +105,7 @@ public class AI {
             return lessValuableCardWithTrump();
         }
 
-        // if not, return the less valuable card
+        // if not, returns the less valuable card
         Card lessValuable = bot.getInHandCards().get(0);
         for (Card card : bot.getInHandCards()) {
             // if "lessValuable" card value is greater than "card" value

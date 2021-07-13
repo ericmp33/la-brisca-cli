@@ -91,7 +91,7 @@ public class Player {
     public void throwCard() {
         Card card;
 
-        // if is bot, assign return of throwCardBot to "card"
+        // if is bot, assign card to variable
         if (bot) card = throwCardBot();
 
         // else, is human
@@ -103,11 +103,11 @@ public class Player {
 
         // if the play is empty
         if (game.getThePlay().isEmpty()) {
-            // card has been thrown first
+            // card will be thrown first
             card.setThrownFirst(true);
         }
 
-        // move the card to the play
+        // put the card to the play
         inHandCards.remove(card);
         game.getThePlay().add(card);
     }
@@ -123,7 +123,7 @@ public class Player {
             // change last card
             changeLastCard();
 
-            // assign AI thought of which card to be thrown
+            // assign AI thought of which card has to be thrown
             card = new AI(this, game).throwCard();
         } else {
             // assign random card
@@ -191,23 +191,23 @@ public class Player {
         // if can, change it
         if (canChangeLastCard()) {
             // unset the latest card
-            Card theOne = game.latestCard();
-            theOne.setLatest(false);
-            theOne.setTaken(true);
-            theOne.setTakenBy(this);
+            Card oldLatest = game.latestCard();
+            oldLatest.setLatest(false);
+            oldLatest.setTaken(true);
+            oldLatest.setTakenBy(this);
 
             // and save it in the hand of the player
-            inHandCards.add(theOne);
+            inHandCards.add(oldLatest);
 
             // remove the seven trump from the hand of the player
-            Card oldSevenTrump = sevenTrump();
-            inHandCards.remove(oldSevenTrump);
+            Card player7Trump = sevenTrump();
+            inHandCards.remove(player7Trump);
 
             // and set it as the new latest card
-            Card newSevenTrump = game.getDeck().get(game.posCard(oldSevenTrump));
-            newSevenTrump.setLatest(true);
-            newSevenTrump.setTaken(false);
-            newSevenTrump.setTakenBy(null);
+            Card newLatest = game.getDeck().get(game.posCard(player7Trump));
+            newLatest.setLatest(true);
+            newLatest.setTaken(false);
+            newLatest.setTakenBy(null);
 
             System.out.println("\n[!] " + name + " changed latest card");
         }
@@ -215,7 +215,7 @@ public class Player {
 
     // returns if player can change latest card
     private boolean canChangeLastCard() {
-        // if player has 7 of the trump and its value is less than it and round is less than 21
+        // true if player has 7 of trump and its value is less than latest and round is less than 21
         return has7Trump() && sevenTrump().getValue() < game.latestCard().getValue() && game.getRound() < 21;
     }
 

@@ -71,7 +71,7 @@ public class Card {
     }
 
     // prevent null pointer exception
-    private String checkNull(Player p) {
+    private static String checkNull(Player p) {
         if (p == null) return "null";
         return p.getName();
     }

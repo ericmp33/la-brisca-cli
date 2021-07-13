@@ -108,61 +108,61 @@ public class Game {
 
     // ask if enable hacker mode
     private void enableHacker() {
-        System.out.println("[?] Choose gamemode: normal or hacker"); // todo: uncomment to disable testing automation
-//        while (true) {
-//            System.out.print("> ");
-//            String s = sc.nextLine().trim().toLowerCase();
-//            if (s.equalsIgnoreCase("normal")) {
-//                System.out.println("Normal mode on!");
-//                this.hacker = false;
-//                break;
-//            } else if (s.equalsIgnoreCase("hacker")) {
+        System.out.println("[?] Choose gamemode: normal or hacker");
+        while (true) {
+            System.out.print("> ");
+            String s = sc.nextLine().trim().toLowerCase();
+            if (s.equalsIgnoreCase("normal")) {
+                System.out.println("Normal mode on!");
+                this.hacker = false;
+                break;
+            } else if (s.equalsIgnoreCase("hacker")) {
                 System.out.println("Hacker mode on!");
                 System.out.print(Color.ANSI_PURPLE + "Purple " + Color.ANSI_RESET);
                 System.out.println("text = text you wouldn't see ;)");
                 this.hacker = true;
-//                break;
-//            }
-//            System.out.println("Input \"normal\" or \"hacker\"...");
-//        }
+                break;
+            }
+            System.out.println("Input \"normal\" or \"hacker\"...");
+        }
         System.out.println();
     }
 
     // ask if enable AI bot mode
-    private void enableAIBot() { // todo: uncomment to disable testing automation
+    private void enableAIBot() {
         System.out.println("[?] Do you want to make the bot smart?");
-//        while (true) {
-//            System.out.print("> ");
-//            String input = sc.nextLine().trim().toLowerCase();
-//            if (input.equalsIgnoreCase("yes")) {
+        while (true) {
+            System.out.print("> ");
+            String input = sc.nextLine().trim().toLowerCase();
+            if (input.equalsIgnoreCase("yes")) {
                 System.out.println("Lets see if you can win!");
                 this.ai = true;
-//                break;
-//            } else if (input.equalsIgnoreCase("no")) {
-//                System.out.println("Beep beep...");
-//                this.ai = false;
-//                break;
-//            }
-//            System.out.println("Input \"yes\" or \"no\"...");
-//        }
+                break;
+            } else if (input.equalsIgnoreCase("no")) {
+                System.out.println("Beep beep...");
+                this.ai = false;
+                break;
+            }
+            System.out.println("Input \"yes\" or \"no\"...");
+        }
         System.out.println();
     }
 
     // ask if print cards final information
     private void askPrintCardsInfo() {
         System.out.println("\n[?] Do you want to see the cards final information?");
-//        while (true) { // todo: uncomment to disable testing automation
-//            System.out.print("> ");
-//            String input = sc.nextLine().trim().toLowerCase();
-//            if (input.equals("yes")) {
+        while (true) {
+            System.out.print("> ");
+            String input = sc.nextLine().trim().toLowerCase();
+            if (input.equals("yes")) {
                 System.out.println();
                 printAllCards();
-//                break;
-//            } else if (input.equals("no")) {
-//                break;
-//            }
-//            System.out.println("Input \"yes\" or \"no\"...");
-//        }
+                break;
+            } else if (input.equals("no")) {
+                break;
+            }
+            System.out.println("Input \"yes\" or \"no\"...");
+        }
         System.out.println();
     }
 
@@ -203,7 +203,7 @@ public class Game {
 
             // if card hasn't been taken
             if (!card.isTaken()) {
-                // set it will be latest one
+                // will be latest one
                 card.setLatest(true);
 
                 // set game's trump
@@ -215,7 +215,7 @@ public class Game {
             }
         }
 
-        // set trump to needed cards
+        // set trump to cards
         for (Card card : deck) {
             // if the card type has the trump
             if (card.getType().equals(trump)) {
@@ -239,7 +239,6 @@ public class Game {
 
     // game's main loop
     private void mainLoop() {
-        // print who starts throwing
         System.out.println(players.get(0).getName() + " starts throwing");
 
         round = 0;
@@ -260,7 +259,7 @@ public class Game {
             // else, for each player, take a card
             for (Player p : players) p.takeCard();
 
-            // if hacker mode is on
+            // and if hacker mode is on
             if (hacker) {
                 // for each player, print obtained points and cards won
                 System.out.print("\n" + Color.ANSI_PURPLE);
@@ -330,7 +329,7 @@ public class Game {
         for (Card card : deck) {
             if (card.isLatest()) return card;
         }
-        return deck.get(0);
+        return latestCard();
     }
 
     // print how much the game took to finish
@@ -341,19 +340,13 @@ public class Game {
         String sentence = "\nThe game has lasted ";
 
         // if seconds are less or equal than 0
-        if (seconds <= 0) {
-            sentence += "zero or less seconds??";
-        }
+        if (seconds <= 0) sentence += "zero or less seconds??";
 
         // if seconds are less than 60
-        else if (seconds < 60) {
-            sentence += seconds + " seconds";
-        }
+        else if (seconds < 60) sentence += seconds + " seconds";
 
         // else, if seconds are 60
-        else if (seconds == 60) {
-            sentence += "1 minute";
-        }
+        else if (seconds == 60) sentence += "1 minute";
 
         // else, if the game took less than 1 hour
         else if (seconds < 3600) {
@@ -388,10 +381,10 @@ public class Game {
 
     // returns how many cards are left to take
     int howManyLeftToTake() {
-        int count = 0;
+        int count = 48;
         for (Card card : deck) {
-            // increment counter if card is not taken
-            if (!card.isTaken()) count++;
+            // decrement counter if card is taken
+            if (card.isTaken()) count--;
         }
         return count;
     }
@@ -401,18 +394,18 @@ public class Game {
         System.out.println("\"La Brisca\" CLI cards game - by @ericmp33 with <3, june 2021.");
     }
 
-    // validate the play and set who wins it and collects the play's cards
+    // validate the play and set who wins it and collects play's cards
     private void validateThePlay() {
-        // validate possible options and assign return to variable
+        // assign play winner to variable
         Player playWinner = validateThePlayWinner(thePlay.get(0), thePlay.get(1));
 
-        // the play's winner collects the cards
+        // play's winner collects the cards
         for (Card card : thePlay) {
             playWinner.getWonCards().add(card);
             card.setTakenBy(playWinner);
         }
 
-        // remove the cards from the play
+        // remove cards from the play
         this.thePlay.clear();
 
         // print who won the play
@@ -435,7 +428,6 @@ public class Game {
         String color;
         if (winner.isBot()) color = Color.ANSI_RED;
         else color = Color.ANSI_GREEN;
-
         return color + ">> " + winner.getName() + " won the play" + Color.ANSI_RESET;
     }
 
@@ -465,10 +457,10 @@ public class Game {
         }
     }
 
-    // return the position of the param card
-    public int posCard(Card c) {
+    // returns the position of the param card
+    public int posCard(Card card) {
         for (int i = 0; i < deck.size(); i++) {
-            if (c == deck.get(i)) return i;
+            if (card == deck.get(i)) return i;
         }
         return -1;
     }
@@ -483,10 +475,12 @@ public class Game {
         welcomeMessage();
 
         // ask if enable hacker mode
-        enableHacker();
+//        enableHacker(); // todo: uncomment and delete next lines to disable testing
+        this.hacker = true;
 
         // ask if enable AI bot mode
-        enableAIBot();
+//        enableAIBot(); // todo: uncomment and delete next lines to disable testing
+        this.ai = true;
 
         // choose who starts the game
         whoStarts();
@@ -510,7 +504,9 @@ public class Game {
         printGameTime();
 
         // ask if print cards final information
-        askPrintCardsInfo();
+//        askPrintCardsInfo(); // todo: uncomment and delete next lines to disable testing
+        System.out.println();
+        printAllCards();
 
         // print game's author
         printAuthor();

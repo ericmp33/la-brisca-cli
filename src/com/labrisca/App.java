@@ -21,4 +21,4 @@ public class App {
 
 // todo: nasa update fer threads? i anar mostrant info a dos terminals diferents? cartes del bot, o info de cartes
 
-// todo: preguntar huma contra huma, bot vs bot o bot vs huma?
+// todo: preguntar huma contra huma, bot vs bot o bot vs huma? problema - huma vs huma es veuen les cartes de laltre player
