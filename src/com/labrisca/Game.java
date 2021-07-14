@@ -1,5 +1,7 @@
 package com.labrisca;
 
+import com.labrisca.entities.Player;
+
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.time.Duration;
@@ -227,7 +229,7 @@ public class Game {
         }
     }
 
-    static String capitalizeStr(String s) {
+    public static String capitalizeStr(String s) {
         return s.substring(0, 1).toUpperCase() + s.substring(1);
     }
 
@@ -325,7 +327,7 @@ public class Game {
     }
 
     // returns latest card
-    Card latestCard() {
+    public Card latestCard() {
         for (Card card : deck) {
             if (card.isLatest()) return card;
         }
@@ -370,7 +372,7 @@ public class Game {
     }
 
     // returns true if deck has cards
-    boolean deckHasCards() {
+    public boolean deckHasCards() {
         for (Card card : deck) {
             // if card is not taken, deck still has cards
             if (!card.isTaken()) return true;
@@ -380,7 +382,7 @@ public class Game {
     }
 
     // returns how many cards are left to take
-    int howManyLeftToTake() {
+    public int howManyLeftToTake() {
         int count = 48;
         for (Card card : deck) {
             // decrement counter if card is taken
@@ -409,7 +411,7 @@ public class Game {
         this.thePlay.clear();
 
         // print who won the play
-        System.out.println("\n" + colorizeThePlayWinner(playWinner));
+        System.out.println("\n" + Color.colorizePlayWinner(playWinner));
 
         // well-print it
         if (round < 22) System.out.println();
@@ -421,14 +423,6 @@ public class Game {
             players.remove(1);
             players.add(0, temp);
         }
-    }
-
-    // returns green text if player is not bot, else red
-    private String colorizeThePlayWinner(Player winner) {
-        String color;
-        if (winner.isBot()) color = Color.ANSI_RED;
-        else color = Color.ANSI_GREEN;
-        return color + ">> " + winner.getName() + " won the play" + Color.ANSI_RESET;
     }
 
     // returns the player who thrown the play's winner card
@@ -475,12 +469,10 @@ public class Game {
         welcomeMessage();
 
         // ask if enable hacker mode
-//        enableHacker(); // todo: uncomment and delete next lines to disable testing
-        this.hacker = true;
+        enableHacker();
 
         // ask if enable AI bot mode
-//        enableAIBot(); // todo: uncomment and delete next lines to disable testing
-        this.ai = true;
+        enableAIBot();
 
         // choose who starts the game
         whoStarts();
@@ -504,8 +496,7 @@ public class Game {
         printGameTime();
 
         // ask if print cards final information
-//        askPrintCardsInfo(); // todo: uncomment and delete next lines to disable testing
-        System.out.println();
+        askPrintCardsInfo();
         printAllCards();
 
         // print game's author

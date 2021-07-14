@@ -1,5 +1,7 @@
 package com.labrisca;
 
+import com.labrisca.entities.Player;
+
 public class Card {
     // variables
     private final String name;

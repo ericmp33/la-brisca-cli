@@ -1,17 +1,19 @@
 package com.labrisca;
 
+import com.labrisca.entities.Player;
+
 public class AI {
     // variables
     private final Player bot;
     private final Game game;
 
     // constructor
-    AI(Player bot, Game game) {
+    public AI(Player bot, Game game) {
         this.bot = bot;
         this.game = game;
     }
 
-    Card throwCard() {
+    public Card throwCard() {
         // if the play is empty, throw first
         if (game.getThePlay().isEmpty()) {
             // throw lessValuableCard
@@ -24,7 +26,7 @@ public class AI {
         // if human's card is trump and points > 3 and if bot has trump and more valuable cards with same type
         if (hCard.isTrump() && hCard.getPoints() > 3 && hasTrumpCards() && hasMoreValuableCardsSameType(hCard)) {
             // win the play
-            return lessValuableCardWithTrump();
+            return lessValuableCardTrump();
         }
 
         // if human's card has points
@@ -38,7 +40,7 @@ public class AI {
             // if bot has trump cards
             if (hasTrumpCards()) {
                 // throw lessValuableCard
-                return lessValuableCardWithTrump();
+                return lessValuableCardTrump();
             }
         }
 
@@ -71,10 +73,8 @@ public class AI {
 
     // returns a card with the same type as the param
     private Card sameCardType(String type) {
-        for (Card carta : bot.getInHandCards()) {
-            if (type.equals(carta.getType())) {
-                return carta;
-            }
+        for (Card card : bot.getInHandCards()) {
+            if (type.equals(card.getType())) return card;
         }
         return lessValuableCard();
     }
@@ -102,7 +102,7 @@ public class AI {
             }
 
             // else
-            return lessValuableCardWithTrump();
+            return lessValuableCardTrump();
         }
 
         // if not, returns the less valuable card
@@ -118,7 +118,7 @@ public class AI {
     }
 
     // returns the less valuable card with trump
-    private Card lessValuableCardWithTrump() {
+    private Card lessValuableCardTrump() {
         Card lessValuable = trumpCard();
         for (Card card : bot.getInHandCards()) {
             if (lessValuable.getValue() > card.getValue() && card.isTrump()) {

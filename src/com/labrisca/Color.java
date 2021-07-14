@@ -1,5 +1,7 @@
 package com.labrisca;
 
+import com.labrisca.entities.Player;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Color {
@@ -42,7 +44,7 @@ public class Color {
         if (s.toLowerCase().contains("cup")) return Color.ANSI_RED + s + Color.ANSI_RESET;
         if (s.toLowerCase().contains("sword")) return Color.ANSI_BLUE + s + Color.ANSI_RESET;
         if (s.toLowerCase().contains("coin")) return Color.ANSI_YELLOW + s + Color.ANSI_RESET;
-        return "Unexpected error using colorizeType(String s)";
+        throw new IllegalStateException("Unexpected error using colorizeType(String s)");
     }
 
     // returns colorized card's num
@@ -56,7 +58,7 @@ public class Color {
         if (s.toLowerCase().contains("cup")) return aux(s, Color.ANSI_RED);
         if (s.toLowerCase().contains("sword")) return aux(s, Color.ANSI_BLUE);
         if (s.toLowerCase().contains("coin")) return aux(s, Color.ANSI_YELLOW);
-        return "unexpected error using colorizeName(String s)";
+        throw new IllegalStateException("Unexpected error using colorizeName(String s)");
     }
     private static String aux(String s, String color) {
         return color + s.substring(0, s.indexOf("'")) + Color.ANSI_RESET + s.substring(s.indexOf("'"));
@@ -68,7 +70,7 @@ public class Color {
         if (s.toLowerCase().contains("cup")) return auxPurple(s, Color.ANSI_RED);
         if (s.toLowerCase().contains("sword")) return auxPurple(s, Color.ANSI_BLUE);
         if (s.toLowerCase().contains("coin")) return auxPurple(s, Color.ANSI_YELLOW);
-        return "unexpected error using colorizeNamePurple(String s)";
+        throw new IllegalStateException("Unexpected error using colorizeNamePurple(String s)");
     }
     private static String auxPurple(String s, String color) {
         return color + s.substring(0, s.indexOf("'")) + Color.ANSI_PURPLE + s.substring(s.indexOf("'"));
@@ -80,5 +82,13 @@ public class Color {
         if (b) color = Color.ANSI_GREEN + true;
         else color = Color.ANSI_RED + false;
         return color + Color.ANSI_RESET;
+    }
+
+    // returns green text if player is not bot, else red
+    static String colorizePlayWinner(Player winner) {
+        String color;
+        if (winner.getName().equals("bot")) color = Color.ANSI_RED;
+        else color = Color.ANSI_GREEN;
+        return color + ">> " + winner.getName() + " won the play" + Color.ANSI_RESET;
     }
 }
