@@ -15,6 +15,4 @@ public class App {
     }
 }
 
-// todo longitud maxima de nom de lusuari a preguntar, 9 caracters, minima 2
-
 // todo: preguntar quin nom de cartes vol, catala o angles, canviar el constructor traduint a lidioma que vol lusuari?

@@ -1,9 +1,9 @@
 package com.labrisca.entities;
 
-import com.labrisca.AI;
 import com.labrisca.Card;
 import com.labrisca.Color;
 import com.labrisca.Game;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Bot extends Player {
@@ -79,7 +79,6 @@ public class Bot extends Player {
         System.out.println("\n[!] Bot thrown -> " + Color.colorizeName(card.getName()));
 
         // throw the card
-        card.setThrown(true);
         card.setThrownBy(this);
 
         // if the play is empty

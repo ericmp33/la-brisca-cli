@@ -110,19 +110,19 @@ public class Game {
 
     // ask if enable hacker mode
     private void enableHacker() {
-        System.out.println("[?] Choose gamemode: normal or hacker");
+        System.out.println("[?] Choose gamemode: default or hacker");
         while (true) {
             System.out.print("> ");
-            String s = sc.nextLine().trim().toLowerCase();
-            if (s.equalsIgnoreCase("normal")) {
-                System.out.println("Normal mode on!");
-                this.hacker = false;
+            String input = sc.nextLine().trim().toLowerCase();
+            if (input.equals("default")) {
+                System.out.println("Default mode on!");
+                hacker = false;
                 break;
-            } else if (s.equalsIgnoreCase("hacker")) {
+            } else if (input.equals("hacker")) {
                 System.out.println("Hacker mode on!");
                 System.out.print(Color.ANSI_PURPLE + "Purple " + Color.ANSI_RESET);
                 System.out.println("text = text you wouldn't see ;)");
-                this.hacker = true;
+                hacker = true;
                 break;
             }
             System.out.println("Input \"normal\" or \"hacker\"...");
@@ -132,17 +132,17 @@ public class Game {
 
     // ask if enable AI bot mode
     private void enableAIBot() {
-        System.out.println("[?] Do you want to make the bot smart?");
+        System.out.println("[?] Enable bot's AI?");
         while (true) {
             System.out.print("> ");
             String input = sc.nextLine().trim().toLowerCase();
-            if (input.equalsIgnoreCase("yes")) {
-                System.out.println("Lets see if you can win!");
-                this.ai = true;
+            if (input.equals("yes")) {
+                System.out.println("You'll lose :P!");
+                ai = true;
                 break;
-            } else if (input.equalsIgnoreCase("no")) {
+            } else if (input.equals("no")) {
                 System.out.println("Beep beep...");
-                this.ai = false;
+                ai = false;
                 break;
             }
             System.out.println("Input \"yes\" or \"no\"...");
@@ -152,7 +152,7 @@ public class Game {
 
     // ask if print cards final information
     private void askPrintCardsInfo() {
-        System.out.println("\n[?] Do you want to see the cards final information?");
+        System.out.println("\n[?] Check cards final information?");
         while (true) {
             System.out.print("> ");
             String input = sc.nextLine().trim().toLowerCase();
@@ -212,7 +212,7 @@ public class Game {
                 trump = card.getType();
 
                 System.out.println(capitalizeStr(Color.colorizeName(capitalizeStr(card.getName())) + " appeared"));
-                System.out.println("So.. trump is " + Color.colorizeType(trump) + "!");
+                System.out.println("So.. trump is " + Color.colorizeType(trump + "s") + "!");
                 break;
             }
         }
@@ -336,39 +336,13 @@ public class Game {
 
     // print how much the game took to finish
     private void printGameTime() {
-        // save how much the game took to finish
-        Duration gameTime = Duration.between(startTime, Instant.now());
-        int seconds = Integer.parseInt(String.valueOf(gameTime.toSeconds()));
-        String sentence = "\nThe game has lasted ";
-
-        // if seconds are less or equal than 0
-        if (seconds <= 0) sentence += "zero or less seconds??";
-
-        // if seconds are less than 60
-        else if (seconds < 60) sentence += seconds + " seconds";
-
-        // else, if seconds are 60
-        else if (seconds == 60) sentence += "1 minute";
-
-        // else, if the game took less than 1 hour
-        else if (seconds < 3600) {
-            int minutes = seconds / 60;
-            seconds %= 60;
-
-            // if else to well-print it
-            if (minutes == 1) sentence += "1 minute and " + seconds + " seconds";
-            else if (seconds == 1) sentence += minutes + " minutes and 1 second";
-            else if (seconds == 0) sentence += minutes + " minutes";
-            else sentence += minutes + " minutes and " + seconds + " seconds";
+        int sec = (int) Duration.between(startTime, Instant.now()).toSeconds();
+        int min = 0;
+        while (sec >= 60) {
+            sec -= 60;
+            min++;
         }
-
-        else {
-            sentence = sentence.substring(0, sentence.length() - 1);
-            sentence += "... something went wrong";
-        }
-
-        sentence += "!!";
-        System.out.println(sentence);
+        System.out.println("\nThe game lasted " + min + " min, " + sec + " sec!!");
     }
 
     // returns true if deck has cards
@@ -404,11 +378,11 @@ public class Game {
         // play's winner collects the cards
         for (Card card : thePlay) {
             playWinner.getWonCards().add(card);
-            card.setTakenBy(playWinner);
+            card.setSavedBy(playWinner);
         }
 
         // remove cards from the play
-        this.thePlay.clear();
+        thePlay.clear();
 
         // print who won the play
         System.out.println("\n" + Color.colorizePlayWinner(playWinner));
@@ -497,7 +471,6 @@ public class Game {
 
         // ask if print cards final information
         askPrintCardsInfo();
-        printAllCards();
 
         // print game's author
         printAuthor();

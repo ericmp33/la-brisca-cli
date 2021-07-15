@@ -9,12 +9,11 @@ public class Card {
     private final int num;
     private int value;
     private final int points;
-    private boolean thrown;
     private boolean taken;
     private boolean trump;
     private boolean latest;
     private Player thrownBy;
-    private Player takenBy;
+    private Player savedBy;
     private boolean thrownFirst;
 
     // getters
@@ -30,12 +29,11 @@ public class Card {
 
     // setters
     public void setValue(int value) { this.value = value; }
-    public void setThrown(boolean thrown) { this.thrown = thrown; }
     public void setTaken(boolean taken) { this.taken = taken; }
     public void setTrump(boolean trump) { this.trump = trump; }
     public void setLatest(boolean latest) { this.latest = latest; }
     public void setThrownBy(Player thrownBy) { this.thrownBy = thrownBy; }
-    public void setTakenBy(Player takenBy) { this.takenBy = takenBy; }
+    public void setSavedBy(Player savedBy) { this.savedBy = savedBy; }
     public void setThrownFirst(boolean thrownFirst) { this.thrownFirst = thrownFirst; }
 
     // constructor
@@ -45,29 +43,27 @@ public class Card {
         this.num = num;
         this.value = value;
         this.points = points;
-        this.thrown = false;
         this.taken = false;
         this.trump = false;
         this.latest = false;
         this.thrownBy = null;
-        this.takenBy = null;
+        this.savedBy = null;
         this.thrownFirst = false;
     }
 
     public void printAttributes() {
         System.out.printf(
-            "%-33s %-24s %-19s %-21s %-21s %-24s %-24s %-25s %-25s %-24s %-23s %-20s %n",
+            "%-33s %-24s %-19s %-21s %-21s %-24s %-25s %-25s %-24s %-23s %-20s %n",
             "{ name: " + Color.colorizeName(name),
             "type: " + Color.colorizeType(type),
             "num: " + Color.colorizeNum(num),
             "value: " + Color.colorizeNum(value),
             "points: " + Color.colorizeNum(points),
-            "thrown: " + Color.colorizeBool(thrown),
             "taken: " + Color.colorizeBool(taken),
             "trump: " + Color.colorizeBool(trump),
             "latest: " + Color.colorizeBool(latest),
             "thrownBy(): " + checkNull(thrownBy),
-            "takenBy(): " + checkNull(takenBy),
+            "savedBy(): " + checkNull(savedBy),
             "thrownFirst(): " + addFinalSpace(Color.colorizeBool(thrownFirst)) + " }"
         );
     }

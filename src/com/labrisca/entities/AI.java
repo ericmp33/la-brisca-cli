@@ -1,14 +1,15 @@
-package com.labrisca;
+package com.labrisca.entities;
 
-import com.labrisca.entities.Player;
+import com.labrisca.Card;
+import com.labrisca.Game;
 
 public class AI {
     // variables
-    private final Player bot;
+    private final Bot bot;
     private final Game game;
 
     // constructor
-    public AI(Player bot, Game game) {
+    public AI(Bot bot, Game game) {
         this.bot = bot;
         this.game = game;
     }

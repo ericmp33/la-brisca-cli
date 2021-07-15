@@ -87,7 +87,7 @@ public class Color {
     // returns green text if player is not bot, else red
     static String colorizePlayWinner(Player winner) {
         String color;
-        if (winner.getName().equals("bot")) color = Color.ANSI_RED;
+        if (winner.getName().equalsIgnoreCase("bot")) color = Color.ANSI_RED;
         else color = Color.ANSI_GREEN;
         return color + ">> " + winner.getName() + " won the play" + Color.ANSI_RESET;
     }

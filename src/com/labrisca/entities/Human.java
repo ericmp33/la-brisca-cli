@@ -88,7 +88,6 @@ public class Human extends Player {
         System.out.println("\n[!] " + getName() + " thrown -> " + Color.colorizeName(card.getName()));
 
         // throw the card
-        card.setThrown(true);
         card.setThrownBy(this);
 
         // if the play is empty

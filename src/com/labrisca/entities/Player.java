@@ -57,7 +57,7 @@ public class Player {
             Card oldLatest = game.latestCard();
             oldLatest.setLatest(false);
             oldLatest.setTaken(true);
-            oldLatest.setTakenBy(this);
+            oldLatest.setSavedBy(this);
 
             // and save it in the hand of the player
             inHandCards.add(oldLatest);
@@ -70,7 +70,7 @@ public class Player {
             Card newLatest = game.getDeck().get(game.posCard(player7Trump));
             newLatest.setLatest(true);
             newLatest.setTaken(false);
-            newLatest.setTakenBy(null);
+            newLatest.setSavedBy(null);
 
             System.out.println("\n[!] " + name + " changed latest card");
         }
