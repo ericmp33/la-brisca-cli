@@ -444,12 +444,10 @@ public class Game {
         welcomeMessage();
 
         // ask if enable hacker mode
-//        enableHacker();todo
-        hacker = true;
+        enableHacker();
 
         // ask if enable AI bot mode
-//        enableAIBot();todo
-        ai = true;
+        enableAIBot();
 
         // choose who starts the game
         whoStarts();
@@ -473,7 +471,7 @@ public class Game {
         printGameTime();
 
         // ask if print cards final information
-//        askPrintCardsInfo();todo
+        askPrintCardsInfo();
 
         // print game's author
         printAuthor();
