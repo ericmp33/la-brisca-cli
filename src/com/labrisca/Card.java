@@ -53,7 +53,7 @@ public class Card {
 
     public void printAttributes() {
         System.out.printf(
-            "%-33s %-24s %-19s %-21s %-21s %-24s %-25s %-25s %-24s %-23s %-20s %n",
+            "%-33s %-23s %-19s %-22s %-21s %-23s %-24s %-24s %-24s %-23s %-20s %n",
             "{ name: " + Color.name(name, false),
             "type: " + Color.type(type),
             "num: " + Color.num(num),
