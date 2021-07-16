@@ -52,7 +52,7 @@ public class Color {
         return Color.ANSI_BLUE + n + Color.ANSI_RESET;
     }
 
-    // returns colorized card's name and purple if "hacker" is true or not
+    // returns colorized card's name
     public static String name(String cardName, Boolean hacker) {
         String color;
         if (hacker) color = Color.ANSI_PURPLE;

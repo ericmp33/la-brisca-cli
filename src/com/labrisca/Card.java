@@ -13,7 +13,7 @@ public class Card {
     private boolean trump;
     private boolean latest;
     private Player thrownBy;
-    private Player savedBy;
+    private Player wonBy;
     private boolean thrownFirst;
 
     // getters
@@ -33,7 +33,7 @@ public class Card {
     public void setTrump(boolean trump) { this.trump = trump; }
     public void setLatest(boolean latest) { this.latest = latest; }
     public void setThrownBy(Player thrownBy) { this.thrownBy = thrownBy; }
-    public void setSavedBy(Player savedBy) { this.savedBy = savedBy; }
+    public void setWonBy(Player wonBy) { this.wonBy = wonBy; }
     public void setThrownFirst(boolean thrownFirst) { this.thrownFirst = thrownFirst; }
 
     // constructor
@@ -47,7 +47,7 @@ public class Card {
         this.trump = false;
         this.latest = false;
         this.thrownBy = null;
-        this.savedBy = null;
+        this.wonBy = null;
         this.thrownFirst = false;
     }
 
@@ -63,7 +63,7 @@ public class Card {
             "trump: " + Color.bool(trump),
             "latest: " + Color.bool(latest),
             "thrownBy(): " + checkNull(thrownBy),
-            "savedBy(): " + checkNull(savedBy),
+            "savedBy(): " + checkNull(wonBy),
             "thrownFirst(): " + addFinalSpace(Color.bool(thrownFirst)) + " }"
         );
     }

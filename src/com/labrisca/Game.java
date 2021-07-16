@@ -17,7 +17,7 @@ public class Game {
     private final Instant startTime;
     private int round;
     private boolean hacker; // if human player can see bot cards
-    private boolean ai; // if bot player is smart
+    private boolean ai; // if turn on AI's bot
     private static final Scanner sc = new Scanner(System.in);
 
     // getters
@@ -379,7 +379,7 @@ public class Game {
         // play's winner collects the cards
         for (Card card : thePlay) {
             playWinner.getWonCards().add(card);
-            card.setSavedBy(playWinner);
+            card.setWonBy(playWinner);
         }
 
         // remove cards from the play
