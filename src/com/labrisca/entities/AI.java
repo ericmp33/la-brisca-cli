@@ -49,12 +49,12 @@ public class AI {
         if (hCard.getPoints() == 0) {
             String type = hCard.getType();
             // find most valuable card with same type
-            Card mostValuable = mostValuableCardSameType(type);
+            Card mostVal = mostValuableCardSameType(type);
 
             // check if bot can kill and win points
             for (Card card : bot.getInHandCards()) {
                 // if cards have same type and if bot's card has points > 0 and if card is the most valuable
-                if (type.equals(card.getType()) && card.getPoints() > 0 && card == mostValuable) {
+                if (type.equals(card.getType()) && card.getPoints() > 0 && card == mostVal) {
                     // win the play
                     return card;
                 }
@@ -106,27 +106,27 @@ public class AI {
             return lessValuableCardTrump();
         }
 
-        // if not, returns the less valuable card
-        Card lessValuable = bot.getInHandCards().get(0);
+        // if not, returns less valuable card
+        Card lessVal = bot.getInHandCards().get(0);
         for (Card card : bot.getInHandCards()) {
             // if "lessValuable" card value is greater than "card" value
-            if (lessValuable.getValue() > card.getValue()) {
+            if (lessVal.getValue() > card.getValue()) {
                 // less valuable card is "card"
-                lessValuable = card;
+                lessVal = card;
             }
         }
-        return lessValuable;
+        return lessVal;
     }
 
     // returns the less valuable card with trump
     private Card lessValuableCardTrump() {
-        Card lessValuable = trumpCard();
+        Card lessVal = trumpCard();
         for (Card card : bot.getInHandCards()) {
-            if (lessValuable.getValue() > card.getValue() && card.isTrump()) {
-                lessValuable = card;
+            if (lessVal.getValue() > card.getValue() && card.isTrump()) {
+                lessVal = card;
             }
         }
-        return lessValuable;
+        return lessVal;
     }
 
     // returns most valuable card with same card type

@@ -17,28 +17,18 @@ public class Bot extends Player {
         // exit method if there is not cards in the deck
         if (!getGame().deckHasCards()) return;
 
-        // else
-        while (true) {
-            // randomly take a card
-            int rand = ThreadLocalRandom.current().nextInt(0, getGame().getDeck().size());
-            Card card = getGame().getDeck().get(rand);
+        // else, take a random card
+        Card card = randCard();
 
-            // if card hasn't been taken and isn't latest or is latest and how many cards are left to take is 1
-            if (!card.isTaken() && !card.isLatest() || card.isLatest() && getGame().howManyLeftToTake() == 1) {
-                // take it
-                card.setTaken(true);
-                getInHandCards().add(card);
+        card.setTaken(true);
+        getInHandCards().add(card);
 
-                // if hacker mode is enabled
-                if (getGame().isHacker()) {
-                    // print purple colorized taken card
-                    System.out.print(Color.ANSI_PURPLE);
-                    System.out.println(getName() + " took -> " + Color.colorizeNamePurple(card.getName()));
-                }
-
-                System.out.print(Color.ANSI_RESET);
-                break;
-            }
+        // if hacker mode is enabled
+        if (getGame().isHacker()) {
+            // print purple colorized taken card
+            System.out.print(Color.ANSI_PURPLE);
+            System.out.println(getName() + " took -> " + Color.name(card.getName(), true));
+            System.out.print(Color.ANSI_RESET);
         }
     }
 
@@ -46,13 +36,13 @@ public class Bot extends Player {
     public void printCardsInHand() {
         if (getGame().isHacker()) {
             System.out.print(Color.ANSI_PURPLE);
-
             System.out.println("\n[?] " + getName() + "'s turn. In-hand cards:");
+
             for (int i = 0; i < getInHandCards().size(); i++) {
                 String cardName = Game.capitalizeStr(getInHandCards().get(i).getName());
 
                 System.out.print(Color.ANSI_PURPLE);
-                System.out.print((i + 1) + ") " + Color.colorizeNamePurple(cardName));
+                System.out.print((i + 1) + ") " + Color.name(cardName, true));
                 System.out.println(Color.ANSI_RESET);
             }
         }
@@ -66,7 +56,7 @@ public class Bot extends Player {
         Card card;
         // if bot's AI is on
         if (getGame().isAi()) {
-            // change last card
+            // try to change last card
             changeLastCard();
 
             // assign AI thought of which card has to be thrown
@@ -76,19 +66,6 @@ public class Bot extends Player {
             card = getInHandCards().get(ThreadLocalRandom.current().nextInt(0, getInHandCards().size()));
         }
 
-        System.out.println("\n[!] Bot thrown -> " + Color.colorizeName(card.getName()));
-
-        // throw the card
-        card.setThrownBy(this);
-
-        // if the play is empty
-        if (getGame().getThePlay().isEmpty()) {
-            // card will be thrown first
-            card.setThrownFirst(true);
-        }
-
-        // put the card to the play
-        getInHandCards().remove(card);
-        getGame().getThePlay().add(card);
+        commonThrowCard(card);
     }
 }

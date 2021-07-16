@@ -54,17 +54,17 @@ public class Card {
     public void printAttributes() {
         System.out.printf(
             "%-33s %-24s %-19s %-21s %-21s %-24s %-25s %-25s %-24s %-23s %-20s %n",
-            "{ name: " + Color.colorizeName(name),
-            "type: " + Color.colorizeType(type),
-            "num: " + Color.colorizeNum(num),
-            "value: " + Color.colorizeNum(value),
-            "points: " + Color.colorizeNum(points),
-            "taken: " + Color.colorizeBool(taken),
-            "trump: " + Color.colorizeBool(trump),
-            "latest: " + Color.colorizeBool(latest),
+            "{ name: " + Color.name(name, false),
+            "type: " + Color.type(type),
+            "num: " + Color.num(num),
+            "value: " + Color.num(value),
+            "points: " + Color.num(points),
+            "taken: " + Color.bool(taken),
+            "trump: " + Color.bool(trump),
+            "latest: " + Color.bool(latest),
             "thrownBy(): " + checkNull(thrownBy),
             "savedBy(): " + checkNull(savedBy),
-            "thrownFirst(): " + addFinalSpace(Color.colorizeBool(thrownFirst)) + " }"
+            "thrownFirst(): " + addFinalSpace(Color.bool(thrownFirst)) + " }"
         );
     }
 

@@ -1,10 +1,12 @@
 package com.labrisca.entities;
 
 import com.labrisca.Card;
+import com.labrisca.Color;
 import com.labrisca.Game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Player {
     // variables
@@ -27,6 +29,20 @@ public class Player {
         this.game = game;
     }
 
+    // returns a not-taken random card
+    Card randCard() {
+        while (true) {
+            // randomly take a card
+            int rand = ThreadLocalRandom.current().nextInt(0, getGame().getDeck().size());
+            Card card = getGame().getDeck().get(rand);
+
+            // if card hasn't been taken and isn't latest or is latest and how many cards are left to take is 1
+            if (!card.isTaken() && !card.isLatest() || card.isLatest() && getGame().howManyLeftToTake() == 1) {
+                return card;
+            }
+        }
+    }
+
     // take a card
     public void takeCard() {
         // method overridden in Bot and Human classes
@@ -40,6 +56,21 @@ public class Player {
     // throw a card
     public void throwCard() {
         // method overridden in Bot and Human classes
+    }
+
+    // common code for bot and human
+    void commonThrowCard(Card card) {
+        System.out.println("\n[!] " + getName() + " thrown -> " + Color.name(card.getName(), false));
+
+        // throw the card
+        card.setThrownBy(this);
+
+        // if the play is empty
+        if (getGame().getThePlay().isEmpty()) card.setThrownFirst(true);
+
+        // put the card to the play
+        getInHandCards().remove(card);
+        getGame().getThePlay().add(card);
     }
 
     // returns the total obtained points

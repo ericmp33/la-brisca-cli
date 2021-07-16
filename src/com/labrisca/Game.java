@@ -211,8 +211,8 @@ public class Game {
                 // set game's trump
                 trump = card.getType();
 
-                System.out.println(capitalizeStr(Color.colorizeName(capitalizeStr(card.getName())) + " appeared"));
-                System.out.println("So.. trump is " + Color.colorizeType(trump + "s") + "!");
+                System.out.println(Color.name(capitalizeStr(card.getName()), false) + " appeared");
+                System.out.println("So.. trump is " + Color.type(trump + "s") + "!");
                 break;
             }
         }
@@ -245,9 +245,10 @@ public class Game {
 
         round = 0;
         while (true) {
-            System.out.println("-----------------------------------------------");
             round++;
-            System.out.println("Round " + round + " (trump -> " + Color.colorizeName(latestCard().getName()) + ")");
+            System.out.println("-----------------------------------------------");
+            System.out.print("Round " + round);
+            System.out.println(" (trump -> " + Color.name(latestCard().getName(), false) + ")");
 
             // for each player, throw a card
             for (Player p : players) p.throwCard();
@@ -385,7 +386,7 @@ public class Game {
         thePlay.clear();
 
         // print who won the play
-        System.out.println("\n" + Color.colorizePlayWinner(playWinner));
+        System.out.println("\n" + Color.playWinner(playWinner));
 
         // well-print it
         if (round < 22) System.out.println();

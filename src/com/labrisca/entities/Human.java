@@ -4,8 +4,6 @@ import com.labrisca.Card;
 import com.labrisca.Color;
 import com.labrisca.Game;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 public class Human extends Player {
     // constructor
     public Human(String name, Game game) {
@@ -17,31 +15,22 @@ public class Human extends Player {
         // exit method if there is not cards in the deck
         if (!getGame().deckHasCards()) return;
 
-        // else
-        while (true) {
-            // randomly take a card
-            int rand = ThreadLocalRandom.current().nextInt(0, getGame().getDeck().size());
-            Card card = getGame().getDeck().get(rand);
+        // else, take a random card
+        Card card = randCard();
 
-            // if card hasn't been taken and isn't latest or is latest and how many cards are left to take is 1
-            if (!card.isTaken() && !card.isLatest() || card.isLatest() && getGame().howManyLeftToTake() == 1) {
-                // take it
-                card.setTaken(true);
-                getInHandCards().add(card);
+        card.setTaken(true);
+        getInHandCards().add(card);
 
-                System.out.println(getName() + " took -> " + Color.colorizeName(card.getName()));
-                break;
-            }
-        }
+        System.out.println(getName() + " took -> " + Color.name(card.getName(), false));
     }
 
     @Override
     public void printCardsInHand() {
         System.out.println("\n[?] " + getName() + "'s turn. In-hand cards:");
+
         for (int i = 0; i < getInHandCards().size(); i++) {
             String cardName = Game.capitalizeStr(getInHandCards().get(i).getName());
-
-            System.out.println((i + 1) + ") " + Color.colorizeName(cardName));
+            System.out.println((i + 1) + ") " + Color.name(cardName, false));
         }
     }
 
@@ -82,19 +71,9 @@ public class Human extends Player {
             }
         }
 
-
         // assign user's card choice to the card will be thrown
         Card card = getInHandCards().get(Integer.parseInt(input) - 1);
-        System.out.println("\n[!] " + getName() + " thrown -> " + Color.colorizeName(card.getName()));
 
-        // throw the card
-        card.setThrownBy(this);
-
-        // if the play is empty
-        if (getGame().getThePlay().isEmpty()) card.setThrownFirst(true);
-
-        // put the card to the play
-        getInHandCards().remove(card);
-        getGame().getThePlay().add(card);
+        commonThrowCard(card);
     }
 }
