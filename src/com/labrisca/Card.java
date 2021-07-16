@@ -51,6 +51,11 @@ public class Card {
         this.thrownFirst = false;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
     public void printAttributes() {
         System.out.printf(
             "%-33s %-23s %-19s %-22s %-21s %-23s %-24s %-24s %-24s %-23s %-20s %n",

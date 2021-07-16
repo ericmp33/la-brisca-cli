@@ -34,7 +34,7 @@ public class Game {
         deck = List.of(
                 new Card("club's ace", "club", 1, 12, 11),
                 new Card("club's two", "club", 2, 1, 0),
-                new Card("club's trey", "club", 3, 11, 10),
+                new Card("club's three", "club", 3, 11, 10),
                 new Card("club's four", "club", 4, 2, 0),
                 new Card("club's five", "club", 5, 3, 0),
                 new Card("club's six", "club", 6, 4, 0),
@@ -47,7 +47,7 @@ public class Game {
 
                 new Card("cup's ace", "cup", 1, 12, 11),
                 new Card("cup's two", "cup", 2, 1, 0),
-                new Card("cup's trey", "cup", 3, 11, 10),
+                new Card("cup's three", "cup", 3, 11, 10),
                 new Card("cup's four", "cup", 4, 2, 0),
                 new Card("cup's five", "cup", 5, 3, 0),
                 new Card("cup's six", "cup", 6, 4, 0),
@@ -60,7 +60,7 @@ public class Game {
 
                 new Card("sword's ace", "sword", 1, 12, 11),
                 new Card("sword's two", "sword", 2, 1, 0),
-                new Card("sword's trey", "sword", 3, 11, 10),
+                new Card("sword's three", "sword", 3, 11, 10),
                 new Card("sword's four", "sword", 4, 2, 0),
                 new Card("sword's five", "sword", 5, 3, 0),
                 new Card("sword's six", "sword", 6, 4, 0),
@@ -73,7 +73,7 @@ public class Game {
 
                 new Card("coin's ace", "coin", 1, 12, 11),
                 new Card("coin's two", "coin", 2, 1, 0),
-                new Card("coin's trey", "coin", 3, 11, 10),
+                new Card("coin's three", "coin", 3, 11, 10),
                 new Card("coin's four", "coin", 4, 2, 0),
                 new Card("coin's five", "coin", 5, 3, 0),
                 new Card("coin's six", "coin", 6, 4, 0),
@@ -444,10 +444,12 @@ public class Game {
         welcomeMessage();
 
         // ask if enable hacker mode
-        enableHacker();
+//        enableHacker();todo
+        hacker = true;
 
         // ask if enable AI bot mode
-        enableAIBot();
+//        enableAIBot();todo
+        ai = true;
 
         // choose who starts the game
         whoStarts();
@@ -471,7 +473,7 @@ public class Game {
         printGameTime();
 
         // ask if print cards final information
-        askPrintCardsInfo();
+//        askPrintCardsInfo();todo
 
         // print game's author
         printAuthor();

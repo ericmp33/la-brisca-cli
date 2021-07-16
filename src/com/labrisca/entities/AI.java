@@ -24,10 +24,16 @@ public class AI {
         // else, will throw after human player, save human's thrown card
         Card hCard = game.getThePlay().get(0);
 
-        // if human's card is trump and points > 3 and if bot has trump and more valuable cards with same type
-        if (hCard.isTrump() && hCard.getPoints() > 3 && hasTrumpCards() && hasMoreValuableCardsSameType(hCard)) {
-            // win the play
-            return lessValuableCardTrump();
+        // if human's card is trump
+        if (hCard.isTrump()) {
+            // if points > 3 and if bot has trump and more valuable cards with same type
+            if (hCard.getPoints() > 3 && hasTrumpCards() && hasMoreValuableCardsSameType(hCard)) {
+                // win the play
+                return lessValuableCardTrump();
+            }
+
+            // else, throw lessValuableCard
+            return lessValuableCard();
         }
 
         // if human's card has points
@@ -54,7 +60,7 @@ public class AI {
             // check if bot can win the play
             for (Card card : bot.getInHandCards()) {
                 // if cards have same type and if bot's card has points > 0 and if card is the most valuable
-                if (type.equals(card.getType()) && card.getPoints() > 0 && card == mostVal) {
+                if (type.equals(card.getType()) && card.getPoints() > 0 && card.equals(mostVal)) {
                     // win the play
                     return card;
                 }

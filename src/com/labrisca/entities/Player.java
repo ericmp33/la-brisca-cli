@@ -29,6 +29,11 @@ public class Player {
         this.game = game;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
     // returns a not-taken random card
     Card randCard() {
         while (true) {
