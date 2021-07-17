@@ -1,8 +1,8 @@
-package com.labrisca.entities;
+package catalan.entities;
 
-import com.labrisca.Card;
-import com.labrisca.Color;
-import com.labrisca.Game;
+import catalan.Card;
+import catalan.Color;
+import catalan.Game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +65,7 @@ public class Player {
 
     // common code for bot and human
     void commonThrowCard(Card card) {
-        System.out.println("\n[!] " + name + " thrown -> " + Color.name(card.getName(), false));
+        System.out.println("\n[!] El jugador " + name + " ha tirat -> " + Color.acolorirNom((card.getName())));
 
         // throw the card
         card.setThrownBy(this);
@@ -108,7 +108,7 @@ public class Player {
             newLatest.setTaken(false);
             newLatest.setWonBy(null);
 
-            System.out.println("\n[!] " + name + " changed latest card");
+            System.out.println("El jugador " + name + " ha canviat l'última carta");
         }
     }
 

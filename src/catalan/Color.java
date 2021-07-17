@@ -1,6 +1,6 @@
-package com.labrisca;
+package catalan;
 
-import com.labrisca.entities.Player;
+import catalan.entities.Player;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -40,10 +40,10 @@ public class Color {
 
     // returns colorized card's type
     static String type(String s) {
-        if (s.toLowerCase().contains("club")) return Color.ANSI_GREEN + s + Color.ANSI_RESET;
-        if (s.toLowerCase().contains("cup")) return Color.ANSI_RED + s + Color.ANSI_RESET;
-        if (s.toLowerCase().contains("sword")) return Color.ANSI_BLUE + s + Color.ANSI_RESET;
-        if (s.toLowerCase().contains("coin")) return Color.ANSI_YELLOW + s + Color.ANSI_RESET;
+        if (s.toLowerCase().contains("bast")) return Color.ANSI_GREEN + s + Color.ANSI_RESET;
+        if (s.toLowerCase().contains("cop")) return Color.ANSI_RED + s + Color.ANSI_RESET;
+        if (s.toLowerCase().contains("espas")) return Color.ANSI_BLUE + s + Color.ANSI_RESET;
+        if (s.toLowerCase().contains("or")) return Color.ANSI_YELLOW + s + Color.ANSI_RESET;
         throw new IllegalStateException("Unexpected error using Color.type(String s)");
     }
 
@@ -52,21 +52,14 @@ public class Color {
         return Color.ANSI_BLUE + n + Color.ANSI_RESET;
     }
 
-    // returns colorized card's name
-    public static String name(String cardName, Boolean hacker) {
-        String color;
-        if (hacker) color = Color.ANSI_PURPLE;
-        else color = Color.ANSI_RESET;
-
-        String subStr0 =  cardName.substring(0, cardName.indexOf("'"));
-        String subStr1 = cardName.substring(cardName.indexOf("'"));
-
-        if (cardName.toLowerCase().contains("club")) return Color.ANSI_GREEN + subStr0 + color + subStr1;
-        if (cardName.toLowerCase().contains("cup")) return Color.ANSI_RED + subStr0 + color + subStr1;
-        if (cardName.toLowerCase().contains("sword")) return Color.ANSI_BLUE + subStr0 + color + subStr1;
-        if (cardName.toLowerCase().contains("coin")) return Color.ANSI_YELLOW + subStr0 + color + subStr1;
-
-        throw new IllegalStateException("Unexpected error using Color.name(String s)");
+    public static String acolorirNom(String s) {
+        if (s.contains("bast")) return aux(s, "basto", Color.ANSI_GREEN);
+        else if (s.contains("cop")) return aux(s, "copa", Color.ANSI_RED);
+        else if (s.contains("espa")) return aux(s, "espasa", Color.ANSI_BLUE);
+        else return aux(s, "or", Color.ANSI_YELLOW);
+    }
+    private static String aux(String s, String target, String tipus) {
+        return s.substring(0, s.indexOf(target)) + tipus + s.substring(s.indexOf(target)) + Color.ANSI_RESET;
     }
 
     // returns colorized card's boolean
@@ -80,6 +73,6 @@ public class Color {
         String color;
         if (winner.getName().equalsIgnoreCase("bot")) color = Color.ANSI_RED;
         else color = Color.ANSI_GREEN;
-        return color + ">> " + winner.getName() + " won the play" + Color.ANSI_RESET;
+        return color + ">> El jugador " + winner.getName() + " ha guanyat la jugada" + Color.ANSI_RESET;
     }
 }
