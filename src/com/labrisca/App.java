@@ -6,12 +6,12 @@ import com.labrisca.entities.Player;
 
 public class App {
     public static void main(String[] args) {
-        System.out.println("Choose language: Català or English");
+        System.out.println("Choose language: Catalan or English");
         while (true) {
             System.out.print("> ");
             String input = Game.getSc().nextLine().trim().toLowerCase();
 
-            if (input.equals("català")) {
+            if (input.equals("catalan")) {
                 System.out.println();
 
                 // initialize game, players and run game
@@ -35,7 +35,7 @@ public class App {
                 break;
             }
 
-            System.out.println("Type \"català\" or \"english\"");
+            System.out.println("Type \"catalan\" or \"english\"");
         }
     }
 }
