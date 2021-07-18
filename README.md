@@ -1,5 +1,5 @@
 # la-brisca-cli🕹️🖥️👨‍💻
-This is a simulation of the classic game of "La Brisca" in command line interface, programmed with Java. Made by @ericmp33 with <3 (catalan version). ✔️
+This is a simulation of the classic game of "La Brisca" in command line interface, programmed with Java (build 14.0.2+12). Made by @ericmp33 with <3. ✔️
 
 # What is "La Brisca"?💡
 "La Brisca" is a popular cards game in a lot of mediterranean countries, such as Catalonia, Italy, France, Portugal, Croatia, Slovakia... Also is present in center and south America.
