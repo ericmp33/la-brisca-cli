@@ -18,10 +18,10 @@ This is a simulation of the classic game of "La Brisca" in command line interfac
 - When the game starts you'll be asked about 2 things. The gamemode and the bot's AI.
 
 Gamemode:
-> If u choose the default gamemode, you won't be able to see the cards of the bot. Is called, default because playing this game in real life you can't see oponents cards.
+> If u choose the default gamemode, you won't be able to see the cards of the bot. It's called default because in real life default's game mode you can't see oponents cards.
 
 > Otherwise, if u choose the "hacker" mode you'll be able to see bot's in-hand cards and other information👀.
 
 Bot's AI:
 
-> As you are thinking, yes, if you enable it bot will be able to throw the cards "thinking" properly🧠. Otherwise will throw a random card🤖🤪.
+> If you enable it bot will be able to throw the cards "thinking" properly🧠. Otherwise will throw a random card🤖🤪.
