@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Player {
+public abstract class Player {
     // variables
     private final String name;
     private final List<Card> inHandCards;
@@ -22,7 +22,7 @@ public class Player {
     public Game getGame() { return game; }
 
     // constructor
-    public Player(String name, Game game) {
+    protected Player(String name, Game game) {
         this.name = name;
         this.inHandCards = new ArrayList<>();
         this.wonCards = new ArrayList<>();
@@ -49,19 +49,13 @@ public class Player {
     }
 
     // take a card
-    public void takeCard() {
-        // method overridden in Bot and Human classes
-    }
+    public abstract void takeCard();
 
     // print available in-hand cards to be thrown
-    public void printCardsInHand() {
-        // method overridden in Bot and Human classes
-    }
+    public abstract void printCardsInHand();
 
     // throw a card
-    public void throwCard() {
-        // method overridden in Bot and Human classes
-    }
+    public abstract void throwCard();
 
     // common code for bot and human
     void commonThrowCard(Card card) {

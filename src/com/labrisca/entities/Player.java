@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Player {
+public abstract class Player {
     // variables
     private final String name;
     private final List<Card> inHandCards;
@@ -22,7 +22,7 @@ public class Player {
     public Game getGame() { return game; }
 
     // constructor
-    public Player(String name, Game game) {
+    protected Player(String name, Game game) {
         this.name = name;
         this.inHandCards = new ArrayList<>();
         this.wonCards = new ArrayList<>();
@@ -49,19 +49,13 @@ public class Player {
     }
 
     // take a card
-    public void takeCard() {
-        // method overridden in Bot and Human classes
-    }
+    public abstract void takeCard();
 
     // print available in-hand cards to be thrown
-    public void printCardsInHand() {
-        // method overridden in Bot and Human classes
-    }
+    public abstract void printCardsInHand();
 
     // throw a card
-    public void throwCard() {
-        // method overridden in Bot and Human classes
-    }
+    public abstract void throwCard();
 
     // common code for bot and human
     void commonThrowCard(Card card) {
@@ -87,7 +81,7 @@ public class Player {
 
     // changes the last card for 7 of trump
     void changeLastCard() {
-        // if can, change it
+        // if it can, change it
         if (canChangeLastCard()) {
             // unset the latest card
             Card oldLatest = game.latestCard();
@@ -112,7 +106,7 @@ public class Player {
         }
     }
 
-    // returns if player can change latest card
+    // returns if player can change the latest card
     boolean canChangeLastCard() {
         // true if player has 7 of trump and its value is less than latest and round is less than 21
         return has7Trump() && sevenTrump().getValue() < game.latestCard().getValue() && game.getRound() < 21;
