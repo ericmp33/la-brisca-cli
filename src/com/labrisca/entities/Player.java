@@ -108,7 +108,7 @@ public abstract class Player {
 
     // returns if player can change the latest card
     boolean canChangeLastCard() {
-        // true if player has 7 of trump and its value is less than latest and round is less than 21
+        // true if player has 7 of trump, its value is less than latest and round is less than 21
         return has7Trump() && sevenTrump().getValue() < game.latestCard().getValue() && game.getRound() < 21;
     }
 

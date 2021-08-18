@@ -370,7 +370,7 @@ public class Game {
 
     // print game's author
     public void printAuthor() {
-        System.out.println("El joc de la Brisca per entorn de comandes - per @ericmp33 amb <3, juny 2021.");
+        System.out.println("El joc de la Brisca per entorn de comandes - @ericmp33, juny 2021.");
     }
 
     // validate the play and set who wins it and collects play's cards

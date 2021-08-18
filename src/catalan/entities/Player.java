@@ -102,13 +102,13 @@ public abstract class Player {
             newLatest.setTaken(false);
             newLatest.setWonBy(null);
 
-            System.out.println("El jugador " + name + " ha canviat l'última carta");
+            System.out.println("\n[!] El jugador " + name + " ha canviat l'última carta");
         }
     }
 
     // returns if player can change latest card
     boolean canChangeLastCard() {
-        // true if player has 7 of trump and its value is less than latest and round is less than 21
+        // true if player has 7 of trump, its value is less than latest and round is less than 21
         return has7Trump() && sevenTrump().getValue() < game.latestCard().getValue() && game.getRound() < 21;
     }
 
