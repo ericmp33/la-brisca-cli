@@ -12,7 +12,7 @@ public class Human extends Player {
 
     @Override
     public void takeCard() {
-        // exit method if there is not cards in the deck
+        // exit method if there aren't cards in the deck
         if (!getGame().deckHasCards()) return;
 
         // else, take a random card
@@ -52,8 +52,7 @@ public class Human extends Player {
                 printCardsInHand();
             } else if (input.equals("7") && !canChangeLastCard()) {
                 System.out.println("No pots canviar l'última carta...");
-            }
-            else {
+            } else {
                 switch (getInHandCards().size()) {
                     case 3:
                         if (input.equals("1") || input.equals("2") || input.equals("3")) break label;
@@ -71,9 +70,7 @@ public class Human extends Player {
             }
         }
 
-        // assign user's card choice to the card will be thrown
-        Card card = getInHandCards().get(Integer.parseInt(input) - 1);
-
-        commonThrowCard(card);
+        // call common method used by Human and Bot classes with the user's chosen card
+        commonThrowCard(getInHandCards().get(Integer.parseInt(input) - 1));
     }
 }
