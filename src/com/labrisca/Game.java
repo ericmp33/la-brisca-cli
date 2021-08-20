@@ -16,7 +16,7 @@ public class Game {
     private final List<Player> players;
     private final Instant startTime;
     private int round;
-    private boolean hacker; // if human player can see bot cards
+    private String gameMode;
     private boolean ai; // if turn on AI's bot
     private static final Scanner SC = new Scanner(System.in);
 
@@ -24,7 +24,7 @@ public class Game {
     public List<Card> getDeck() { return deck; }
     public List<Card> getThePlay() { return thePlay; }
     public int getRound() { return round; }
-    public boolean isHacker() { return hacker; }
+    public String getGameMode() { return gameMode; }
     public boolean isAi() { return ai; }
     public static Scanner getSc() { return SC; }
 
@@ -93,36 +93,34 @@ public class Game {
         startTime = Instant.now();
     }
 
-    // input a player to the game
-    private void inputPlayer(Player p) {
+    // add a player to the game
+    private void addPlayer(Player p) {
         players.add(p);
     }
 
     // welcome message
     public void welcomeMessage() {
         System.out.println("Welcome to \"La Brisca\" CLI cards game");
-        System.out.println("Made by @ericmp33 with <3, june 2021");
-        System.out.println("Shuffling cards...");
-        System.out.println("Cards shuffled! Let the game begin!");
-        System.out.println("Change the latest card inputting \"7\"");
-        System.out.println();
+        System.out.println("Made by @ericmp33, june 2021");
+        System.out.println("Let the game begin!");
+        System.out.println("Change the latest card inputting \"7\"\n");
     }
 
     // ask if enable hacker mode
-    private void enableHacker() {
+    private void setGameMode() {
         System.out.println("[?] Choose gamemode: default or hacker");
         while (true) {
             System.out.print("> ");
             String input = SC.nextLine().trim().toLowerCase();
             if (input.equals("default")) {
                 System.out.println("Default mode on!");
-                hacker = false;
+                gameMode = "default";
                 break;
             } else if (input.equals("hacker")) {
                 System.out.println("Hacker mode on!");
                 System.out.print(Color.ANSI_PURPLE + "Purple " + Color.ANSI_RESET);
                 System.out.println("text = text you wouldn't see ;)");
-                hacker = true;
+                gameMode = "hacker";
                 break;
             }
             System.out.println("Input \"default\" or \"hacker\"...");
@@ -188,11 +186,11 @@ public class Game {
             for (int i = 0; i < 3; i++) p.takeCard();
 
             // if hacker mode is on, make a print (more friendly look)
-            if (hacker) System.out.println();
+            if (gameMode.equals("hacker")) System.out.println();
         }
 
         // else, wait till it finishes iteration and print it now
-        if (!hacker) System.out.println();
+        if (!gameMode.equals("hacker")) System.out.println();
     }
 
     // set trump
@@ -263,7 +261,7 @@ public class Game {
             for (Player p : players) p.takeCard();
 
             // and if hacker mode is on
-            if (hacker) {
+            if (gameMode.equals("hacker")) {
                 // for each player, print obtained points and cards won
                 System.out.print("\n" + Color.ANSI_PURPLE);
                 for (Player p : players) System.out.println(p.getName() + "'s points: " + p.getPoints());
@@ -436,15 +434,15 @@ public class Game {
 
     // principal method to run the game
     public void run(Player human, Player bot) {
-        // input players into game
-        inputPlayer(human);
-        inputPlayer(bot);
+        // add players into game
+        addPlayer(human);
+        addPlayer(bot);
 
         // welcome message
         welcomeMessage();
 
-        // ask if enable hacker mode
-        enableHacker();
+        // set the game mode
+        setGameMode();
 
         // ask if enable AI bot mode
         enableAIBot();

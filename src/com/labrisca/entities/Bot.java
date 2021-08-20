@@ -14,7 +14,7 @@ public class Bot extends Player {
 
     @Override
     public void takeCard() {
-        // exit method if there is not cards in the deck
+        // exit method if there aren't cards in the deck
         if (!getGame().deckHasCards()) return;
 
         // else, take a random card
@@ -24,7 +24,7 @@ public class Bot extends Player {
         getInHandCards().add(card);
 
         // if hacker mode is enabled
-        if (getGame().isHacker()) {
+        if (getGame().getGameMode().equals("hacker")) {
             // print purple colorized taken card
             System.out.print(Color.ANSI_PURPLE);
             System.out.println(getName() + " took -> " + Color.name(card.getName(), true));
@@ -34,7 +34,7 @@ public class Bot extends Player {
 
     @Override
     public void printCardsInHand() {
-        if (getGame().isHacker()) {
+        if (getGame().getGameMode().equals("hacker")) {
             System.out.print(Color.ANSI_PURPLE);
             System.out.println("\n[?] " + getName() + "'s turn. In-hand cards:");
 
@@ -51,7 +51,7 @@ public class Bot extends Player {
     @Override
     public void throwCard() {
         // if game is hacker show bot's in-hand cards
-        if (getGame().isHacker()) printCardsInHand();
+        if (getGame().getGameMode().equals("hacker")) printCardsInHand();
 
         Card card;
         // if bot's AI is on
