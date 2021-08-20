@@ -18,7 +18,7 @@ public class Game {
     private int round;
     private boolean hacker; // if human player can see bot cards
     private boolean ai; // if turn on AI's bot
-    private static final Scanner sc = new Scanner(System.in);
+    private static final Scanner SC = new Scanner(System.in);
 
     // getters
     public List<Card> getDeck() { return deck; }
@@ -26,7 +26,7 @@ public class Game {
     public int getRound() { return round; }
     public boolean isHacker() { return hacker; }
     public boolean isAi() { return ai; }
-    public static Scanner getSc() { return sc; }
+    public static Scanner getSc() { return SC; }
 
     // constructor
     public Game() {
@@ -113,7 +113,7 @@ public class Game {
         System.out.println("[?] Tria mode de joc: normal o hacker");
         while (true) {
             System.out.print("> ");
-            String input = sc.nextLine().trim().toLowerCase();
+            String input = SC.nextLine().trim().toLowerCase();
             if (input.equals("normal")) {
                 System.out.println("Mode normal activat!");
                 hacker = false;
@@ -135,7 +135,7 @@ public class Game {
         System.out.println("[?] Fer que el bot sigui intel·ligent?");
         while (true) {
             System.out.print("> ");
-            String input = sc.nextLine().trim().toLowerCase();
+            String input = SC.nextLine().trim().toLowerCase();
             if (input.equals("si")) {
                 System.out.println("Perdràs :P!");
                 ai = true;
@@ -155,7 +155,7 @@ public class Game {
         System.out.println("\n[?] Veure informació final de les cartes?");
         while (true) {
             System.out.print("> ");
-            String input = sc.nextLine().trim().toLowerCase();
+            String input = SC.nextLine().trim().toLowerCase();
             if (input.equals("si")) {
                 System.out.println();
                 printAllCards();
