@@ -96,7 +96,7 @@ public class Game {
     public void welcomePrint() {
         System.out.println("Benvingut al joc de cartes de La Brisca");
         System.out.println("Fet per @ericmp33, juny 2021");
-        System.out.println("Que començi el joc!");
+        System.out.println("Que comenci el joc!");
         System.out.println("Canvia l'última carta introduïnt \"7\"\n");
     }
 
