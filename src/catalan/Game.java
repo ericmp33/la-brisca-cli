@@ -285,6 +285,7 @@ public class Game {
                 winner = p;
             } else if (maxPoints == temp) {
                 draw = true;
+                winner = null;
                 break;
             }
         }
@@ -293,10 +294,7 @@ public class Game {
         String s;
 
         if (draw) s = "Empat! Els dos jugadors han fet 60 pedres!";
-        else {
-            winner.setWinner(true);
-            s = "El jugador " + winner.getName() + " ha guanyat la partida!!! Ha fet " + winner.getPoints() + " pedres!";
-        }
+        else s = "El jugador " + winner.getName() + " ha guanyat la partida!!! Ha fet " + winner.getPoints() + " pedres!";
 
         System.out.println(Color.colorizeRand(ln) + "\n" + centerStr(ln.length(), s) + "\n" + Color.colorizeRand(ln));
     }

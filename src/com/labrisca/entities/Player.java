@@ -13,17 +13,12 @@ public abstract class Player {
     private final List<Card> inHandCards;
     private final List<Card> wonCards;
     private final Game game;
-    private boolean winner;
 
     // getters
     public String getName() { return name; }
     public List<Card> getInHandCards() { return inHandCards; }
     public List<Card> getWonCards() { return wonCards; }
     public Game getGame() { return game; }
-    public boolean isWinner() { return winner; }
-
-    // setters
-    public void setWinner(boolean winner) { this.winner = winner; }
 
     // constructor
     protected Player(String name, Game game) {
@@ -31,7 +26,6 @@ public abstract class Player {
         this.inHandCards = new ArrayList<>();
         this.wonCards = new ArrayList<>();
         this.game = game;
-        this.winner = false;
     }
 
     // returns the card on top of the deck card
@@ -52,7 +46,6 @@ public abstract class Player {
 
     // common code for bot and human
     void commonThrowCard(Card card, int round) {
-
         System.out.println("\n[!] " + name + " thrown -> " + Color.name(card.getName(), false));
 
         // throw the card

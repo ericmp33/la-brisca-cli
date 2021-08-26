@@ -284,6 +284,7 @@ public class Game {
                 winner = p;
             } else if (maxPoints == temp) {
                 draw = true;
+                winner = null;
                 break;
             }
         }
@@ -292,10 +293,7 @@ public class Game {
         String s;
 
         if (draw) s = "Draw! Both players got 60 points!";
-        else {
-            winner.setWinner(true);
-            s = winner.getName() + " won the game with " + winner.getPoints() + " points!!!";
-        }
+        else s = winner.getName() + " won the game with " + winner.getPoints() + " points!!!";
 
         System.out.println(Color.colorizeRand(ln) + "\n" + centerStr(ln.length(), s) + "\n" + Color.colorizeRand(ln));
     }
