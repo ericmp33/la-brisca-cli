@@ -38,10 +38,7 @@ public class Card {
         this.value = value;
         this.points = points;
         this.roundThrown = -1;
-        this.trump = false;
         this.latest = "false";
-        this.thrownBy = null;
-        this.thrownFirst = false;
     }
 
     public void printAttributes() {
