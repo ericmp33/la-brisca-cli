@@ -1,6 +1,6 @@
 package com.labrisca;
 
-import catalan.entities.Player;
+import com.labrisca.entities.Player;
 
 public class Card {
     // variables
