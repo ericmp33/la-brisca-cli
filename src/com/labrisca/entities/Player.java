@@ -6,7 +6,6 @@ import com.labrisca.Game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Player {
     // variables
@@ -14,12 +13,17 @@ public abstract class Player {
     private final List<Card> inHandCards;
     private final List<Card> wonCards;
     private final Game game;
+    private boolean winner;
 
     // getters
     public String getName() { return name; }
     public List<Card> getInHandCards() { return inHandCards; }
     public List<Card> getWonCards() { return wonCards; }
     public Game getGame() { return game; }
+    public boolean isWinner() { return winner; }
+
+    // setters
+    public void setWinner(boolean winner) { this.winner = winner; }
 
     // constructor
     protected Player(String name, Game game) {
@@ -27,20 +31,14 @@ public abstract class Player {
         this.inHandCards = new ArrayList<>();
         this.wonCards = new ArrayList<>();
         this.game = game;
+        this.winner = false;
     }
 
-    // returns a not-taken random card
-    Card randCard() {
-        while (true) {
-            // randomly take a card
-            int rand = ThreadLocalRandom.current().nextInt(0, getGame().getDeck().size());
-            Card card = getGame().getDeck().get(rand);
-
-            // if card hasn't been taken and isn't latest or is latest and how many cards are left to take is 1
-            if (!card.isTaken() && !card.isLatest() || card.isLatest() && getGame().howManyLeftToTake() == 1) {
-                return card;
-            }
-        }
+    // returns the card on top of the deck card
+    Card topDeckCard() {
+        Card temp = getGame().getDeck().get(0);
+        getGame().getDeck().remove(temp);
+        return temp;
     }
 
     // take a card
@@ -50,14 +48,18 @@ public abstract class Player {
     public abstract void printCardsInHand();
 
     // throw a card
-    public abstract void throwCard();
+    public abstract void throwCard(int round);
 
     // common code for bot and human
-    void commonThrowCard(Card card) {
+    void commonThrowCard(Card card, int round) {
+
         System.out.println("\n[!] " + name + " thrown -> " + Color.name(card.getName(), false));
 
         // throw the card
         card.setThrownBy(this);
+
+        // set the round where the card is thrown, and throw the card
+        card.setRoundThrown(round);
 
         // if the play is empty
         if (getGame().getThePlay().isEmpty()) card.setThrownFirst(true);
@@ -78,24 +80,17 @@ public abstract class Player {
     void changeLastCard() {
         // if it can, change it
         if (canChangeLastCard()) {
-            // unset the latest card
+            // unset the latest card and save it in the hand of the player
             Card oldLatest = game.latestCard();
-            oldLatest.setLatest(false);
-            oldLatest.setTaken(true);
-            oldLatest.setWonBy(this);
-
-            // and save it in the hand of the player
+            oldLatest.setLatest("old");
+            game.getDeck().remove(oldLatest);
             inHandCards.add(oldLatest);
 
-            // remove the seven trump from the hand of the player
-            Card player7Trump = sevenTrump();
+            // remove the seven trump from the hand of the player and set it as the new latest card
+            Card player7Trump = getSevenTrump();
+            player7Trump.setLatest("true");
             inHandCards.remove(player7Trump);
-
-            // and set it as the new latest card
-            Card newLatest = game.getDeck().get(game.posCard(player7Trump));
-            newLatest.setLatest(true);
-            newLatest.setTaken(false);
-            newLatest.setWonBy(null);
+            game.getDeck().add(player7Trump);
 
             System.out.println("\n[!] " + name + " changed latest card");
         }
@@ -104,7 +99,8 @@ public abstract class Player {
     // returns if player can change the latest card
     boolean canChangeLastCard() {
         // true if player has 7 of trump, its value is less than latest and round is less than 21
-        return has7Trump() && sevenTrump().getValue() < game.latestCard().getValue() && game.getRound() < 21;
+        if (getGame().deckIsEmpty()) return false;
+        return has7Trump() && getSevenTrump().getValue() < game.latestCard().getValue() && game.getRound() < 21;
     }
 
     // returns if player has 7 of trump
@@ -116,10 +112,10 @@ public abstract class Player {
     }
 
     // returns 7 of trump
-    private Card sevenTrump() {
+    private Card getSevenTrump() {
         for (Card card : inHandCards) {
             if (card.getValue() == 105) return card;
         }
-        return sevenTrump();
+        return getSevenTrump();
     }
 }

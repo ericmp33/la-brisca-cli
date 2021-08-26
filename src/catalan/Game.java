@@ -2,12 +2,12 @@ package catalan;
 
 import catalan.entities.Player;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
     // variables
@@ -31,75 +31,69 @@ public class Game {
     // constructor
     public Game() {
         // put cards into deck
-        deck = List.of(
-                new Card("as de basto", "bastos", 1, 12, 11),
-                new Card("dos de basto", "bastos", 2, 1, 0),
-                new Card("tres de basto", "bastos", 3, 11, 10),
-                new Card("quatre de basto", "bastos", 4, 2, 0),
-                new Card("cinc de basto", "bastos", 5, 3, 0),
-                new Card("sis de basto", "bastos", 6, 4, 0),
-                new Card("set de basto", "bastos", 7, 5, 0),
-                new Card("vuit de basto", "bastos", 8, 6, 0),
-                new Card("nou de basto", "bastos", 9, 7, 0),
-                new Card("sota de basto", "bastos", 10, 8, 2),
-                new Card("cavall de basto", "bastos", 11, 9, 3),
-                new Card("rei de basto", "bastos", 12, 10, 4),
+        deck = new ArrayList<>(List.of(
+                new Card("as de basto", "bastos", 12, 11),
+                new Card("dos de basto", "bastos", 1, 0),
+                new Card("tres de basto", "bastos", 11, 10),
+                new Card("quatre de basto", "bastos", 2, 0),
+                new Card("cinc de basto", "bastos", 3, 0),
+                new Card("sis de basto", "bastos", 4, 0),
+                new Card("set de basto", "bastos", 5, 0),
+                new Card("vuit de basto", "bastos", 6, 0),
+                new Card("nou de basto", "bastos", 7, 0),
+                new Card("sota de basto", "bastos", 8, 2),
+                new Card("cavall de basto", "bastos", 9, 3),
+                new Card("rei de basto", "bastos", 10, 4),
 
-                new Card("as de copa", "copes", 1, 12, 11),
-                new Card("dos de copa", "copes", 2, 1, 0),
-                new Card("tres de copa", "copes", 3, 11, 10),
-                new Card("quatre de copa", "copes", 4, 2, 0),
-                new Card("cinc de copa", "copes", 5, 3, 0),
-                new Card("sis de copa", "copes", 6, 4, 0),
-                new Card("set de copa", "copes", 7, 5, 0),
-                new Card("vuit de copa", "copes", 8, 6, 0),
-                new Card("nou de copa", "copes", 9, 7, 0),
-                new Card("sota de copa", "copes", 10, 8, 2),
-                new Card("cavall de copa", "copes", 11, 9, 3),
-                new Card("rei de copa", "copes", 12, 10, 4),
+                new Card("as de copa", "copes", 12, 11),
+                new Card("dos de copa", "copes", 1, 0),
+                new Card("tres de copa", "copes", 11, 10),
+                new Card("quatre de copa", "copes", 2, 0),
+                new Card("cinc de copa", "copes", 3, 0),
+                new Card("sis de copa", "copes", 4, 0),
+                new Card("set de copa", "copes", 5, 0),
+                new Card("vuit de copa", "copes", 6, 0),
+                new Card("nou de copa", "copes", 7, 0),
+                new Card("sota de copa", "copes", 8, 2),
+                new Card("cavall de copa", "copes", 9, 3),
+                new Card("rei de copa", "copes", 10, 4),
 
-                new Card("as d'espasa", "espases", 1, 12, 11),
-                new Card("dos d'espasa", "espases", 2, 1, 0),
-                new Card("tres d'espasa", "espases", 3, 11, 10),
-                new Card("quatre d'espasa", "espases", 4, 2, 0),
-                new Card("cinc d'espasa", "espases", 5, 3, 0),
-                new Card("sis d'espasa", "espases", 6, 4, 0),
-                new Card("set d'espasa", "espases", 7, 5, 0),
-                new Card("vuit d'espasa", "espases", 8, 6, 0),
-                new Card("nou d'espasa", "espases", 9, 7, 0),
-                new Card("sota d'espasa", "espases", 10, 8, 2),
-                new Card("cavall d'espasa", "espases", 11, 9, 3),
-                new Card("rei d'espasa", "espases", 12, 10, 4),
+                new Card("as d'espasa", "espases", 12, 11),
+                new Card("dos d'espasa", "espases", 1, 0),
+                new Card("tres d'espasa", "espases", 11, 10),
+                new Card("quatre d'espasa", "espases", 2, 0),
+                new Card("cinc d'espasa", "espases", 3, 0),
+                new Card("sis d'espasa", "espases", 4, 0),
+                new Card("set d'espasa", "espases", 5, 0),
+                new Card("vuit d'espasa", "espases", 6, 0),
+                new Card("nou d'espasa", "espases", 7, 0),
+                new Card("sota d'espasa", "espases", 8, 2),
+                new Card("cavall d'espasa", "espases", 9, 3),
+                new Card("rei d'espasa", "espases", 10, 4),
 
-                new Card("as d'oro", "oros", 1, 12, 11),
-                new Card("dos d'oro", "oros", 2, 1, 0),
-                new Card("tres d'oro", "oros", 3, 11, 10),
-                new Card("quatre d'oro", "oros", 4, 2, 0),
-                new Card("cinc d'oro", "oros", 5, 3, 0),
-                new Card("sis d'oro", "oros", 6, 4, 0),
-                new Card("set d'oro", "oros", 7, 5, 0),
-                new Card("vuit d'oro", "oros", 8, 6, 0),
-                new Card("nou d'oro", "oros", 9, 7, 0),
-                new Card("sota d'oro", "oros", 10, 8, 2),
-                new Card("cavall d'oro", "oros", 11, 9, 3),
-                new Card("rei d'oro", "oros", 12, 10, 4)
-        );
+                new Card("as d'oro", "oros", 12, 11),
+                new Card("dos d'oro", "oros", 1, 0),
+                new Card("tres d'oro", "oros", 11, 10),
+                new Card("quatre d'oro", "oros", 2, 0),
+                new Card("cinc d'oro", "oros", 3, 0),
+                new Card("sis d'oro", "oros", 4, 0),
+                new Card("set d'oro", "oros", 5, 0),
+                new Card("vuit d'oro", "oros", 6, 0),
+                new Card("nou d'oro", "oros", 7, 0),
+                new Card("sota d'oro", "oros", 8, 2),
+                new Card("cavall d'oro", "oros", 9, 3),
+                new Card("rei d'oro", "oros", 10, 4)
+        ));
 
-        // initialize the play and list of players
+        // shuffle the deck, initialize the play and list of players and save game's start time
+        Collections.shuffle(deck);
         thePlay = new ArrayList<>();
         players = new ArrayList<>();
-
-        // save game's start time
         startTime = Instant.now();
     }
 
-    // add a player to the game
-    private void addPlayer(Player p) {
-        players.add(p);
-    }
-
     // welcome message
-    public void welcomeMessage() {
+    public void welcomePrint() {
         System.out.println("Benvingut al joc de cartes de La Brisca");
         System.out.println("Fet per @ericmp33, juny 2021");
         System.out.println("Que començi el joc!");
@@ -108,28 +102,28 @@ public class Game {
 
     // set the game mode
     private void setGameMode() {
-        System.out.println("[?] Tria mode de joc: normal o hacker");
+        System.out.println("[?] Activar el mode hacker?");
         while (true) {
             System.out.print("> ");
             String input = SC.nextLine().trim().toLowerCase();
-            if (input.equals("normal")) {
-                System.out.println("Mode normal activat!");
-                gameMode = "normal";
-                break;
-            } else if (input.equals("hacker")) {
+            if (input.equals("si")) {
                 System.out.println("Mode hacker activat!");
                 System.out.print("Text" + Color.ANSI_PURPLE + " lila " + Color.ANSI_RESET);
                 System.out.println("= text que no veuries ;)");
                 gameMode = "hacker";
                 break;
+            } else if (input.equals("no")) {
+                System.out.println("Mode normal activat!");
+                gameMode = "normal";
+                break;
             }
-            System.out.println("Introdueix \"normal\" o \"hacker\"...");
+            System.out.println("Introdueix \"si\" o \"no\"...");
         }
         System.out.println();
     }
 
-    // ask if enable AI bot mode
-    private void enableAIBot() {
+    // set AI bot mode
+    private void setAIBot() {
         System.out.println("[?] Fer que el bot sigui intel·ligent?");
         while (true) {
             System.out.print("> ");
@@ -158,24 +152,10 @@ public class Game {
                 System.out.println();
                 printAllCards();
                 break;
-            } else if (input.equals("no")) {
-                break;
-            }
+            } else if (input.equals("no")) break;
             System.out.println("Introdueix \"si\" o \"no\"...");
         }
         System.out.println();
-    }
-
-    // choose who starts the game
-    private void whoStarts() {
-        // if random number is 0
-        if (ThreadLocalRandom.current().nextInt(0, 2) == 0) {
-            // will start player with index 1, so move player to 1st pos
-            Player temp = players.get(1);
-            players.remove(1);
-            players.add(0, temp);
-        }
-        // else, will start other player (at index 0)
     }
 
     // deal 3 first cards to each player
@@ -195,34 +175,22 @@ public class Game {
 
     // set trump
     private void setTrump() {
-        String trump;
+        Card trumpCard = deck.get(6);
+        deck.remove(6);
+        trumpCard.setLatest("true");
+        deck.add(trumpCard);
 
-        while (true) {
-            // assign random card
-            Card card = deck.get(ThreadLocalRandom.current().nextInt(0, deck.size()));
+        String trump = trumpCard.getType();
 
-            // if card hasn't been taken
-            if (!card.isTaken()) {
-                // will be latest one
-                card.setLatest(true);
-
-                // set game's trump
-                trump = card.getType();
-
-                System.out.println("Ha aparegut -> " + Color.acolorirNom(card.getName()));
-
-                if (trump.contains("bast") || trump.contains("cop")) System.out.println("Va de " + trump + ".\n");
-                else System.out.println("Va d'" + trump + ".\n");
-                break;
-            }
-        }
+        System.out.println("Ha aparegut -> " + Color.name(trumpCard.getName()));
+        if (trump.contains("bast") || trump.contains("cop")) System.out.println("Va de " + trump + ".\n");
+        else System.out.println("Va d'" + trump + ".\n");
 
         // set trump to cards
         for (Card card : deck) {
             // if the card type has the trump
             if (card.getType().equals(trump)) {
                 card.setTrump(true);
-
                 // increase trump cards value
                 card.setValue(card.getValue() + 100);
             }
@@ -236,22 +204,31 @@ public class Game {
     // print all cards and their attributes
     private void printAllCards() {
         System.out.println("Informació de totes les cartes:");
-        for (Card card : deck) card.printAttributes();
+        for (Player player : players) {
+            System.out.println("Cartes guanyades del jugador " + player.getName() + ":");
+            for (Card card : player.getWonCards()) {
+                card.printAttributes();
+            }
+            System.out.println();
+        }
     }
 
     // game's main loop
     private void mainLoop() {
         System.out.println("El jugador " + players.get(0).getName() + " comença tirant");
 
-        round = 0;
+        String trumpCard = latestCard().getName();
         while (true) {
+            // if the deck is not empty, update the new trump card
+            if (!deckIsEmpty()) trumpCard = latestCard().getName();
+
             round++;
             System.out.println("-----------------------------------------------");
             System.out.print("Ronda " + round);
-            System.out.println(" (triomf -> " + Color.acolorirNom(latestCard().getName()) + ")");
+            System.out.println(" (triomf -> " + Color.name(trumpCard) + ")");
 
             // for each player, throw a card
-            for (Player p : players) p.throwCard();
+            for (Player p : players) p.throwCard(round);
 
             // validate and set who wins the play and saves the cards
             validateThePlay();
@@ -295,9 +272,9 @@ public class Game {
         System.out.println("Total cartes partida: " + totalCards + "\n");
     }
 
-    // print game's winner
-    private void printWinner() {
-        int temp = 0;
+    // set and print game's winner
+    private void setAndPrintWinner() {
+        int temp = -1;
         Player winner = players.get(0);
         boolean draw = false;
         for (Player p : players) {
@@ -316,7 +293,10 @@ public class Game {
         String s;
 
         if (draw) s = "Empat! Els dos jugadors han fet 60 pedres!";
-        else s = "El jugador " + winner.getName() + " ha guanyat la partida!!! Ha fet " + winner.getPoints() + " pedres!";
+        else {
+            winner.setWinner(true);
+            s = "El jugador " + winner.getName() + " ha guanyat la partida!!! Ha fet " + winner.getPoints() + " pedres!";
+        }
 
         System.out.println(Color.colorizeRand(ln) + "\n" + centerStr(ln.length(), s) + "\n" + Color.colorizeRand(ln));
     }
@@ -325,14 +305,6 @@ public class Game {
     private String centerStr(int lnLength, String s) {
         int i = (lnLength - s.length()) / 2;
         return " ".repeat(i) + s;
-    }
-
-    // returns latest card
-    public Card latestCard() {
-        for (Card card : deck) {
-            if (card.isLatest()) return card;
-        }
-        return latestCard();
     }
 
     // print how much the game took to finish
@@ -346,24 +318,14 @@ public class Game {
         System.out.println("\nLa partida ha durat " + min + " min, " + sec + " sec!!");
     }
 
-    // returns true if deck has cards
-    public boolean deckHasCards() {
-        for (Card card : deck) {
-            // if card is not taken, deck still has cards
-            if (!card.isTaken()) return true;
-        }
-        // else, it doesn't
-        return false;
+    // returns true if deck is empty
+    public boolean deckIsEmpty() {
+        return deck.isEmpty();
     }
 
-    // returns how many cards are left to take
-    public int howManyLeftToTake() {
-        int count = 48;
-        for (Card card : deck) {
-            // decrement counter if card is taken
-            if (card.isTaken()) count--;
-        }
-        return count;
+    // returns latest card in the deck
+    public Card latestCard() {
+        return deck.get(deck.size() - 1);
     }
 
     // print game's author
@@ -379,7 +341,6 @@ public class Game {
         // play's winner collects the cards
         for (Card card : thePlay) {
             playWinner.getWonCards().add(card);
-            card.setWonBy(playWinner);
         }
 
         // remove cards from the play
@@ -391,12 +352,10 @@ public class Game {
         // well-print it
         if (round < 22) System.out.println();
 
-        // if player on index 0 is not the same as the winner, means it is not at 1st post
+        // if player on index 0 is not the same as the play winner, means it is not at 1st post
         if (!players.get(0).equals(playWinner)) {
             // so, put it at index 0 (1st pos) to be the first to throw in next round
-            Player temp = players.get(1);
-            players.remove(1);
-            players.add(0, temp);
+            Collections.swap(players, 0, 1);
         }
     }
 
@@ -426,51 +385,33 @@ public class Game {
         }
     }
 
-    // returns the position of the param card
-    public int posCard(Card card) {
-        for (int i = 0; i < deck.size(); i++) {
-            if (card == deck.get(i)) return i;
-        }
-        return -1;
-    }
-
     // principal method to run the game
     public void run(Player human, Player bot) {
         // add players into game
-        addPlayer(human);
-        addPlayer(bot);
+        players.add(human);
+        players.add(bot);
 
         // welcome message
-        welcomeMessage();
+        welcomePrint();
 
-        // set the game mode
+        // set the game mode and AI bot mode
         setGameMode();
+        setAIBot();
 
-        // ask if enable AI bot mode
-        enableAIBot();
-
-        // choose who starts the game
-        whoStarts();
-
-        // deal 3 first cards to each player
-        deal3FirstCards();
-
-        // set trump
+        // shuffle players list to choose who starts the game, set trump and deal 3 first cards to each player
+        Collections.shuffle(players);
         setTrump();
+        deal3FirstCards();
 
         // game's main loop
         mainLoop();
 
-        // print total points and cards won
+        // once game is over, print total points and cards won, game's winner and game time
         printPointsAndCards();
-
-        // print game's winner
-        printWinner();
-
-        // print how much the game took to finish
+        setAndPrintWinner();
         printGameTime();
 
-        // ask if print cards final information
+        // ask if print all the cards final information
         askPrintCardsInfo();
 
         // print game's author

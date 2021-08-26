@@ -8,19 +8,17 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Bot extends Player {
     // constructor
-    public Bot(String name, Game game) {
-        super(name, game);
+    public Bot(Game game) {
+        super("Bot", game);
     }
 
     @Override
     public void takeCard() {
         // exit method if there aren't cards in the deck
-        if (!getGame().deckHasCards()) return;
+        if (getGame().deckIsEmpty()) return;
 
         // else, take a random card
-        Card card = randCard();
-
-        card.setTaken(true);
+        Card card = topDeckCard();
         getInHandCards().add(card);
 
         // if hacker mode is enabled
@@ -49,7 +47,7 @@ public class Bot extends Player {
     }
 
     @Override
-    public void throwCard() {
+    public void throwCard(int round) {
         // if game is hacker show bot's in-hand cards
         if (getGame().getGameMode().equals("hacker")) printCardsInHand();
 
@@ -66,6 +64,6 @@ public class Bot extends Player {
             card = getInHandCards().get(ThreadLocalRandom.current().nextInt(0, getInHandCards().size()));
         }
 
-        commonThrowCard(card);
+        commonThrowCard(card, round);
     }
 }

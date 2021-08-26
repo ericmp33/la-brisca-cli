@@ -40,39 +40,46 @@ public class Color {
 
     // returns colorized card's type
     static String type(String s) {
-        if (s.toLowerCase().contains("bast")) return Color.ANSI_GREEN + s + Color.ANSI_RESET;
-        if (s.toLowerCase().contains("cop")) return Color.ANSI_RED + s + Color.ANSI_RESET;
-        if (s.toLowerCase().contains("espas")) return Color.ANSI_BLUE + s + Color.ANSI_RESET;
-        if (s.toLowerCase().contains("or")) return Color.ANSI_YELLOW + s + Color.ANSI_RESET;
-        throw new IllegalStateException("Unexpected error using Color.type(String s)");
+        if (s.toLowerCase().contains("bast")) return ANSI_GREEN + s + ANSI_RESET;
+        if (s.toLowerCase().contains("cop")) return ANSI_RED + s + ANSI_RESET;
+        if (s.toLowerCase().contains("espas")) return ANSI_BLUE + s + ANSI_RESET;
+        if (s.toLowerCase().contains("or")) return ANSI_YELLOW + s + ANSI_RESET;
+        throw new IllegalStateException("Unexpected error using type(String s)");
     }
 
     // returns colorized card's num
     static String num(int n) {
-        return Color.ANSI_BLUE + n + Color.ANSI_RESET;
+        return ANSI_BLUE + n + ANSI_RESET;
     }
 
-    public static String acolorirNom(String s) {
-        if (s.contains("bast")) return aux(s, "basto", Color.ANSI_GREEN);
-        else if (s.contains("cop")) return aux(s, "copa", Color.ANSI_RED);
-        else if (s.contains("espa")) return aux(s, "espasa", Color.ANSI_BLUE);
-        else return aux(s, "or", Color.ANSI_YELLOW);
+    // returns colorized card's name
+    public static String name(String s) {
+        if (s.contains("bast")) return aux(s, "basto", ANSI_GREEN);
+        else if (s.contains("cop")) return aux(s, "copa", ANSI_RED);
+        else if (s.contains("espa")) return aux(s, "espasa", ANSI_BLUE);
+        else return aux(s, "or", ANSI_YELLOW);
     }
     private static String aux(String s, String target, String tipus) {
-        return s.substring(0, s.indexOf(target)) + tipus + s.substring(s.indexOf(target)) + Color.ANSI_RESET;
+        return s.substring(0, s.indexOf(target)) + tipus + s.substring(s.indexOf(target)) + ANSI_RESET;
     }
 
     // returns colorized card's boolean
     static String bool(boolean b) {
-        if (b) return Color.ANSI_GREEN + true + Color.ANSI_RESET;
-        return Color.ANSI_RED + false + Color.ANSI_RESET;
+        if (b) return ANSI_GREEN + true + ANSI_RESET;
+        return ANSI_RED + false + ANSI_RESET;
+    }
+
+    // returns colorized latest card
+    static String bool(String s) {
+        if (s.equals("false")) return ANSI_RED + s + ANSI_RESET;
+        return ANSI_GREEN + s + ANSI_RESET;
     }
 
     // returns green text if player is not bot, else red
     static String playWinner(Player winner) {
         String color;
-        if (winner.getName().equalsIgnoreCase("bot")) color = Color.ANSI_RED;
-        else color = Color.ANSI_GREEN;
-        return color + ">> El jugador " + winner.getName() + " ha guanyat la jugada" + Color.ANSI_RESET;
+        if (winner.getName().equalsIgnoreCase("bot")) color = ANSI_RED;
+        else color = ANSI_GREEN;
+        return color + ">> El jugador " + winner.getName() + " ha guanyat la jugada" + ANSI_RESET;
     }
 }

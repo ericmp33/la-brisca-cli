@@ -40,46 +40,52 @@ public class Color {
 
     // returns colorized card's type
     static String type(String s) {
-        if (s.toLowerCase().contains("club")) return Color.ANSI_GREEN + s + Color.ANSI_RESET;
-        if (s.toLowerCase().contains("cup")) return Color.ANSI_RED + s + Color.ANSI_RESET;
-        if (s.toLowerCase().contains("sword")) return Color.ANSI_BLUE + s + Color.ANSI_RESET;
-        if (s.toLowerCase().contains("coin")) return Color.ANSI_YELLOW + s + Color.ANSI_RESET;
-        throw new IllegalStateException("Unexpected error using Color.type(String s)");
+        if (s.toLowerCase().contains("club")) return ANSI_GREEN + s + ANSI_RESET;
+        if (s.toLowerCase().contains("cup")) return ANSI_RED + s + ANSI_RESET;
+        if (s.toLowerCase().contains("sword")) return ANSI_BLUE + s + ANSI_RESET;
+        if (s.toLowerCase().contains("coin")) return ANSI_YELLOW + s + ANSI_RESET;
+        throw new IllegalStateException("Unexpected error using type(String s)");
     }
 
     // returns colorized card's num
     static String num(int n) {
-        return Color.ANSI_BLUE + n + Color.ANSI_RESET;
+        return ANSI_BLUE + n + ANSI_RESET;
     }
 
     // returns colorized card's name
     public static String name(String cardName, Boolean hacker) {
         String color;
-        if (hacker) color = Color.ANSI_PURPLE;
-        else color = Color.ANSI_RESET;
+        if (hacker) color = ANSI_PURPLE;
+        else color = ANSI_RESET;
 
         String subStr0 =  cardName.substring(0, cardName.indexOf("'"));
         String subStr1 = cardName.substring(cardName.indexOf("'"));
 
-        if (cardName.toLowerCase().contains("club")) return Color.ANSI_GREEN + subStr0 + color + subStr1;
-        if (cardName.toLowerCase().contains("cup")) return Color.ANSI_RED + subStr0 + color + subStr1;
-        if (cardName.toLowerCase().contains("sword")) return Color.ANSI_BLUE + subStr0 + color + subStr1;
-        if (cardName.toLowerCase().contains("coin")) return Color.ANSI_YELLOW + subStr0 + color + subStr1;
-
-        throw new IllegalStateException("Unexpected error using Color.name(String s)");
+        if (cardName.toLowerCase().contains("club")) return ANSI_GREEN + subStr0 + color + subStr1;
+        if (cardName.toLowerCase().contains("cup")) return ANSI_RED + subStr0 + color + subStr1;
+        if (cardName.toLowerCase().contains("sword")) return ANSI_BLUE + subStr0 + color + subStr1;
+        if (cardName.toLowerCase().contains("coin")) return ANSI_YELLOW + subStr0 + color + subStr1;
+        throw new IllegalStateException("Unexpected error using name(String s)");
     }
 
     // returns colorized card's boolean
     static String bool(boolean b) {
-        if (b) return Color.ANSI_GREEN + true + Color.ANSI_RESET;
-        return Color.ANSI_RED + false + Color.ANSI_RESET;
+        if (b) return ANSI_GREEN + true + ANSI_RESET;
+        return ANSI_RED + false + ANSI_RESET;
+    }
+
+    // returns colorized latest card
+    static String bool(String s) {
+        if (s.equals("false")) return ANSI_RED + s + ANSI_RESET;
+        return ANSI_GREEN + s + ANSI_RESET;
     }
 
     // returns green text if player is not bot, else red
     static String playWinner(Player winner) {
         String color;
-        if (winner.getName().equalsIgnoreCase("bot")) color = Color.ANSI_RED;
-        else color = Color.ANSI_GREEN;
-        return color + ">> " + winner.getName() + " won the play" + Color.ANSI_RESET;
+        if (winner.getName().equalsIgnoreCase("bot")) color = ANSI_RED;
+        else color = ANSI_GREEN;
+
+        return color + ">> " + winner.getName() + " won the play" + ANSI_RESET;
     }
 }

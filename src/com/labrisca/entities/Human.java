@@ -13,12 +13,10 @@ public class Human extends Player {
     @Override
     public void takeCard() {
         // exit method if there aren't cards in the deck
-        if (!getGame().deckHasCards()) return;
+        if (getGame().deckIsEmpty()) return;
 
         // else, take a random card
-        Card card = randCard();
-
-        card.setTaken(true);
+        Card card = topDeckCard();
         getInHandCards().add(card);
 
         System.out.println(getName() + " took -> " + Color.name(card.getName(), false));
@@ -35,7 +33,7 @@ public class Human extends Player {
     }
 
     @Override
-    public void throwCard() {
+    public void throwCard(int round) {
         // print available in-hand cards to be thrown
         printCardsInHand();
 
@@ -71,6 +69,6 @@ public class Human extends Player {
         }
 
         // call common method used by Human and Bot classes with the user's chosen card
-        commonThrowCard(getInHandCards().get(Integer.parseInt(input) - 1));
+        commonThrowCard(getInHandCards().get(Integer.parseInt(input) - 1), round);
     }
 }

@@ -6,14 +6,12 @@ public class Card {
     // variables
     private final String name;
     private final String type;
-    private final int num;
     private int value;
     private final int points;
-    private boolean taken;
+    private int roundThrown;
     private boolean trump;
-    private boolean latest;
+    private String latest;
     private Player thrownBy;
-    private Player wonBy;
     private boolean thrownFirst;
 
     // getters
@@ -21,59 +19,48 @@ public class Card {
     public String getType() { return type; }
     public int getPoints() { return points; }
     public int getValue() { return value; }
-    public boolean isTaken() { return taken; }
     public boolean isTrump() { return trump; }
-    public boolean isLatest() { return latest; }
     public Player getThrownBy() { return thrownBy; }
     public boolean isThrownFirst() { return thrownFirst; }
 
     // setters
     public void setValue(int value) { this.value = value; }
-    public void setTaken(boolean taken) { this.taken = taken; }
+    public void setRoundThrown(int roundThrown) { this.roundThrown = roundThrown; }
     public void setTrump(boolean trump) { this.trump = trump; }
-    public void setLatest(boolean latest) { this.latest = latest; }
+    public void setLatest(String latest) { this.latest = latest; }
     public void setThrownBy(Player thrownBy) { this.thrownBy = thrownBy; }
-    public void setWonBy(Player wonBy) { this.wonBy = wonBy; }
     public void setThrownFirst(boolean thrownFirst) { this.thrownFirst = thrownFirst; }
 
     // constructor
-    public Card(String name, String type, int num, int value, int points) {
+    public Card(String name, String type, int value, int points) {
         this.name = name;
         this.type = type;
-        this.num = num;
         this.value = value;
         this.points = points;
-        this.taken = false;
+        this.roundThrown = -1;
         this.trump = false;
-        this.latest = false;
+        this.latest = "false";
         this.thrownBy = null;
-        this.wonBy = null;
         this.thrownFirst = false;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 
     public void printAttributes() {
         System.out.printf(
-            "%-33s %-24s %-19s %-22s %-21s %-24s %-24s %-24s %-24s %-26s %-20s %n",
-            "{ nom: " + Color.acolorirNom(name),
+//            "%-33s %-24s %-19s %-22s %-21s %-24s %-24s %-24s %-24s %-26s %-20s %n",
+            "%-33s %-22s %-22s %-21s %-26s %-23s %-24s %-21s %-5s %n", //todo arreglar
+            "{ nom: " + Color.name(name),
             "tipus: " + Color.type(type),
-            "num: " + Color.num(num),
             "valor: " + Color.num(value),
             "pedres: " + Color.num(points),
-            "agafada: " + Color.bool(taken),
+            "tiradaRonda: " + Color.num(roundThrown),
             "triomf: " + Color.bool(trump),
-            "última: " + Color.bool(latest),
-            "tiradaPer(): " + checkNull(thrownBy),
-            "guardadaPer(): " + checkNull(wonBy),
-            "tiradaPrimer(): " + addFinalSpace(Color.bool(thrownFirst)) + " }"
+            "ultima: " + Color.bool(latest),
+            "tiradaPer: " + Card.checkNull(thrownBy),
+            "tiradaPrimer: " + addFinalSpace(Color.bool(thrownFirst)) + " }"
         );
     }
 
-    // prevent null pointer exception
+    // prevent null pointer exception when printing "thrownBy"
     private static String checkNull(Player p) {
         if (p == null) return "null";
         return p.getName();
