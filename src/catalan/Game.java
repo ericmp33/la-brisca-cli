@@ -205,7 +205,7 @@ public class Game {
     private void printAllCards() {
         System.out.println("Informació de totes les cartes:");
         for (Player player : players) {
-            System.out.println("Cartes guanyades del jugador " + player.getName() + ":");
+            System.out.println("Cartes guanyades " + player.getName() + ":");
             for (Card card : player.getWonCards()) {
                 card.printAttributes();
             }
