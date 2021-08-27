@@ -14,7 +14,7 @@ public class Game {
     private final List<Card> deck;
     private final List<Card> thePlay; // cards list that participate in the play
     private final List<Player> players;
-    private final Instant startTime;
+    private int gameTime;
     private int round;
     private String gameMode;
     private boolean ai; // if turn on AI's bot
@@ -85,11 +85,10 @@ public class Game {
             new Card("coin's king", "coin", 10, 4)
         ));
 
-        // shuffle the deck, initialize the play and list of players and save game's start time
+        // shuffle the deck and initialize the play and list of players
         Collections.shuffle(deck);
         thePlay = new ArrayList<>();
         players = new ArrayList<>();
-        startTime = Instant.now();
     }
 
     // welcome message
@@ -155,7 +154,6 @@ public class Game {
             } else if (input.equals("no")) break;
             System.out.println("Input \"yes\" or \"no\"...");
         }
-        System.out.println();
     }
 
     // deal 3 first cards to each player
@@ -216,6 +214,10 @@ public class Game {
     private void mainLoop() {
         System.out.println(players.get(0).getName() + " starts throwing");
 
+        // save game's start time
+        Instant startTime = Instant.now();
+        System.out.println("[!] Timer started!");
+
         String trumpCard = latestCard().getName();
         while (true) {
             // if the deck is not empty, update the new trump card
@@ -233,7 +235,11 @@ public class Game {
             validateThePlay();
 
             // if any player hasn't cards, game finishes
-            if (playersWithoutCards() == players.size()) break;
+            if (playersWithoutCards() == players.size()) {
+                gameTime = (int) Duration.between(startTime, Instant.now()).toSeconds();
+                System.out.println("\n[!] Timer stopped!");
+                break;
+            }
 
             // else, for each player, take a card
             for (Player p : players) p.takeCard();
@@ -306,7 +312,7 @@ public class Game {
 
     // print how much the game took to finish
     private void printGameTime() {
-        int sec = (int) Duration.between(startTime, Instant.now()).toSeconds();
+        int sec = gameTime;
         int min = 0;
         while (sec >= 60) {
             sec -= 60;
