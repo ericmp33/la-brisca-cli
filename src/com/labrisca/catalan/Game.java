@@ -1,6 +1,6 @@
-package catalan;
+package com.labrisca.catalan;
 
-import catalan.entities.Player;
+import com.labrisca.catalan.entities.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;

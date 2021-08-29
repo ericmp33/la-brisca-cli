@@ -1,6 +1,6 @@
-package com.labrisca;
+package com.labrisca.english;
 
-import com.labrisca.entities.Player;
+import com.labrisca.english.entities.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;

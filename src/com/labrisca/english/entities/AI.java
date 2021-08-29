@@ -1,7 +1,7 @@
-package com.labrisca.entities;
+package com.labrisca.english.entities;
 
-import com.labrisca.Card;
-import com.labrisca.Game;
+import com.labrisca.english.Card;
+import com.labrisca.english.Game;
 
 public class AI {
     // variables

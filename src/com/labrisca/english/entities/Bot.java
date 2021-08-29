@@ -1,8 +1,8 @@
-package com.labrisca.entities;
+package com.labrisca.english.entities;
 
-import com.labrisca.Card;
-import com.labrisca.Color;
-import com.labrisca.Game;
+import com.labrisca.english.Card;
+import com.labrisca.english.Color;
+import com.labrisca.english.Game;
 
 import java.util.concurrent.ThreadLocalRandom;
 

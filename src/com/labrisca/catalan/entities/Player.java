@@ -1,8 +1,8 @@
-package com.labrisca.entities;
+package com.labrisca.catalan.entities;
 
-import com.labrisca.Card;
-import com.labrisca.Color;
-import com.labrisca.Game;
+import com.labrisca.catalan.Card;
+import com.labrisca.catalan.Color;
+import com.labrisca.catalan.Game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public abstract class Player {
 
     // common code for bot and human
     void commonThrowCard(Card card, int round) {
-        System.out.println("\n[!] " + name + " thrown -> " + Color.name(card.getName(), false));
+        System.out.println("\n[!] El jugador " + name + " ha tirat -> " + Color.name((card.getName())));
 
         // throw the card
         card.setThrownBy(this);
@@ -85,11 +85,11 @@ public abstract class Player {
             inHandCards.remove(player7Trump);
             game.getDeck().add(player7Trump);
 
-            System.out.println("\n[!] " + name + " changed latest card");
+            System.out.println("\n[!] El jugador " + name + " ha canviat l'última carta");
         }
     }
 
-    // returns if player can change the latest card
+    // returns if player can change latest card
     boolean canChangeLastCard() {
         // true if player has 7 of trump, its value is less than latest and round is less than 21
         if (getGame().deckIsEmpty()) return false;

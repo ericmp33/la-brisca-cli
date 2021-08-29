@@ -1,8 +1,8 @@
-package catalan.entities;
+package com.labrisca.catalan.entities;
 
-import catalan.Card;
-import catalan.Color;
-import catalan.Game;
+import com.labrisca.catalan.Card;
+import com.labrisca.catalan.Color;
+import com.labrisca.catalan.Game;
 
 import java.util.concurrent.ThreadLocalRandom;
 
