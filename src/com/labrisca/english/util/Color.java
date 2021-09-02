@@ -1,6 +1,6 @@
-package com.labrisca.english;
+package com.labrisca.english.util;
 
-import com.labrisca.english.entities.Player;
+import com.labrisca.english.entity.Player;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -22,7 +22,7 @@ public class Color {
     }
 
     // returns given String colorized randomly
-    static String colorizeRand(String s) {
+    public static String colorizeRand(String s) {
         String oldRandom = randomColor();
 
         StringBuilder colorize = new StringBuilder(oldRandom);
@@ -39,7 +39,7 @@ public class Color {
     }
 
     // returns colorized card's type
-    static String type(String s) {
+    public static String type(String s) {
         if (s.toLowerCase().contains("club")) return ANSI_GREEN + s + ANSI_RESET;
         if (s.toLowerCase().contains("cup")) return ANSI_RED + s + ANSI_RESET;
         if (s.toLowerCase().contains("sword")) return ANSI_BLUE + s + ANSI_RESET;
@@ -48,7 +48,7 @@ public class Color {
     }
 
     // returns colorized card's num
-    static String num(int n) {
+    public static String num(int n) {
         return ANSI_BLUE + n + ANSI_RESET;
     }
 
@@ -69,19 +69,19 @@ public class Color {
     }
 
     // returns colorized card's boolean
-    static String bool(boolean b) {
+    public static String bool(boolean b) {
         if (b) return ANSI_GREEN + true + ANSI_RESET;
         return ANSI_RED + false + ANSI_RESET;
     }
 
     // returns colorized latest card
-    static String bool(String s) {
+    public static String bool(String s) {
         if (s.equals("false")) return ANSI_RED + s + ANSI_RESET;
         return ANSI_GREEN + s + ANSI_RESET;
     }
 
     // returns green text if player is not bot, else red
-    static String playWinner(Player winner) {
+    public static String playWinner(Player winner) {
         String color;
         if (winner.getName().equalsIgnoreCase("bot")) color = ANSI_RED;
         else color = ANSI_GREEN;

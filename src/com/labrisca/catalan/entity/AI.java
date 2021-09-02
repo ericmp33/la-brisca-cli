@@ -1,19 +1,9 @@
-package com.labrisca.catalan.entities;
+package com.labrisca.catalan.entity;
 
 import com.labrisca.catalan.Card;
 import com.labrisca.catalan.Game;
 
-public class AI {
-    // variables
-    private final Bot bot;
-    private final Game game;
-
-    // constructor
-    public AI(Bot bot, Game game) {
-        this.bot = bot;
-        this.game = game;
-    }
-
+public record AI(Bot bot, Game game) {
     public Card throwCard() {
         // if the play is empty, means bot throws first
         if (game.getThePlay().isEmpty()) {
@@ -26,7 +16,7 @@ public class AI {
 
         // if human's card is trump
         if (hCard.isTrump()) {
-            // if points > 3, bot has trump and more valuable cards with same type
+            // if points > 3, bot has trump cards and more valuable cards with same type
             if (hCard.getPoints() > 3 && hasTrumpCards() && hasMoreValuableCardsSameType(hCard)) {
                 // win the play
                 return lessValuableCardTrump();

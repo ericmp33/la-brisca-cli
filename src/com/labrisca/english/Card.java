@@ -1,6 +1,7 @@
 package com.labrisca.english;
 
-import com.labrisca.english.entities.Player;
+import com.labrisca.english.entity.Player;
+import com.labrisca.english.util.Color;
 
 public class Card {
     // variables

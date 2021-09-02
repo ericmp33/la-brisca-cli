@@ -1,8 +1,9 @@
-package com.labrisca.english.entities;
+package com.labrisca.catalan.entity;
 
-import com.labrisca.english.Card;
-import com.labrisca.english.Color;
-import com.labrisca.english.Game;
+import com.labrisca.catalan.Card;
+import com.labrisca.catalan.Game;
+import com.labrisca.catalan.util.Color;
+import com.labrisca.catalan.util.Str;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -25,7 +26,7 @@ public class Bot extends Player {
         if (getGame().getGameMode().equals("hacker")) {
             // print purple colorized taken card
             System.out.print(Color.ANSI_PURPLE);
-            System.out.println(getName() + " took -> " + Color.name(card.getName(), true));
+            System.out.println("El " + getName() + " ha agafat: " + Color.name(card.getName()));
             System.out.print(Color.ANSI_RESET);
         }
     }
@@ -34,13 +35,13 @@ public class Bot extends Player {
     public void printCardsInHand() {
         if (getGame().getGameMode().equals("hacker")) {
             System.out.print(Color.ANSI_PURPLE);
-            System.out.println("\n[?] " + getName() + "'s turn. In-hand cards:");
+            System.out.println("\n[?] Cartes a la mà del " + getName() + ":");
 
             for (int i = 0; i < getInHandCards().size(); i++) {
-                String cardName = Game.capitalizeStr(getInHandCards().get(i).getName());
+                String cardName = Str.upperFirstChar(getInHandCards().get(i).getName());
 
                 System.out.print(Color.ANSI_PURPLE);
-                System.out.print((i + 1) + ") " + Color.name(cardName, true));
+                System.out.print((i + 1) + ") " + Color.name(cardName));
                 System.out.println(Color.ANSI_RESET);
             }
         }
@@ -63,7 +64,6 @@ public class Bot extends Player {
             // assign random card
             card = getInHandCards().get(ThreadLocalRandom.current().nextInt(0, getInHandCards().size()));
         }
-
         commonThrowCard(card, round);
     }
 }

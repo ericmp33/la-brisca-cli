@@ -1,13 +1,15 @@
 package com.labrisca.catalan;
 
-import com.labrisca.catalan.entities.Player;
+import com.labrisca.catalan.entity.Player;
+import com.labrisca.catalan.util.Color;
+import com.labrisca.catalan.util.Str;
+import com.labrisca.catalan.io.UserInput;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
 public class Game {
     // variables
@@ -18,7 +20,6 @@ public class Game {
     private int round;
     private String gameMode;
     private boolean ai; // if turn on AI's bot
-    private static final Scanner SC = new Scanner(System.in);
 
     // getters
     public List<Card> getDeck() { return deck; }
@@ -26,7 +27,6 @@ public class Game {
     public int getRound() { return round; }
     public String getGameMode() { return gameMode; }
     public boolean isAi() { return ai; }
-    public static Scanner getSc() { return SC; }
 
     // constructor
     public Game() {
@@ -85,7 +85,7 @@ public class Game {
                 new Card("rei d'oro", "oros", 10, 4)
         ));
 
-        // shuffle the deck and initialize the play and list of players
+        // shuffle deck and initialize the play and list of players
         Collections.shuffle(deck);
         thePlay = new ArrayList<>();
         players = new ArrayList<>();
@@ -99,61 +99,52 @@ public class Game {
         System.out.println("Canvia l'última carta introduïnt \"7\"\n");
     }
 
+    // principal method to run the game
+    public void run(Player human, Player bot) {
+        // add players into game
+        players.add(human);
+        players.add(bot);
+
+        // welcome message
+        welcomePrint();
+
+        // set the game mode and AI bot mode
+        setGameMode();
+        setAIBot();
+
+        // shuffle players list to choose who starts the game, set trump and deal 3 first cards to each player
+        Collections.shuffle(players);
+        setTrump();
+        deal3FirstCards();
+
+        // game's main loop
+        mainLoop();
+
+        // once game is over, print total points and cards won, game's winner and game time
+        printPointsAndCards();
+        setAndPrintWinner();
+        printGameTime();
+
+        // ask if print all the cards final information
+        printCardsInfo();
+
+        // print game's author
+        printAuthor();
+    }
+
     // set the game mode
     private void setGameMode() {
-        System.out.println("[?] Activar el mode hacker?");
-        while (true) {
-            System.out.print("> ");
-            String input = SC.nextLine().trim().toLowerCase();
-            if (input.equals("si")) {
-                System.out.println("Mode hacker activat!");
-                System.out.print("Text" + Color.ANSI_PURPLE + " lila " + Color.ANSI_RESET);
-                System.out.println("= text que no veuries ;)");
-                gameMode = "hacker";
-                break;
-            } else if (input.equals("no")) {
-                System.out.println("Mode normal activat!");
-                gameMode = "normal";
-                break;
-            }
-            System.out.println("Introdueix \"si\" o \"no\"...");
-        }
-        System.out.println();
+        gameMode = UserInput.askGameMode();
     }
 
     // set AI bot mode
     private void setAIBot() {
-        System.out.println("[?] Fer que el bot sigui intel·ligent?");
-        while (true) {
-            System.out.print("> ");
-            String input = SC.nextLine().trim().toLowerCase();
-            if (input.equals("si")) {
-                System.out.println("Perdràs :P!");
-                ai = true;
-                break;
-            } else if (input.equals("no")) {
-                System.out.println("Beep beep...");
-                ai = false;
-                break;
-            }
-            System.out.println("Introdueix \"si\" o \"no\"...");
-        }
-        System.out.println();
+        ai = UserInput.askAIBot();
     }
 
     // ask if print cards final information
-    private void askPrintCardsInfo() {
-        System.out.println("\n[?] Veure informació final de les cartes?");
-        while (true) {
-            System.out.print("> ");
-            String input = SC.nextLine().trim().toLowerCase();
-            if (input.equals("si")) {
-                System.out.println();
-                printAllCards();
-                break;
-            } else if (input.equals("no")) break;
-            System.out.println("Introdueix \"si\" o \"no\"...");
-        }
+    private void printCardsInfo() {
+        if (UserInput.askPrintCardsInfo()) printAllCards();
     }
 
     // deal 3 first cards to each player
@@ -162,7 +153,6 @@ public class Game {
         // for each player, take 3 cards
         for (Player p : players) {
             for (int i = 0; i < 3; i++) p.takeCard();
-
             // if hacker mode is on, make a print (more friendly look)
             if (gameMode.equals("hacker")) System.out.println();
         }
@@ -171,7 +161,7 @@ public class Game {
         if (!gameMode.equals("hacker")) System.out.println();
     }
 
-    // set trump
+    // set game trump
     private void setTrump() {
         Card trumpCard = deck.get(6);
         deck.remove(6);
@@ -193,10 +183,6 @@ public class Game {
                 card.setValue(card.getValue() + 100);
             }
         }
-    }
-
-    public static String capitalizeStr(String s) {
-        return s.substring(0, 1).toUpperCase() + s.substring(1);
     }
 
     // print all cards and their attributes
@@ -301,14 +287,9 @@ public class Game {
 
         if (draw) s = "Empat! Els dos jugadors han fet 60 pedres!";
         else s = "El jugador " + winner.getName() + " ha guanyat la partida!!! Ha fet " + winner.getPoints() + " pedres!";
+        s = Str.centerStr(ln.length(), s);
 
-        System.out.println(Color.colorizeRand(ln) + "\n" + centerStr(ln.length(), s) + "\n" + Color.colorizeRand(ln));
-    }
-
-    // returns centered String inside lines
-    private String centerStr(int lnLength, String s) {
-        int i = (lnLength - s.length()) / 2;
-        return " ".repeat(i) + s;
+        System.out.println(Color.colorizeRand(ln) + "\n" + s + "\n" + Color.colorizeRand(ln));
     }
 
     // print how much the game took to finish
@@ -343,9 +324,7 @@ public class Game {
         Player playWinner = validateThePlayWinner(thePlay.get(0), thePlay.get(1));
 
         // play's winner collects the cards
-        for (Card card : thePlay) {
-            playWinner.getWonCards().add(card);
-        }
+        for (Card card : thePlay) playWinner.getWonCards().add(card);
 
         // remove cards from the play
         thePlay.clear();
@@ -387,38 +366,5 @@ public class Game {
             // thrown first wins
             return card0.isThrownFirst() ? card0 : card1;
         }
-    }
-
-    // principal method to run the game
-    public void run(Player human, Player bot) {
-        // add players into game
-        players.add(human);
-        players.add(bot);
-
-        // welcome message
-        welcomePrint();
-
-        // set the game mode and AI bot mode
-        setGameMode();
-        setAIBot();
-
-        // shuffle players list to choose who starts the game, set trump and deal 3 first cards to each player
-        Collections.shuffle(players);
-        setTrump();
-        deal3FirstCards();
-
-        // game's main loop
-        mainLoop();
-
-        // once game is over, print total points and cards won, game's winner and game time
-        printPointsAndCards();
-        setAndPrintWinner();
-        printGameTime();
-
-        // ask if print all the cards final information
-        askPrintCardsInfo();
-
-        // print game's author
-        printAuthor();
     }
 }
