@@ -9,7 +9,7 @@ This is a simulation of the classic game of "La Brisca" in command line interfac
 - If you know Catalan, you can play in Catalan😃! When the game starts, it asks in which language you want to play.
 
 # Simple instructions📄
-- ❗⚠️IMPORTANT⚠️❗ You should use a terminal that supports colorized ASCII characters, so you will see the prints colorized and all will be more readable! If you are on Windows i recommend you <a href="https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701" target="_blank">the new Windows Terminal</a>.
+- ❗⚠️IMPORTANT⚠️❗ You should use a terminal that supports colorized ASCII characters, so you will see the prints colorized and all will be more readable! If you are on Windows I recommend you <a href="https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701" target="_blank">the new Windows Terminal</a>.
 
 - To execute the game <a href="https://adoptopenjdk.net/?variant=openjdk16&jvmVariant=hotspot">get Java☕</a> - 16 or newer version. Then download the game <a href="https://github.com/ericmp33/la-brisca-cli/raw/main/out/artifacts/la_brisca_cli_jar/la-brisca-cli.jar">here</a>. Execute the file via terminal inputting `java -jar ./la-brisca-cli.jar`, where `.` is the current folder, which contains the `jar`.
 
