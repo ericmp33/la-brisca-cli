@@ -44,14 +44,12 @@ public abstract class Player {
     // throw a card
     public abstract void throwCard(int round);
 
-    // common code for bot and human
+    // common code for child classes
     void commonThrowCard(Card card, int round) {
         System.out.println("\n[!] El jugador " + name + " ha tirat -> " + Color.name((card.getName())));
 
-        // throw the card
+        // modify card attributes
         card.setThrownBy(this);
-
-        // set the round where the card is thrown, and throw the card
         card.setRoundThrown(round);
 
         // if the play is empty

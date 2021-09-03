@@ -1,5 +1,6 @@
 package com.labrisca.catalan;
 
+import com.labrisca.catalan.entity.AI;
 import com.labrisca.catalan.entity.Bot;
 import com.labrisca.catalan.entity.Human;
 import com.labrisca.catalan.entity.Player;
@@ -16,7 +17,7 @@ import java.util.List;
 public class Game {
     // fields
     private final List<Card> deck;
-    private final List<Card> thePlay; // cards list that participate in the play
+    private final List<Card> thePlay;
     private final List<Player> players;
     private int gameTime;
     private int round;
@@ -92,20 +93,15 @@ public class Game {
     }
 
     // principal method to run the game
-    public void run(Human human, Bot bot) {
+    public void run() {
+        // welcome message
         welcomePrint();
 
-        // set the game mode and AI bot mode
+        // set the game mode
         setGameMode();
-        bot.setAi(UserInput.askAIBot());
 
-        // add players into game
-        players.add(human);
-        players.add(bot);
-
-        // add players into game
-        players.add(human);
-        players.add(bot);
+        // create and adds players into game
+        addPlayers();
 
         // shuffle players list to choose who starts the game, set trump and deal 3 first cards to each player
         Collections.shuffle(players);
@@ -140,6 +136,13 @@ public class Game {
         gameMode = UserInput.askGameMode();
     }
 
+    // create and adds players into game
+    private void addPlayers() {
+        players.add(new Human("@ericmp33", this));
+        if (UserInput.askAIBot()) players.add(new AI(this));
+        else players.add(new Bot(this));
+    }
+
     // ask if print cards final information
     private void printCardsInfo() {
         if (UserInput.askPrintCardsInfo()) printAllCards();
@@ -169,8 +172,8 @@ public class Game {
         String trump = trumpCard.getType();
 
         System.out.println("Ha aparegut -> " + Color.name(trumpCard.getName()));
-        if (trump.contains("bast") || trump.contains("cop")) System.out.println("Va de " + trump + ".\n");
-        else System.out.println("Va d'" + trump + ".\n");
+        if (trump.contains("bast") || trump.contains("cop")) System.out.println("Va de " + trump + "!\n");
+        else System.out.println("Va d'" + trump + "!\n");
 
         // set trump to cards
         for (Card card : deck) {
@@ -323,8 +326,6 @@ public class Game {
 
         // play's winner collects the cards
         for (Card card : thePlay) playWinner.getWonCards().add(card);
-
-        // remove cards from the play
         thePlay.clear();
 
         // print who won the play

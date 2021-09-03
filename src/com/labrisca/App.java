@@ -10,22 +10,14 @@ public class App {
             System.out.print("> ");
             String input = sc.nextLine().trim().toLowerCase();
 
-            // initialize game, players and run game
+            // initialize and run game
             if (input.equals("catalan")) {
-                var game = new com.labrisca.catalan.Game();
-                var jug = new com.labrisca.catalan.entity.Human("@ericmp33", game);
-                var bot = new com.labrisca.catalan.entity.Bot(game);
-
                 System.out.println();
-                game.run(jug, bot);
+                new com.labrisca.catalan.Game().run();
                 break;
             } else if (input.equals("english")) {
-                var game = new com.labrisca.english.Game();
-                var jug = new com.labrisca.english.entity.Human("@ericmp33", game);
-                var bot = new com.labrisca.english.entity.Bot(game);
-
                 System.out.println();
-                game.run(jug, bot);
+                new com.labrisca.english.Game().run();
                 break;
             }
             System.out.println("Type \"Catalan\" or \"English\"");

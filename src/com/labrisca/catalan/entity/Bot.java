@@ -8,12 +8,6 @@ import com.labrisca.catalan.util.Str;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Bot extends Player {
-    // fields
-    private boolean ai;
-
-    // setters
-    public void setAi(boolean ai) { this.ai = ai; }
-
     // constructor
     public Bot(Game game) {
         super("Bot", game);
@@ -45,7 +39,6 @@ public class Bot extends Player {
 
             for (int i = 0; i < getInHandCards().size(); i++) {
                 String cardName = Str.upperFirstChar(getInHandCards().get(i).getName());
-
                 System.out.print(Color.ANSI_PURPLE);
                 System.out.print((i + 1) + ") " + Color.name(cardName));
                 System.out.println(Color.ANSI_RESET);
@@ -55,21 +48,11 @@ public class Bot extends Player {
 
     @Override
     public void throwCard(int round) {
-        // if game is hacker show bot's in-hand cards
+        // if gamemode is hacker show bot's in-hand cards
         if (getGame().getGameMode().equals("hacker")) printCardsInHand();
 
-        Card card;
-        // if bot's AI is on
-        if (ai) {
-            // try to change last card
-            changeLastCard();
-
-            // assign AI thought of which card has to be thrown
-            card = new AI(this, getGame()).throwCard();
-        } else {
-            // assign random card
-            card = getInHandCards().get(ThreadLocalRandom.current().nextInt(0, getInHandCards().size()));
-        }
+        // throw a random card
+        Card card = getInHandCards().get(ThreadLocalRandom.current().nextInt(0, getInHandCards().size()));
         commonThrowCard(card, round);
     }
 }
