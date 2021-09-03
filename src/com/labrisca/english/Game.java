@@ -100,7 +100,7 @@ public class Game {
         // set the game mode
         setGameMode();
 
-        // create and adds players into game
+        // create and add players into game
         addPlayers();
 
         // shuffle players list to choose who starts the game, set trump and deal 3 first cards to each player
@@ -136,7 +136,7 @@ public class Game {
         gameMode = UserInput.askGameMode();
     }
 
-    // create and adds players into game
+    // create and add players into game
     private void addPlayers() {
         players.add(new Human("@ericmp33", this));
         if (UserInput.askAIBot()) players.add(new AI(this));
