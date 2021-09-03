@@ -80,6 +80,6 @@ public class Color {
         String color;
         if (winner.getName().equalsIgnoreCase("bot")) color = ANSI_RED;
         else color = ANSI_GREEN;
-        return color + ">> El jugador " + winner.getName() + " ha guanyat la jugada" + ANSI_RESET;
+        return color + ">> " + winner.getName() + " ha guanyat la jugada" + ANSI_RESET;
     }
 }
