@@ -46,7 +46,7 @@ public abstract class Player {
 
     // common code for child classes
     void commonThrowCard(Card card, int round) {
-        System.out.println("\n[!] El jugador " + name + " ha tirat -> " + Color.name((card.getName())));
+        System.out.println("\n[!] " + name + " ha tirat -> " + Color.name((card.getName())));
 
         // modify card attributes
         card.setThrownBy(this);
@@ -83,7 +83,7 @@ public abstract class Player {
             inHandCards.remove(player7Trump);
             game.getDeck().add(player7Trump);
 
-            System.out.println("\n[!] El jugador " + name + " ha canviat l'última carta");
+            System.out.println("\n[!] " + name + " ha canviat l'última carta");
         }
     }
 
