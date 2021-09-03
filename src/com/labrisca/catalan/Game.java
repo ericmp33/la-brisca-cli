@@ -1,5 +1,7 @@
 package com.labrisca.catalan;
 
+import com.labrisca.catalan.entity.Bot;
+import com.labrisca.catalan.entity.Human;
 import com.labrisca.catalan.entity.Player;
 import com.labrisca.catalan.util.Color;
 import com.labrisca.catalan.util.Str;
@@ -12,21 +14,19 @@ import java.util.Collections;
 import java.util.List;
 
 public class Game {
-    // variables
+    // fields
     private final List<Card> deck;
     private final List<Card> thePlay; // cards list that participate in the play
     private final List<Player> players;
     private int gameTime;
     private int round;
     private String gameMode;
-    private boolean ai; // if turn on AI's bot
 
     // getters
     public List<Card> getDeck() { return deck; }
     public List<Card> getThePlay() { return thePlay; }
     public int getRound() { return round; }
     public String getGameMode() { return gameMode; }
-    public boolean isAi() { return ai; }
 
     // constructor
     public Game() {
@@ -91,26 +91,21 @@ public class Game {
         players = new ArrayList<>();
     }
 
-    // welcome message
-    public void welcomePrint() {
-        System.out.println("Benvingut al joc de cartes de La Brisca");
-        System.out.println("Fet per @ericmp33, juny 2021");
-        System.out.println("Que comenci el joc!");
-        System.out.println("Canvia l'última carta introduïnt \"7\"\n");
-    }
-
     // principal method to run the game
-    public void run(Player human, Player bot) {
-        // add players into game
-        players.add(human);
-        players.add(bot);
-
-        // welcome message
+    public void run(Human human, Bot bot) {
         welcomePrint();
 
         // set the game mode and AI bot mode
         setGameMode();
-        setAIBot();
+        bot.setAi(UserInput.askAIBot());
+
+        // add players into game
+        players.add(human);
+        players.add(bot);
+
+        // add players into game
+        players.add(human);
+        players.add(bot);
 
         // shuffle players list to choose who starts the game, set trump and deal 3 first cards to each player
         Collections.shuffle(players);
@@ -132,14 +127,17 @@ public class Game {
         printAuthor();
     }
 
+    // welcome message
+    public void welcomePrint() {
+        System.out.println("Benvingut al joc de cartes de La Brisca");
+        System.out.println("Fet per @ericmp33, juny 2021");
+        System.out.println("Que comenci el joc!");
+        System.out.println("Canvia l'última carta introduïnt \"7\"\n");
+    }
+
     // set the game mode
     private void setGameMode() {
         gameMode = UserInput.askGameMode();
-    }
-
-    // set AI bot mode
-    private void setAIBot() {
-        ai = UserInput.askAIBot();
     }
 
     // ask if print cards final information

@@ -4,7 +4,7 @@ import com.labrisca.catalan.entity.Player;
 import com.labrisca.catalan.util.Color;
 
 public class Card {
-    // variables
+    // fields
     private final String name;
     private final String type;
     private int value;

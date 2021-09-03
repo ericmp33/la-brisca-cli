@@ -32,5 +32,3 @@ public class App {
         }
     }
 }
-
-// todo: change -> game is ai? nope, bot is ai

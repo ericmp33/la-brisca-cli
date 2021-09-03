@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player {
-    // variables
+    // fields
     private final String name;
     private final List<Card> inHandCards;
     private final List<Card> wonCards;

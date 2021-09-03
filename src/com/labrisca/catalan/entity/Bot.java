@@ -8,6 +8,12 @@ import com.labrisca.catalan.util.Str;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Bot extends Player {
+    // fields
+    private boolean ai;
+
+    // setters
+    public void setAi(boolean ai) { this.ai = ai; }
+
     // constructor
     public Bot(Game game) {
         super("Bot", game);
@@ -54,7 +60,7 @@ public class Bot extends Player {
 
         Card card;
         // if bot's AI is on
-        if (getGame().isAi()) {
+        if (ai) {
             // try to change last card
             changeLastCard();
 

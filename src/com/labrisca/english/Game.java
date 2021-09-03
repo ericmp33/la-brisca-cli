@@ -1,5 +1,7 @@
 package com.labrisca.english;
 
+import com.labrisca.english.entity.Bot;
+import com.labrisca.english.entity.Human;
 import com.labrisca.english.entity.Player;
 import com.labrisca.english.util.Color;
 import com.labrisca.english.util.Str;
@@ -12,21 +14,19 @@ import java.util.Collections;
 import java.util.List;
 
 public class Game {
-    // variables
+    // fields
     private final List<Card> deck;
     private final List<Card> thePlay; // cards list that participate in the play
     private final List<Player> players;
     private int gameTime;
     private int round;
     private String gameMode;
-    private boolean ai; // if turn on AI's bot
 
     // getters
     public List<Card> getDeck() { return deck; }
     public List<Card> getThePlay() { return thePlay; }
     public int getRound() { return round; }
     public String getGameMode() { return gameMode; }
-    public boolean isAi() { return ai; }
 
     // constructor
     public Game() {
@@ -92,16 +92,16 @@ public class Game {
     }
 
     // principal method to run the game
-    public void run(Player human, Player bot) {
-        // add players into game
-        players.add(human);
-        players.add(bot);
-
+    public void run(Human human, Bot bot) {
         welcomePrint();
 
         // set the game mode and AI bot mode
         setGameMode();
-        setAIBot();
+        bot.setAi(UserInput.askAIBot());
+
+        // add players into game
+        players.add(human);
+        players.add(bot);
 
         // shuffle players list to choose who starts the game, set trump and deal 3 first cards to each player
         Collections.shuffle(players);
@@ -134,11 +134,6 @@ public class Game {
     // set the game mode
     private void setGameMode() {
         gameMode = UserInput.askGameMode();
-    }
-
-    // set AI bot mode
-    private void setAIBot() {
-        ai = UserInput.askAIBot();
     }
 
     // ask if print cards final information
