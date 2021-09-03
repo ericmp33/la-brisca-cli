@@ -16,13 +16,13 @@ public class UserInput {
         while (true) {
             System.out.print("> ");
             String input = SC.nextLine().trim().toLowerCase();
-            if (input.equals("si")) {
+            if (input.equals("si") || input.equals("1")) {
                 System.out.println("Mode hacker activat!");
                 System.out.print("Text" + Color.ANSI_PURPLE + " lila " + Color.ANSI_RESET);
                 System.out.println("= text que no veuries ;)");
                 System.out.println();
                 return "hacker";
-            } else if (input.equals("no")) {
+            } else if (input.equals("no") || input.equals("0")) {
                 System.out.println("Mode normal activat!");
                 System.out.println();
                 return "default";
@@ -37,11 +37,11 @@ public class UserInput {
         while (true) {
             System.out.print("> ");
             String input = SC.nextLine().trim().toLowerCase();
-            if (input.equals("si")) {
+            if (input.equals("si") || input.equals("1")) {
                 System.out.println("Perdràs :P!");
                 System.out.println();
                 return true;
-            } else if (input.equals("no")) {
+            } else if (input.equals("no") || input.equals("0")) {
                 System.out.println("Beep beep...");
                 System.out.println();
                 return false;
@@ -56,8 +56,8 @@ public class UserInput {
         while (true) {
             System.out.print("> ");
             String input = SC.nextLine().trim().toLowerCase();
-            if (input.equals("si")) return true;
-            else if (input.equals("no")) return false;
+            if (input.equals("si") || input.equals("1")) return true;
+            else if (input.equals("no") || input.equals("0")) return false;
             System.out.println("Introdueix \"si\" o \"no\"...");
         }
     }
