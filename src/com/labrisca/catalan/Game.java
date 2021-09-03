@@ -100,7 +100,7 @@ public class Game {
         // set the game mode
         setGameMode();
 
-        // create and adds players into game
+        // create and add players into game
         addPlayers();
 
         // shuffle players list to choose who starts the game, set trump and deal 3 first cards to each player
@@ -136,7 +136,7 @@ public class Game {
         gameMode = UserInput.askGameMode();
     }
 
-    // create and adds players into game
+    // create and add players into game
     private void addPlayers() {
         players.add(new Human("@ericmp33", this));
         if (UserInput.askAIBot()) players.add(new AI(this));
@@ -200,7 +200,7 @@ public class Game {
 
     // game's main loop
     private void mainLoop() {
-        System.out.println("El jugador " + players.get(0).getName() + " comença tirant");
+        System.out.println(players.get(0).getName() + " comença tirant");
 
         // save game's start time
         Instant startTime = Instant.now();
@@ -283,11 +283,11 @@ public class Game {
             }
         }
 
-        String ln = "###########--------------------------------------------###########";
+        String ln = "#########--------------------------------------------#########";
         String s;
 
         if (draw) s = "Empat! Els dos jugadors han fet 60 pedres!";
-        else s = "El jugador " + winner.getName() + " ha guanyat la partida!!! Ha fet " + winner.getPoints() + " pedres!";
+        else s = winner.getName() + " ha guanyat la partida amb " + winner.getPoints() + " pedres!!!";
         s = Str.centerStr(ln.length(), s);
 
         System.out.println(Color.colorizeRand(ln) + "\n" + s + "\n" + Color.colorizeRand(ln));
