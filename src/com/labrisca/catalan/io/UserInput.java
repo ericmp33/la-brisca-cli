@@ -10,12 +10,27 @@ public class UserInput {
 
     UserInput() {}
 
+    // get user input
+    public static String getInput() {
+        String input = "";
+        System.out.print("> " + Color.ANSI_CYAN);
+
+        // check if program is forced to close
+        if (SC.hasNextLine()) {
+            input = SC.nextLine().trim().toLowerCase();
+            System.out.print(Color.ANSI_RESET);
+        } else {
+            System.out.print(Color.ANSI_RESET);
+            System.exit(0);
+        }
+        return input;
+    }
+
     // ask the game mode to the user
     public static String askGameMode() {
         System.out.println("[?] Activar el mode hacker?");
         while (true) {
-            System.out.print("> ");
-            String input = SC.nextLine().trim().toLowerCase();
+            String input = getInput();
             if (input.equals("si") || input.equals("1")) {
                 System.out.println("Mode hacker activat!");
                 System.out.print("Text" + Color.ANSI_PURPLE + " lila " + Color.ANSI_RESET);
@@ -35,8 +50,7 @@ public class UserInput {
     public static boolean askAIBot() {
         System.out.println("[?] Fer que el bot sigui intel·ligent?");
         while (true) {
-            System.out.print("> ");
-            String input = SC.nextLine().trim().toLowerCase();
+            String input = getInput();
             if (input.equals("si") || input.equals("1")) {
                 System.out.println("Perdràs :P!");
                 System.out.println();
@@ -54,8 +68,7 @@ public class UserInput {
     public static boolean askPrintCardsInfo() {
         System.out.println("\n[?] Veure informació final de les cartes?");
         while (true) {
-            System.out.print("> ");
-            String input = SC.nextLine().trim().toLowerCase();
+            String input = getInput();
             if (input.equals("si") || input.equals("1")) return true;
             else if (input.equals("no") || input.equals("0")) return false;
             System.out.println("Introdueix \"si\" o \"no\"...");
@@ -64,12 +77,9 @@ public class UserInput {
 
     // ask which card must be thrown or / and change latest card
     public static String askThrowCard(Player p) {
-        String input;
         while (true) {
-            System.out.print("> ");
-            input = SC.nextLine().trim();
-
-            // check if player wants and can change latest card
+            String input = getInput();
+            // if player wants and can change latest card
             if (input.equals("7") && p.canChangeLastCard()) {
                 p.changeLastCard();
                 p.printCardsInHand();
