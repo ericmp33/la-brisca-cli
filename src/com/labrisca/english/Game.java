@@ -187,7 +187,7 @@ public class Game {
 
     // print all cards and their attributes
     private void printAllCards() {
-        System.out.println("Information of all the cards:");
+        System.out.println("\nInformation of all the cards:");
         for (Player player : players) {
             System.out.println(player.getName() + " won cards:");
             for (Card card : player.getWonCards()) {
@@ -266,21 +266,16 @@ public class Game {
 
     // set and print game's winner
     private void setAndPrintWinner() {
-        int temp = -1;
-        Player winner = players.get(0);
+        Player winner = null;
         boolean draw = false;
-        for (Player p : players) {
-            int maxPoints = p.getPoints();
+        Player player0 = players.get(0);
+        Player player1 = players.get(1);
+        int pointsPlayer0 = player0.getPoints();
+        int pointsPlayer1 = player1.getPoints();
 
-            if (maxPoints > temp) {
-                temp = maxPoints;
-                winner = p;
-            } else if (maxPoints == temp) {
-                draw = true;
-                winner = null;
-                break;
-            }
-        }
+        if (pointsPlayer0 > pointsPlayer1) winner = player0;
+        else if (pointsPlayer1 > pointsPlayer0) winner = player1;
+        else draw = true;
 
         String ln = "######---------------------------------------######";
         String s;
