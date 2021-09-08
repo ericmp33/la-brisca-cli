@@ -25,3 +25,25 @@ Gamemode:
 Bot's AI:
 
 > If you enable it, the bot will be able to throw the cards "thinking" properly🧠. Otherwise, it will throw a random card🤖🤪.
+
+# Game preview
+```
+Game start (enabling AI and setting hacker mode):
+```
+<img src="https://user-images.githubusercontent.com/60661635/132427228-faf6387e-574b-4f8c-9874-7c088422d441.png" width="40%" height="40%"><br><br>
+
+```
+Normal round (normal mode):
+```
+
+<img src="https://user-images.githubusercontent.com/60661635/132427126-da388131-94f6-412b-b8e6-176c776c9f7f.png" width="40%" height="40%"><br><br>
+
+```
+Normal round (hacker mode):
+```
+<img src="https://user-images.githubusercontent.com/60661635/132427304-8127dcd5-4867-46d1-a5e3-8d2974701f97.png" width="40%" height="40%"><br><br>
+
+```
+Changing last card (7 of trump):
+```
+<img src="https://user-images.githubusercontent.com/60661635/132427336-240f3bbf-f04c-4c5c-983f-3f25a62ca27c.png" width="40%" height="40%"><br><br>
