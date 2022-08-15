@@ -1,8 +1,8 @@
 # la-brisca-cli🕹️🖥️👨‍💻
-Welcome to the command line interface version of the classic board game of "La Brisca", programmed with Java 16. Made by @ericmp33. ✔️
+Welcome to the command line interface version of the classic board game of "La Brisca", programmed with Java 16. Made by <a href="https://github.com/ericmp33">@ericmp33</a>. ✔️
 
 # What is "La Brisca"?💡
-"La Brisca" is a popular cards game in a lot of Mediterranean countries, such as Catalonia, Italy, France, Portugal, Croatia, Slovakia... Also is present in center and South America.
+"La Brisca" is a popular cards game in a lot of Mediterranean countries, such as Catalonia, Italy, France, Portugal, Croatia, Slovakia... Also is present in Center and South America.
 
 - For being able to play it and to understand how the game works🤔, it's aim and more information I recommend you to check https://en.wikipedia.org/wiki/Brisca and also to search on the Internet.
 
@@ -20,7 +20,7 @@ Welcome to the command line interface version of the classic board game of "La B
 Gamemode:
 > If u choose the default gamemode, you won't be able to see the cards of the bot. Default mode acts like real life default's game mode, where you can't see opponents cards.
 
-> Otherwise, if u choose the "hacker" mode you'll be able to see bot's in-hand cards and other information👀.
+> Otherwise, if u choose the "hacker" mode, you'll be able to see bot's in-hand cards and other information👀.
 
 Bot's AI:
 
